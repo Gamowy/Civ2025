@@ -1,72 +1,57 @@
 [gd_scene load_steps=11 format=3 uid="uid://fvcksh1f5w8m"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_spl6s"]
-[ext_resource type="Texture2D" uid="uid://mju6jt7e6k1t" path="res://img/terrain.png" id="2_gwkj3"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="3_mjhrr"]
+[ext_resource type="TileSet" uid="uid://faqton4mjbyj" path="res://resources/tilesets/map.tres" id="3_nhbbj"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_772tu"]
-[ext_resource type="Texture2D" uid="uid://ix6c8bnje8g1" path="res://img/resources.png" id="4_cblhe"]
+[ext_resource type="TileSet" uid="uid://c3u7m1uuenwg7" path="res://resources/tilesets/resources.tres" id="5_0niw0"]
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_33c7n"]
+[ext_resource type="Texture2D" uid="uid://ccmann7dw1xrl" path="res://img/fog.png" id="7_1tq3d"]
+[ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="8_34t4a"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_upjmd"]
-texture = ExtResource("2_gwkj3")
-texture_region_size = Vector2i(64, 64)
-0:0/next_alternative_id = 2
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_occsg"]
+texture = ExtResource("7_1tq3d")
+texture_region_size = Vector2i(64, 60)
 0:0/0 = 0
-0:0/1 = 1
-0:0/1/modulate = Color(0, 1, 1, 1)
-1:0/next_alternative_id = 2
-1:0/0 = 0
-1:0/1 = 1
-1:0/1/modulate = Color(0, 1, 1, 1)
-2:0/next_alternative_id = 2
-2:0/0 = 0
-2:0/1 = 1
-2:0/1/modulate = Color(0, 1, 1, 1)
-3:0/next_alternative_id = 2
-3:0/0 = 0
-3:0/1 = 1
-3:0/1/modulate = Color(0, 1, 1, 1)
-4:0/next_alternative_id = 2
-4:0/0 = 0
-4:0/1 = 1
-4:0/1/modulate = Color(0, 0.423529, 1, 1)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, 0, -16, -28, 16, -28, 32, 0, 16, 28, -16, 28)
 
-[sub_resource type="TileSet" id="TileSet_no1ol"]
+[sub_resource type="TileSet" id="TileSet_gsnb8"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(64, 60)
-sources/0 = SubResource("TileSetAtlasSource_upjmd")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xmw0"]
-texture = ExtResource("4_cblhe")
-texture_region_size = Vector2i(64, 64)
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-6:0/0 = 0
-5:0/0 = 0
-1:0/0 = 0
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_cd7pd"]
-tile_shape = 3
-tile_offset_axis = 1
-tile_size = Vector2i(64, 60)
-sources/0 = SubResource("TileSetAtlasSource_0xmw0")
+tile_size = Vector2i(64, 56)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_occsg")
 
 [node name="Map" type="Node2D"]
+position = Vector2(0, 1)
 script = ExtResource("1_spl6s")
 
 [node name="Camera" parent="." instance=ExtResource("3_mjhrr")]
 can_pan = true
 can_zoom = true
 
+[node name="FogThinLayer" type="CanvasModulate" parent="."]
+z_index = 2
+color = Color(0.447059, 0.447059, 0.447059, 1)
+metadata/_edit_lock_ = true
+
 [node name="TileMap" type="Node" parent="."]
 
 [node name="MapLayer" type="TileMapLayer" parent="TileMap"]
-tile_set = SubResource("TileSet_no1ol")
+tile_set = ExtResource("3_nhbbj")
 script = ExtResource("4_772tu")
+metadata/_edit_lock_ = true
 
 [node name="ResourceLayer" type="TileMapLayer" parent="TileMap"]
-tile_set = SubResource("TileSet_cd7pd")
+z_index = 1
+tile_set = ExtResource("5_0niw0")
 script = ExtResource("6_33c7n")
+resources_per_chunk = 64
+metadata/_edit_lock_ = true
+
+[node name="FogThickLayer" type="TileMapLayer" parent="TileMap" groups=["fog"]]
+light_mask = 0
+z_index = 3
+tile_set = SubResource("TileSet_gsnb8")
+script = ExtResource("8_34t4a")
+metadata/_edit_lock_ = true
