@@ -15,13 +15,22 @@ run/main_scene="res://scenes/map.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[editor]
+
+movie_writer/movie_file="D:/Godot/Godot_v4.3-stable_win64.exe/MOVIES/fog.avi"
+
 [file_customization]
 
 folder_colors={
 "res://img/": "yellow",
+"res://resources/": "red",
 "res://scenes/": "green",
 "res://scripts/": "blue"
 }
+
+[global_group]
+
+fog="Group for refrencing fog layer on map"
 
 [input]
 
@@ -39,6 +48,10 @@ wheel_up={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_physics/layer_1="fog"
 
 [rendering]
 
