@@ -1,6 +1,7 @@
 #Zeby dodac np. jednostka mogla odkrywac mgle trzeba
 #dolaczyc scene fog_disperser.tscn do sceny jednostki,
-#ustawic promien widocznosci w inspektorze wlasciwosci (albo w kodzie)
+#ustawic promien widocznosci w inspektorze wlasciwosci (albo w kodzie-
+#w przypadku ustawnia z kodu trzeba uzyc metod set_radius)
 #i powinno dzialac
 
 #Zeby jednostka/budynek itp nie byly widoczne przez 'cienka' mgle
@@ -22,15 +23,7 @@ var fog_layer:FogThickLayer
 ## Radius of the visibility region around object
 @export var radius:int=5
 ## Whether fog disperser is enabled or not
-@export var fog_disperser_enabled:bool=true:
-	set(value):
-		fog_disperser_enabled=value
-		if(fog_disperser_enabled):
-			thick_fog_disperser_area.monitoring=true
-			thin_fog_disperser.enabled=true
-		else:
-			thick_fog_disperser_area.monitoring=false
-			thin_fog_disperser.enabled=false
+@export var fog_disperser_enabled:bool=true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,9 +35,20 @@ func _ready() -> void:
 	else:
 		fog_layer=get_tree().get_first_node_in_group("fog")
 	
-	thick_fog_disperser_shape.radius=radius*CELL_SIZE
-	thin_fog_disperser.texture_scale=radius*2*float(CELL_SIZE)/thin_fog_disperser.texture.get_height()#scale light texure
+	set_radius(radius)
+	set_fog_disperser_enabled(fog_disperser_enabled)
+	
+#METHOD FOR SETTING RADIUS FROM CODE
+func set_radius(new_radius:int):
+	radius=new_radius
+	thick_fog_disperser_shape.radius=new_radius*CELL_SIZE
+	thin_fog_disperser.texture_scale=new_radius*2*float(CELL_SIZE)/thin_fog_disperser.texture.get_height()#scale light texure
 
+#METHOD FOR SETTING DISPERSER ENABLED FROM CODE
+func set_fog_disperser_enabled(is_enabled:bool)->void:
+	fog_disperser_enabled=is_enabled
+	thick_fog_disperser_area.monitoring=fog_disperser_enabled
+	thin_fog_disperser.enabled=fog_disperser_enabled
 
 func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	fog_layer.erase_cell(fog_layer.get_coords_for_body_rid(body_rid))

@@ -4,6 +4,10 @@
 
 [sub_resource type="GDScript" id="GDScript_lucit"]
 script/source = "extends Node2D
+
+func _ready() -> void:
+	$FogDisperser.set_radius(15)
+	$FogDisperser.set_fog_disperser_enabled(true)
 	
 #FOR TESTING ONLY
 func _input(event: InputEvent) -> void:

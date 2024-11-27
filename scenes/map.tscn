@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://fvcksh1f5w8m"]
+[gd_scene load_steps=12 format=3 uid="uid://fvcksh1f5w8m"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_spl6s"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="3_mjhrr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_33c7n"]
 [ext_resource type="Texture2D" uid="uid://ccmann7dw1xrl" path="res://img/fog.png" id="7_1tq3d"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="8_34t4a"]
+[ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="9_dpii3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_occsg"]
 texture = ExtResource("7_1tq3d")
@@ -55,3 +56,6 @@ z_index = 3
 tile_set = SubResource("TileSet_gsnb8")
 script = ExtResource("8_34t4a")
 metadata/_edit_lock_ = true
+
+[node name="FogDisperserDemo" parent="." instance=ExtResource("9_dpii3")]
+position = Vector2(238, 121)
