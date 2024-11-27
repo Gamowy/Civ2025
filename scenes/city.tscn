@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkifdgmgejgib"]
+
+[ext_resource type="Texture2D" uid="uid://b5hk8ppu1krge" path="res://img/essentials-4xgames-tileset/tile-village.png" id="1_cy821"]
+[ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
+[ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o8t4l"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wuao"]
+light_mode = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_tuf3m"]
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vepcl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fbglb"]
+radius = 32.0
+
+[node name="City" type="Sprite2D"]
+z_index = 2
+material = SubResource("CanvasItemMaterial_o8t4l")
+texture = ExtResource("1_cy821")
+script = ExtResource("2_l6ga2")
+
+[node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("CanvasItemMaterial_2wuao")
+offset_left = -44.0
+offset_top = 24.0
+offset_right = 44.0
+offset_bottom = 47.0
+label_settings = SubResource("LabelSettings_tuf3m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vepcl")
+
+[node name="TouchArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchArea"]
+shape = SubResource("CircleShape2D_fbglb")
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="input_event" from="TouchArea" to="." method="_on_touch_area_input_event"]
