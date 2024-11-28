@@ -7,6 +7,8 @@ class_name FogThickLayer
 
 var map_layer:MapLayer
 
+var fog_dict:Dictionary={"empty":Vector2i(-1,-1),"fog":Vector2i(0,0)}
+
 func generate_fog(map_layer_arg:MapLayer=null)->void:
 	if map_layer_arg!=null:
 		self.map_layer=map_layer_arg

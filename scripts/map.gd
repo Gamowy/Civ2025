@@ -20,7 +20,12 @@ func _input(event: InputEvent) -> void:
 			var pos_clicked=map_layer.local_to_map(to_local(global_clicked))
 			map_layer.set_cell(previous_cell,map_layer.get_cell_source_id(previous_cell),map_layer.get_cell_atlas_coords(previous_cell),0)
 			map_layer.set_cell(pos_clicked,map_layer.get_cell_source_id(pos_clicked),map_layer.get_cell_atlas_coords(pos_clicked),1)
+			
+			#fog_thick_layer.set_cell(previous_cell,map_layer.get_cell_source_id(previous_cell),fog_thick_layer.get_cell_atlas_coords(previous_cell),0)
+			#fog_thick_layer.set_cell(pos_clicked,map_layer.get_cell_source_id(pos_clicked),fog_thick_layer.get_cell_atlas_coords(pos_clicked),1)
+			
 			previous_cell=pos_clicked
 			
 			print("clicked tile: "+str(pos_clicked)+" "+map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(pos_clicked))+
-			", resoruce: "+resource_layer.resource_dict.find_key(resource_layer.get_cell_atlas_coords(pos_clicked)))			
+			", resoruce: "+resource_layer.resource_dict.find_key(resource_layer.get_cell_atlas_coords(pos_clicked))+
+			", fog: "+fog_thick_layer.fog_dict.find_key(fog_thick_layer.get_cell_atlas_coords(pos_clicked)))			

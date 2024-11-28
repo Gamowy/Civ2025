@@ -1,16 +1,14 @@
 extends TileMapLayer
 class_name MapLayer
 
-const CHUNK_SIZE:int=16
-
 var noise=FastNoiseLite.new()
 var previous_cell:Vector2=Vector2(0,0)
 
 @export_category("Map generation")
 ## Width of the map. Should be divisible by 16
-@export_range(CHUNK_SIZE,640,CHUNK_SIZE) var width:int=CHUNK_SIZE*4
+@export_range(MapInfo.CHUNK_SIZE,640,MapInfo.CHUNK_SIZE) var width:int=MapInfo.CHUNK_SIZE*4
 ## Height of the map. Should be divisible by 16
-@export_range(CHUNK_SIZE,640,CHUNK_SIZE)var height:int=CHUNK_SIZE*2
+@export_range(MapInfo.CHUNK_SIZE,640,MapInfo.CHUNK_SIZE)var height:int=MapInfo.CHUNK_SIZE*2
 ## Simplex noise seed, random by default
 @export var map_seed:int=randi()
 #terrain types and their position in tile set atlas

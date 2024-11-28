@@ -1,29 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://fvcksh1f5w8m"]
+[gd_scene load_steps=11 format=3 uid="uid://fvcksh1f5w8m"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_spl6s"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="3_mjhrr"]
-[ext_resource type="TileSet" uid="uid://faqton4mjbyj" path="res://resources/tilesets/map.tres" id="3_nhbbj"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_772tu"]
-[ext_resource type="TileSet" uid="uid://c3u7m1uuenwg7" path="res://resources/tilesets/resources.tres" id="5_0niw0"]
+[ext_resource type="TileSet" uid="uid://cjsfi1vxtrymg" path="res://resources/tilesets/resources_fantasy.tres" id="5_pph30"]
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_33c7n"]
-[ext_resource type="Texture2D" uid="uid://ccmann7dw1xrl" path="res://img/fog.png" id="7_1tq3d"]
+[ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="7_bqpa6"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="8_34t4a"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="9_axcrj"]
-[ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="10_2iv6m"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_occsg"]
-texture = ExtResource("7_1tq3d")
-texture_region_size = Vector2i(64, 60)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, 0, -16, -28, 16, -28, 32, 0, 16, 28, -16, 28)
-
-[sub_resource type="TileSet" id="TileSet_gsnb8"]
-tile_shape = 3
-tile_offset_axis = 1
-tile_size = Vector2i(64, 56)
-physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 0
-sources/0 = SubResource("TileSetAtlasSource_occsg")
+[ext_resource type="TileSet" uid="uid://o4nwph64r4uk" path="res://resources/tilesets/city_tileset.tres" id="9_tfew3"]
+[ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="11_wf87h"]
 
 [node name="Map" type="Node2D"]
 position = Vector2(0, 1)
@@ -41,30 +27,30 @@ metadata/_edit_lock_ = true
 [node name="TileMap" type="Node" parent="."]
 
 [node name="MapLayer" type="TileMapLayer" parent="TileMap"]
-tile_set = ExtResource("3_nhbbj")
+texture_filter = 1
+tile_set = ExtResource("11_wf87h")
 script = ExtResource("4_772tu")
 metadata/_edit_lock_ = true
 
 [node name="ResourceLayer" type="TileMapLayer" parent="TileMap" groups=["resource_layer"]]
 z_index = 1
-tile_set = ExtResource("5_0niw0")
+texture_filter = 1
+tile_set = ExtResource("5_pph30")
 script = ExtResource("6_33c7n")
-resources_per_chunk = 64
 metadata/_edit_lock_ = true
+
+[node name="CityLayer" type="TileMapLayer" parent="TileMap"]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 17, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 12, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 0)
+tile_set = ExtResource("9_tfew3")
+script = ExtResource("4_772tu")
 
 [node name="FogThickLayer" type="TileMapLayer" parent="TileMap" groups=["fog"]]
 light_mask = 0
 z_index = 3
-tile_set = SubResource("TileSet_gsnb8")
+texture_filter = 1
+tile_set = ExtResource("7_bqpa6")
 script = ExtResource("8_34t4a")
 metadata/_edit_lock_ = true
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("9_axcrj")]
-position = Vector2(241, 115)
-
-[node name="City" parent="." instance=ExtResource("10_2iv6m")]
-position = Vector2(615, 384)
-city_name = "Gliwice"
-
-[node name="City2" parent="." instance=ExtResource("10_2iv6m")]
-position = Vector2(1311, 151)

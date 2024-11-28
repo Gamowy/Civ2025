@@ -10,8 +10,6 @@
 extends Sprite2D
 class_name City
 
-const CELL_SIZE:int=64
-
 @onready var name_label:Label=$Label
 @onready var fog_disperser:FogDisperser=$FogDisperser
 @onready var resource_scan_area:Area2D=$Area2D
@@ -35,7 +33,7 @@ const CELL_SIZE:int=64
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
 
-var city_owner#this should be the player that owns this city
+var city_owner:Player#this should be the player that owns this city
 var buildings:Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
 
@@ -47,7 +45,7 @@ func _ready() -> void:
 	else:
 		resource_layer=get_tree().get_first_node_in_group("resource_layer")
 	
-	resource_scan_area_shape.radius=city_radius*CELL_SIZE
+	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
 	name_label.text=city_name
 	fog_disperser.set_radius(city_radius)
 	resource_scan_area.force_update_transform()
@@ -55,7 +53,12 @@ func _ready() -> void:
 #collect resources produced by the city
 #and give them to the city owner
 func collect_resources()->void:
-	pass
+	city_owner.gold+=gold_production
+	city_owner.wood+=wood_production
+	city_owner.stone+=stone_production
+	city_owner.steel+=steel_production
+	city_owner.food+=food_production
+	
 #intended to be called at the start of every turn
 #to collect resources etc, from owned buildings
 func collect_building_boons()->void:

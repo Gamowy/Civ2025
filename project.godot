@@ -15,6 +15,10 @@ run/main_scene="res://scenes/map.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MapInfo="*res://scripts/map_info.gd"
+
 [editor]
 
 movie_writer/movie_file="D:/Godot/Godot_v4.3-stable_win64.exe/MOVIES/fog.avi"

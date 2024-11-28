@@ -1,0 +1,20 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dlrsww81p5lub"]
+
+[ext_resource type="Texture2D" uid="uid://cd7vkqid1htls" path="res://img/fog_fantasy.png" id="1_cm8jn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnkpa"]
+texture = ExtResource("1_cm8jn")
+texture_region_size = Vector2i(32, 30)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 0, -8, -14, 8, -14, 16, 0, 8, 14, -8, 14)
+0:0/1 = 1
+0:0/1/modulate = Color(0, 1, 1, 1)
+
+[resource]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(32, 28)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_lnkpa")

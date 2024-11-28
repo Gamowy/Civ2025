@@ -10,7 +10,7 @@ class_name BuildingBaseClass
 @export var building_name:String="Building"
 ## Short description of what the building does
 @export_multiline var building_description:String="No description."
-## Picture representing the building. should be 64x64 px
+## Picture representing the building.
 @export_file("*.png") var building_picture="res://img/essentials-4xgames-tileset/tile-village.png"
 ## How many units of gold are required to build this building
 @export var gold_cost:int

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dkifdgmgejgib"]
 
-[ext_resource type="Texture2D" uid="uid://b5hk8ppu1krge" path="res://img/essentials-4xgames-tileset/tile-village.png" id="1_cy821"]
+[ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/city.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
 [ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
 
@@ -21,8 +21,10 @@ radius = 32.0
 
 [node name="City" type="Sprite2D"]
 z_index = 2
+texture_filter = 1
 material = SubResource("CanvasItemMaterial_o8t4l")
-texture = ExtResource("1_cy821")
+texture = ExtResource("1_bewxo")
+offset = Vector2(0, -4)
 script = ExtResource("2_l6ga2")
 
 [node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
@@ -30,9 +32,9 @@ script = ExtResource("2_l6ga2")
 [node name="Label" type="Label" parent="."]
 material = SubResource("CanvasItemMaterial_2wuao")
 offset_left = -44.0
-offset_top = 24.0
+offset_top = 11.0
 offset_right = 44.0
-offset_bottom = 47.0
+offset_bottom = 34.0
 label_settings = SubResource("LabelSettings_tuf3m")
 horizontal_alignment = 1
 vertical_alignment = 1
