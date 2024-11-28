@@ -35,7 +35,7 @@ func handle_drag(event:InputEventScreenDrag):
 	touch_points[event.index]=event.position
 	if touch_points.size()==1:
 		if can_pan:
-			offset-=event.relative*pan_speed/zoom.x
+			global_position-=event.relative*pan_speed/zoom.x
 	elif touch_points.size()==2:
 		var touch_point_positions=touch_points.values()
 		var current_dist=touch_point_positions[0].distance_to(touch_point_positions[1])
