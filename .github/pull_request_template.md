@@ -1,7 +1,7 @@
 ### Opis wykonanych czynności
-// Tutaj krótko opisz wykonane czynności//
+Tutaj krótko opisz wykonane czynności
 
-### Checklist
+### Tasklist
 - [ ] Przeprowadziłem testy weryfikujące poprawność działania implementacji
 - [ ] Projekt z grą uruchamia się prawidłowo
 - [ ] Podłączyłem tego pull requesta z odpowiednim zadaniem w projekcie i przypisałem się do niego
