@@ -14,10 +14,12 @@ class_name City
 @onready var fog_disperser:FogDisperser=$FogDisperser
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
+@onready var city_menu: Node2D = $City_Menu
+@onready var city_names = ["gliwice", "katowice", "tychy", "czestochowa", "zabrze", "mikolow", "chorzow", "zadupie", "ruda slaska", "sosnowiec", "orzesze"]
 
 @export_category("City")
 ## The city's name
-@export var city_name:String="City"
+@export var city_name:String= ""
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
@@ -33,9 +35,11 @@ class_name City
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
 
+
 var city_owner:Player#this should be the player that owns this city
 var buildings:Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
+var city_info_arr = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -46,9 +50,20 @@ func _ready() -> void:
 		resource_layer=get_tree().get_first_node_in_group("resource_layer")
 	
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
+	
+	#Dodane na potrzeby test - Paweł
+	randomize()
+	var index = randi() % city_names.size()
+	city_name = city_names[index]
+	city_info_arr = [city_name, city_radius, city_health, gold_production, food_production, wood_production, stone_production, steel_production]
+	#koniec mojego dodania
+	
+	
 	name_label.text=city_name
 	fog_disperser.set_radius(city_radius)
 	resource_scan_area.force_update_transform()
+	
+	
 	
 #collect resources produced by the city
 #and give them to the city owner
@@ -77,7 +92,7 @@ func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_in
 		"steel":steel_production+=1
 
 func get_city_info()->String:
-	var city_info:String="----------CITY INFO---------------\n"
+	var city_info:String = "----------CITY INFO---------------\n"
 	city_info+="Name: "+city_name+"\n"
 	city_info+="City radius: "+str(city_radius)+"\n"
 	city_info+="HP: "+str(city_health)+"\n"
@@ -92,3 +107,23 @@ func get_city_info()->String:
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		print(get_city_info())
+		
+		city_info_arr = [
+		"Name: "+city_name, 
+		"City radius: "+str(city_radius), 
+		"HP: "+str(city_health), 
+		"Gold production: "+str(gold_production), 
+		"Food production: "+str(food_production), 
+		"Wood production: "+str(wood_production), 
+		"Stone production: "+str(stone_production), 
+		"Steel production: "+str(steel_production)
+		]
+		
+		city_menu.menuName(city_name)
+		city_menu.windowPopup()
+		var i = 0
+		for property in city_info_arr:
+			city_menu.editTextOfButton(i, str(city_info_arr[i]))
+			i+=1
+		
+		

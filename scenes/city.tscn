@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkifdgmgejgib"]
+[gd_scene load_steps=10 format=3 uid="uid://dkifdgmgejgib"]
 
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/city.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
 [ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
+[ext_resource type="PackedScene" uid="uid://dddrfylkwyolx" path="res://scenes/city_menu_bar.tscn" id="4_41d3i"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o8t4l"]
 light_mode = 2
@@ -26,6 +27,9 @@ material = SubResource("CanvasItemMaterial_o8t4l")
 texture = ExtResource("1_bewxo")
 offset = Vector2(0, -4)
 script = ExtResource("2_l6ga2")
+
+[node name="City_Menu" parent="." instance=ExtResource("4_41d3i")]
+visible = false
 
 [node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
 
