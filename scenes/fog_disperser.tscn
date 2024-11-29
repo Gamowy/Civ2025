@@ -10,6 +10,8 @@ resource_local_to_scene = true
 script = ExtResource("1_kg8le")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_g5iue")

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="test_android"
-run/main_scene="res://scenes/map.tscn"
+run/main_scene="res://scenes/loading_screen.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+MapInfo="*res://scripts/map_info.gd"
 
 [editor]
 
@@ -31,6 +35,7 @@ folder_colors={
 [global_group]
 
 fog="Group for refrencing fog layer on map"
+resource_layer="Group containing the resource layer"
 
 [input]
 
@@ -52,6 +57,7 @@ pointing/emulate_touch_from_mouse=true
 [layer_names]
 
 2d_physics/layer_1="fog"
+2d_physics/layer_2="resources"
 
 [rendering]
 
