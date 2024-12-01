@@ -51,7 +51,7 @@ func _ready() -> void:
 	
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
 	
-	#Dodane na potrzeby test - Paweł
+	#Dodane na potrzeby testu menu miast - Paweł
 	randomize()
 	var index = randi() % city_names.size()
 	city_name = city_names[index]
@@ -104,10 +104,13 @@ func get_city_info()->String:
 	city_info+="----------------------------------\n"
 	return city_info
 
+
+
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		print(get_city_info())
 		
+		#Dane do wyświetelenia w menu miasta
 		city_info_arr = [
 		"Name: "+city_name, 
 		"City radius: "+str(city_radius), 
@@ -119,11 +122,16 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		"Steel production: "+str(steel_production)
 		]
 		
+		#Nadanie nazwy menu - nazwa miasta
+		#Oraz dodanie informacji o tym mieście do menu
 		city_menu.menuName(city_name)
-		city_menu.windowPopup()
 		var i = 0
 		for property in city_info_arr:
 			city_menu.editTextOfButton(i, str(city_info_arr[i]))
 			i+=1
 		
+		city_menu.windowPopup()
 		
+	#Chowanie menu przy naciśnięciu jeszcze raz na miasto
+	elif event is InputEventScreenTouch and not event.is_pressed():
+		city_menu.windowHide()

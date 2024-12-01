@@ -29,7 +29,6 @@ offset = Vector2(0, -4)
 script = ExtResource("2_l6ga2")
 
 [node name="City_Menu" parent="." instance=ExtResource("4_41d3i")]
-visible = false
 
 [node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
 

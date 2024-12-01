@@ -8,7 +8,7 @@ script = ExtResource("1_86pho")
 [node name="Window" type="Window" parent="."]
 title = "Pop UP"
 initial_position = 1
-size = Vector2i(250, 250)
+size = Vector2i(150, 150)
 
 [node name="Camera2D" type="Camera2D" parent="Window"]
 
@@ -71,3 +71,4 @@ popup/item_2/text = "Sawmill"
 popup/item_2/id = 2
 
 [connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
+[connection signal="focus_exited" from="Window" to="." method="_on_window_focus_exited"]
