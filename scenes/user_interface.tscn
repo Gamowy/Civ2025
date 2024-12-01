@@ -1,6 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bph0olvwfmg4n"]
+[gd_scene load_steps=14 format=3 uid="uid://bph0olvwfmg4n"]
 
-[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/icons.png" id="2_wme00"]
+[ext_resource type="Texture2D" uid="uid://jnhsscek7ubf" path="res://img/ui/SettingsButton.png" id="1_tvif2"]
+[ext_resource type="Texture2D" uid="uid://d0iomjchp1jq5" path="res://img/ui/EndTurnButton.png" id="2_vupm2"]
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="2_wme00"]
+[ext_resource type="Texture2D" uid="uid://63f7pyi1wuor" path="res://img/ui/HealthBarPanel_160x41.png" id="3_hw1g8"]
+[ext_resource type="Texture2D" uid="uid://d4hahhb0pabg4" path="res://img/ui/MenuButton.png" id="4_tmfvy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8j6n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4o3d7"]
 atlas = ExtResource("2_wme00")
@@ -22,6 +28,10 @@ region = Rect2(67, 323, 26, 26)
 atlas = ExtResource("2_wme00")
 region = Rect2(3, 483, 25, 26)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h16yd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_beiy4"]
+
 [node name="UserInterface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -30,105 +40,202 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UiLayer" type="CanvasLayer" parent="."]
 
-[node name="Resources" type="HBoxContainer" parent="CanvasLayer"]
-layout_direction = 2
+[node name="TopLeftCorner" type="MarginContainer" parent="UiLayer"]
+offset_right = 136.0
+offset_bottom = 123.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+metadata/_edit_lock_ = true
+
+[node name="SettingsButton" type="Button" parent="UiLayer/TopLeftCorner"]
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_f8j6n")
+icon = ExtResource("1_tvif2")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TopRightCorner" type="MarginContainer" parent="UiLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -543.0
-offset_top = 30.0
-offset_right = -30.0
+offset_left = -551.0
 offset_bottom = 80.0
 grow_horizontal = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+metadata/_edit_lock_ = true
+
+[node name="Resources" type="HBoxContainer" parent="UiLayer/TopRightCorner"]
+layout_direction = 2
+layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 2
 
-[node name="Gold" type="HBoxContainer" parent="CanvasLayer/Resources"]
+[node name="Gold" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GoldTexture" type="TextureRect" parent="CanvasLayer/Resources/Gold"]
+[node name="GoldTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Gold"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4o3d7")
 expand_mode = 3
 
-[node name="GoldCount" type="Label" parent="CanvasLayer/Resources/Gold"]
+[node name="GoldCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Gold"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "0
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Wood" type="HBoxContainer" parent="CanvasLayer/Resources"]
+[node name="Wood" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="WoodTexture" type="TextureRect" parent="CanvasLayer/Resources/Wood"]
+[node name="WoodTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Wood"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_2pw7n")
 expand_mode = 3
 
-[node name="WoodCount" type="Label" parent="CanvasLayer/Resources/Wood"]
+[node name="WoodCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Wood"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "0
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stone" type="HBoxContainer" parent="CanvasLayer/Resources"]
+[node name="Stone" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StoneTexture" type="TextureRect" parent="CanvasLayer/Resources/Stone"]
+[node name="StoneTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Stone"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_vk76c")
 expand_mode = 3
 
-[node name="StoneCount" type="Label" parent="CanvasLayer/Resources/Stone"]
+[node name="StoneCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Stone"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Steel" type="HBoxContainer" parent="CanvasLayer/Resources"]
+[node name="Steel" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="SteelTexture" type="TextureRect" parent="CanvasLayer/Resources/Steel"]
+[node name="SteelTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Steel"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_qpvy7")
 expand_mode = 3
 
-[node name="SteelCount" type="Label" parent="CanvasLayer/Resources/Steel"]
+[node name="SteelCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Steel"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Food" type="HBoxContainer" parent="CanvasLayer/Resources"]
+[node name="Food" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="FoodTexture" type="TextureRect" parent="CanvasLayer/Resources/Food"]
+[node name="FoodTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Food"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_hr6e0")
 expand_mode = 3
 
-[node name="FoodCount" type="Label" parent="CanvasLayer/Resources/Food"]
+[node name="FoodCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Food"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BottomLeftCorner" type="MarginContainer" parent="UiLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -123.0
+offset_right = 136.0
+grow_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_bottom = 15
+metadata/_edit_lock_ = true
+
+[node name="MenuButton" type="Button" parent="UiLayer/BottomLeftCorner"]
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h16yd")
+icon = ExtResource("4_tmfvy")
+flat = true
+expand_icon = true
+
+[node name="CenterBottom" type="MarginContainer" parent="UiLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.5
+offset_top = -99.0
+offset_right = 139.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 15
+metadata/_edit_lock_ = true
+
+[node name="TurnLabelBackground" type="TextureRect" parent="UiLayer/CenterBottom"]
+layout_mode = 2
+texture = ExtResource("3_hw1g8")
+expand_mode = 2
+
+[node name="TurnLabel" type="Label" parent="UiLayer/CenterBottom"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "   Player 1 turn   "
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 1
+visible_characters = 30
+visible_ratio = 2.0
+
+[node name="BottomRightCorner" type="MarginContainer" parent="UiLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -123.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+metadata/_edit_lock_ = true
+
+[node name="EndTurnButton" type="Button" parent="UiLayer/BottomRightCorner"]
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_beiy4")
+icon = ExtResource("2_vupm2")
+flat = true
+icon_alignment = 1
+expand_icon = true
