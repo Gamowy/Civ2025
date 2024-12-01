@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://bph0olvwfmg4n"]
+
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/icons.png" id="2_wme00"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4o3d7"]
+atlas = ExtResource("2_wme00")
+region = Rect2(324, 387, 24, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pw7n"]
+atlas = ExtResource("2_wme00")
+region = Rect2(3, 547, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk76c"]
+atlas = ExtResource("2_wme00")
+region = Rect2(35, 548, 26, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpvy7"]
+atlas = ExtResource("2_wme00")
+region = Rect2(67, 323, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hr6e0"]
+atlas = ExtResource("2_wme00")
+region = Rect2(3, 483, 25, 26)
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Resources" type="HBoxContainer" parent="CanvasLayer"]
+layout_direction = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -543.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Gold" type="HBoxContainer" parent="CanvasLayer/Resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GoldTexture" type="TextureRect" parent="CanvasLayer/Resources/Gold"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4o3d7")
+expand_mode = 3
+
+[node name="GoldCount" type="Label" parent="CanvasLayer/Resources/Gold"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 36
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wood" type="HBoxContainer" parent="CanvasLayer/Resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="WoodTexture" type="TextureRect" parent="CanvasLayer/Resources/Wood"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2pw7n")
+expand_mode = 3
+
+[node name="WoodCount" type="Label" parent="CanvasLayer/Resources/Wood"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 36
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stone" type="HBoxContainer" parent="CanvasLayer/Resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StoneTexture" type="TextureRect" parent="CanvasLayer/Resources/Stone"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vk76c")
+expand_mode = 3
+
+[node name="StoneCount" type="Label" parent="CanvasLayer/Resources/Stone"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Steel" type="HBoxContainer" parent="CanvasLayer/Resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SteelTexture" type="TextureRect" parent="CanvasLayer/Resources/Steel"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qpvy7")
+expand_mode = 3
+
+[node name="SteelCount" type="Label" parent="CanvasLayer/Resources/Steel"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Food" type="HBoxContainer" parent="CanvasLayer/Resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="FoodTexture" type="TextureRect" parent="CanvasLayer/Resources/Food"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hr6e0")
+expand_mode = 3
+
+[node name="FoodCount" type="Label" parent="CanvasLayer/Resources/Food"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

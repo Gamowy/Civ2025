@@ -10,7 +10,9 @@ config_version=5
 
 [application]
 
-config/name="test_android"
+config/name="Civ2025"
+config/description="Mobile strategy game inspired by Freeciv"
+config/version="0.1"
 run/main_scene="res://scenes/loading_screen.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
@@ -18,6 +20,13 @@ config/icon="res://icon.svg"
 [autoload]
 
 MapInfo="*res://scripts/map_info.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor]
 
@@ -61,5 +70,6 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

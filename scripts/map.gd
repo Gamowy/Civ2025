@@ -1,9 +1,9 @@
 extends Node2D
 
 
-@onready var map_layer:MapLayer=$TileMap/MapLayer
-@onready var resource_layer:ResourceLayer=$TileMap/ResourceLayer
-@onready var fog_thick_layer:FogThickLayer=$TileMap/FogThickLayer
+@onready var map_layer:MapLayer=$Map/MapLayer
+@onready var resource_layer:ResourceLayer=$Map/ResourceLayer
+@onready var fog_thick_layer:FogThickLayer=$Map/FogThickLayer
 var previous_cell:Vector2=Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
