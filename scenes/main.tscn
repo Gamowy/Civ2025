@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=14 format=3 uid="uid://ccb4rxxam716v"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
+[ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
 [ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/settings_menu.tscn" id="4_i4hap"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_m111d"]
@@ -22,10 +23,13 @@ can_pan = true
 can_zoom = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
+visible = false
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
+visible = false
 offset_left = 0.0
 offset_right = 0.0
 
@@ -65,3 +69,6 @@ script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
+
+[connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
+[connection signal="exit_settings" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_exit_settings"]

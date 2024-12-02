@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bph0olvwfmg4n"]
+[gd_scene load_steps=15 format=3 uid="uid://bph0olvwfmg4n"]
 
+[ext_resource type="Script" path="res://scripts/user_interface.gd" id="1_hndyv"]
 [ext_resource type="Texture2D" uid="uid://jnhsscek7ubf" path="res://img/ui/SettingsButton.png" id="1_tvif2"]
 [ext_resource type="Texture2D" uid="uid://d0iomjchp1jq5" path="res://img/ui/EndTurnButton.png" id="2_vupm2"]
 [ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="2_wme00"]
@@ -32,15 +33,18 @@ region = Rect2(3, 483, 25, 26)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_beiy4"]
 
-[node name="Control" type="Control"]
+[node name="UserInterface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hndyv")
+metadata/_edit_lock_ = true
 
 [node name="TopLeftCorner" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 136.0
 offset_bottom = 123.0
 theme_override_constants/margin_left = 15
@@ -240,3 +244,7 @@ icon = ExtResource("2_vupm2")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[connection signal="pressed" from="TopLeftCorner/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="BottomLeftCorner/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="BottomRightCorner/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
