@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://chqlft6s4bgyr"]
+
+[ext_resource type="Script" path="res://scripts/buildings/quarry.gd" id="1_b4sf0"]
+
+[node name="Quarry" type="Node"]
+script = ExtResource("1_b4sf0")
+building_name = "Quarry"
+building_description = "Produces 5 units of stone every turn."
+building_picture = "res://img/buildings/quarry.png"
+gold_cost = 3
+stone_cost = 5
+steel_cost = 3

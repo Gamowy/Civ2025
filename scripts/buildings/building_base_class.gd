@@ -2,6 +2,11 @@
 #budynki nie bylyby widoczne na mapie, tylko w menu miasta po nacisnieciu na miasto
 #budynki dawalaby co ture np. dodatkowe zasoby albo inne korzysci jak skrocenie czasu budowy
 
+#zeby dostac obrazek budynku trzeba uzyc funkcji load(building.building_picture)
+#zeby utworzyc buddynek w kodzie uzwyamy load("res://scenes/buildings/bulidingname.tscn").instantiate()
+#oraz dodac do buildings w miescie w ktorym sie znajduje
+# i potem najlepiej dac go jako dziecko miasta w ktorym sie znajduje city.add_child(building)
+
 extends Node
 class_name BuildingBaseClass
 #This is the class all buildings should inherit from
@@ -36,11 +41,18 @@ func grant_boon(_building_city:City)->void:
 	printerr(name+": grant_boon function is not implemented")
 
 
+func print_info():
+	print("Name: "+building_name)
+	print("Description: "+building_description)
+	print("Picture: "+building_picture)
+	print("Gold cost: "+str(gold_cost))
+	print("Wood cost: "+str(wood_cost))
+	print("Stone cost: "+str(stone_cost))
+	print("Steel cost: "+str(steel_cost))
+	print("Food cost: "+str(food_cost))
+
 #pomysly budynkow do zaimplementowania:
-#sawmill- dodaje drewno co ture
-#quarry- dodaje kamienia co ture
-#ironworks - dodaje stali co ture
-#bakery- dodaje jedzenia co ture
+
 #barracks - przyspiesza budowanie wojownikow
 #school - przyspiesza budowanie pracownikow
 #hospital - leczy jednostki w zasiegu miasta co ture
