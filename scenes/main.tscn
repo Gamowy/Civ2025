@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=13 format=3 uid="uid://ccb4rxxam716v"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
+[ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/settings_menu.tscn" id="4_i4hap"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_m111d"]
 [ext_resource type="TileSet" uid="uid://cjsfi1vxtrymg" path="res://resources/tilesets/resources_fantasy.tres" id="5_nwo4s"]
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_scdat"]
@@ -20,14 +21,21 @@ script = ExtResource("1_5huqx")
 can_pan = true
 can_zoom = true
 
-[node name="UserInterface" parent="." instance=ExtResource("11_d6vjx")]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="FogThinLayer" type="CanvasModulate" parent="."]
-z_index = 2
-color = Color(0.447059, 0.447059, 0.447059, 1)
-metadata/_edit_lock_ = true
+[node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
+
+[node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
+offset_left = 0.0
+offset_right = 0.0
 
 [node name="Map" type="Node" parent="."]
+
+[node name="FogThinLayer" type="CanvasModulate" parent="Map"]
+z_index = 2
+position = Vector2(0, 1)
+color = Color(0.447059, 0.447059, 0.447059, 1)
+metadata/_edit_lock_ = true
 
 [node name="MapLayer" type="TileMapLayer" parent="Map"]
 texture_filter = 1

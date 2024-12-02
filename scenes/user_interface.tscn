@@ -32,7 +32,7 @@ region = Rect2(3, 483, 25, 26)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_beiy4"]
 
-[node name="UserInterface" type="Control"]
+[node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,16 +40,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UiLayer" type="CanvasLayer" parent="."]
-
-[node name="TopLeftCorner" type="MarginContainer" parent="UiLayer"]
+[node name="TopLeftCorner" type="MarginContainer" parent="."]
 offset_right = 136.0
 offset_bottom = 123.0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 metadata/_edit_lock_ = true
 
-[node name="SettingsButton" type="Button" parent="UiLayer/TopLeftCorner"]
+[node name="SettingsButton" type="Button" parent="TopLeftCorner"]
 layout_mode = 2
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_f8j6n")
@@ -58,7 +56,8 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="TopRightCorner" type="MarginContainer" parent="UiLayer"]
+[node name="TopRightCorner" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -69,22 +68,22 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 metadata/_edit_lock_ = true
 
-[node name="Resources" type="HBoxContainer" parent="UiLayer/TopRightCorner"]
+[node name="Resources" type="HBoxContainer" parent="TopRightCorner"]
 layout_direction = 2
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 2
 
-[node name="Gold" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
+[node name="Gold" type="HBoxContainer" parent="TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GoldTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Gold"]
+[node name="GoldTexture" type="TextureRect" parent="TopRightCorner/Resources/Gold"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_4o3d7")
 expand_mode = 3
 
-[node name="GoldCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Gold"]
+[node name="GoldCount" type="Label" parent="TopRightCorner/Resources/Gold"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
@@ -95,16 +94,16 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Wood" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
+[node name="Wood" type="HBoxContainer" parent="TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="WoodTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Wood"]
+[node name="WoodTexture" type="TextureRect" parent="TopRightCorner/Resources/Wood"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_2pw7n")
 expand_mode = 3
 
-[node name="WoodCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Wood"]
+[node name="WoodCount" type="Label" parent="TopRightCorner/Resources/Wood"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
@@ -114,16 +113,16 @@ text = "0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stone" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
+[node name="Stone" type="HBoxContainer" parent="TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StoneTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Stone"]
+[node name="StoneTexture" type="TextureRect" parent="TopRightCorner/Resources/Stone"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_vk76c")
 expand_mode = 3
 
-[node name="StoneCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Stone"]
+[node name="StoneCount" type="Label" parent="TopRightCorner/Resources/Stone"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
@@ -132,16 +131,16 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Steel" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
+[node name="Steel" type="HBoxContainer" parent="TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="SteelTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Steel"]
+[node name="SteelTexture" type="TextureRect" parent="TopRightCorner/Resources/Steel"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_qpvy7")
 expand_mode = 3
 
-[node name="SteelCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Steel"]
+[node name="SteelCount" type="Label" parent="TopRightCorner/Resources/Steel"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
@@ -150,16 +149,16 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Food" type="HBoxContainer" parent="UiLayer/TopRightCorner/Resources"]
+[node name="Food" type="HBoxContainer" parent="TopRightCorner/Resources"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="FoodTexture" type="TextureRect" parent="UiLayer/TopRightCorner/Resources/Food"]
+[node name="FoodTexture" type="TextureRect" parent="TopRightCorner/Resources/Food"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_hr6e0")
 expand_mode = 3
 
-[node name="FoodCount" type="Label" parent="UiLayer/TopRightCorner/Resources/Food"]
+[node name="FoodCount" type="Label" parent="TopRightCorner/Resources/Food"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
@@ -168,7 +167,8 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BottomLeftCorner" type="MarginContainer" parent="UiLayer"]
+[node name="BottomLeftCorner" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -179,15 +179,17 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="MenuButton" type="Button" parent="UiLayer/BottomLeftCorner"]
+[node name="MenuButton" type="Button" parent="BottomLeftCorner"]
 layout_mode = 2
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_h16yd")
 icon = ExtResource("4_tmfvy")
 flat = true
+icon_alignment = 1
 expand_icon = true
 
-[node name="CenterBottom" type="MarginContainer" parent="UiLayer"]
+[node name="CenterBottom" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -201,12 +203,12 @@ grow_vertical = 0
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="TurnLabelBackground" type="TextureRect" parent="UiLayer/CenterBottom"]
+[node name="TurnLabelBackground" type="TextureRect" parent="CenterBottom"]
 layout_mode = 2
 texture = ExtResource("3_hw1g8")
 expand_mode = 2
 
-[node name="TurnLabel" type="Label" parent="UiLayer/CenterBottom"]
+[node name="TurnLabel" type="Label" parent="CenterBottom"]
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
@@ -214,10 +216,9 @@ text = "   Player 1 turn   "
 horizontal_alignment = 1
 vertical_alignment = 1
 max_lines_visible = 1
-visible_characters = 30
-visible_ratio = 2.0
 
-[node name="BottomRightCorner" type="MarginContainer" parent="UiLayer"]
+[node name="BottomRightCorner" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -231,7 +232,7 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="EndTurnButton" type="Button" parent="UiLayer/BottomRightCorner"]
+[node name="EndTurnButton" type="Button" parent="BottomRightCorner"]
 layout_mode = 2
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_beiy4")
