@@ -7,7 +7,7 @@ var scene_load_status = 0
 func _ready():
 	ResourceLoader.load_threaded_request(next_scene)
 	
-func _process(delta):
+func _process(_delta):
 	scene_load_status = ResourceLoader.load_threaded_get_status(next_scene, progress)
 	$TextureProgressBar.value = progress[0]*100
 	$VBoxContainer2/ProgressBar.value = progress[0]*100
