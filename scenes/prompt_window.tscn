@@ -1,0 +1,124 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd7v1b6dnp601"]
+
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_fkw5p"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="4_0mbpy"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="5_q06sv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boqd8"]
+
+[node name="PromptWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -353.5
+offset_top = -139.5
+offset_right = 353.5
+offset_bottom = 139.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("1_fkw5p")
+
+[node name="Content" type="VBoxContainer" parent="Center/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PromptText" type="Label" parent="Center/PanelContainer/Content"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Prompt text"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+justification_flags = 1
+max_lines_visible = 4
+
+[node name="Buttons" type="HBoxContainer" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "No
+"
+
+[node name="PromptTitle" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = -160.0
+offset_right = 95.5
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="TitleBox" type="TextureRect" parent="PromptTitle"]
+layout_mode = 2
+texture = ExtResource("4_0mbpy")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="PromptTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "   Prompt   "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -345.0
+offset_top = 159.0
+offset_right = -256.0
+offset_bottom = 264.0
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_boqd8")
+icon = ExtResource("5_q06sv")
+flat = true
+expand_icon = true
