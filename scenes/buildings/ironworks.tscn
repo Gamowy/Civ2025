@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://clwuwn8jpjgry"]
+
+[ext_resource type="Script" path="res://scripts/buildings/ironworks.gd" id="1_tbqdx"]
+
+[node name="Ironworks" type="Node"]
+script = ExtResource("1_tbqdx")
+building_name = "Ironworks"
+building_description = "Produces 15 units of steel every turn."
+building_picture = "res://img/buildings/ironworks.png"
+gold_cost = 10
+stone_cost = 5
+steel_cost = 15

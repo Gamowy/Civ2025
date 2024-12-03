@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw6spxd1ijfky"]
+
+[ext_resource type="Script" path="res://scripts/buildings/marketplace.gd" id="1_na5cr"]
+
+[node name="Marketplace" type="Node"]
+script = ExtResource("1_na5cr")
+building_name = "Marketplace"
+building_description = "Produces 5 units of food every turn."
+building_picture = "res://img/buildings/marketplace.png"
+gold_cost = 5
+wood_cost = 3
+food_cost = 3
