@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bax4eb2fu5jv0"]
+[gd_scene load_steps=9 format=3 uid="uid://bax4eb2fu5jv0"]
 
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_il05q"]
 [ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="1_wsxdi"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="2_kluay"]
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="3_jtdat"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_or00f"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/prompt_window.tscn" id="6_5bjdp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdxgk"]
 shader = ExtResource("1_wsxdi")
@@ -100,6 +101,7 @@ vertical_alignment = 1
 
 [node name="MasterVolume" type="HBoxContainer" parent="Center/PanelContainer/Content/VolumeContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="MasterVolumeSlider" type="HSlider" parent="Center/PanelContainer/Content/VolumeContainer/MasterVolume"]
 layout_mode = 2
@@ -125,6 +127,7 @@ vertical_alignment = 1
 
 [node name="SFXVolume" type="HBoxContainer" parent="Center/PanelContainer/Content/VolumeContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="SFXVolumeSlider" type="HSlider" parent="Center/PanelContainer/Content/VolumeContainer/SFXVolume"]
 layout_mode = 2
@@ -192,9 +195,16 @@ flat = true
 expand_icon = true
 metadata/_edit_lock_ = true
 
+[node name="Prompt" parent="." instance=ExtResource("6_5bjdp")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="Center/PanelContainer/Content/SaveGameButton" to="." method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="Center/PanelContainer/Content/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="value_changed" from="Center/PanelContainer/Content/VolumeContainer/MasterVolume/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="Center/PanelContainer/Content/VolumeContainer/SFXVolume/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
 [connection signal="pressed" from="Center/PanelContainer/Content/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="exit" from="Prompt" to="." method="_on_prompt_exit"]
+[connection signal="no" from="Prompt" to="." method="_on_prompt_no"]
+[connection signal="yes" from="Prompt" to="." method="_on_prompt_yes"]

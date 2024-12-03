@@ -47,6 +47,7 @@ metadata/_edit_lock_ = true
 layout_mode = 0
 offset_right = 136.0
 offset_bottom = 123.0
+mouse_filter = 0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 metadata/_edit_lock_ = true
@@ -179,11 +180,12 @@ anchor_bottom = 1.0
 offset_top = -123.0
 offset_right = 136.0
 grow_vertical = 0
+mouse_filter = 0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="MenuButton" type="Button" parent="BottomLeftCorner"]
+[node name="CivilizationButton" type="Button" parent="BottomLeftCorner"]
 layout_mode = 2
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_h16yd")
@@ -232,6 +234,7 @@ offset_left = -136.0
 offset_top = -123.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 0
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
@@ -246,5 +249,5 @@ icon_alignment = 1
 expand_icon = true
 
 [connection signal="pressed" from="TopLeftCorner/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="BottomLeftCorner/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="BottomLeftCorner/CivilizationButton" to="." method="_on_civilization_button_pressed"]
 [connection signal="pressed" from="BottomRightCorner/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

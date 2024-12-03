@@ -13,7 +13,7 @@ func _ready() -> void:
 	fog_thick_layer.generate_fog(map_layer)
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		var global_clicked=get_global_mouse_position()
 		if event.is_pressed():

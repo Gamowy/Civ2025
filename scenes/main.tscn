@@ -23,10 +23,13 @@ can_pan = true
 can_zoom = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+process_mode = 3
 script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
+process_mode = 3
 visible = false
+mouse_filter = 1
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
 visible = false
@@ -70,5 +73,10 @@ metadata/_edit_lock_ = true
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
+[connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
+[connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
 [connection signal="exit_settings" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_exit_settings"]
+[connection signal="exit_to_menu" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_exit_to_menu"]
+[connection signal="load_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_load_game"]
+[connection signal="save_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_save_game"]
