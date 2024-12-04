@@ -1,35 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://dddrfylkwyolx"]
+[gd_scene load_steps=4 format=3 uid="uid://dddrfylkwyolx"]
 
 [ext_resource type="Script" path="res://scripts/city_menu_bar.gd" id="1_86pho"]
+[ext_resource type="Theme" uid="uid://7wx3cc3sg3hk" path="res://resources/themes/city_menu_bar_theme.tres" id="2_se8nl"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_11rt3"]
 
-[node name="City_Menu" type="Node2D"]
+[node name="City_Menu" type="CanvasLayer"]
 script = ExtResource("1_86pho")
 
-[node name="Window" type="Window" parent="."]
-title = "Pop UP"
-initial_position = 1
-size = Vector2i(150, 150)
-
-[node name="Camera2D" type="Camera2D" parent="Window"]
-
-[node name="Control" type="Control" parent="Window/Camera2D"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -199.0
+offset_right = 77.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 1
+theme = ExtResource("2_se8nl")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Window/Camera2D/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="info" type="MenuButton" parent="Window/Camera2D/Control/VBoxContainer"]
+[node name="MenuTitle" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TitleBox" type="TextureRect" parent="Panel/VBoxContainer/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("3_11rt3")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "   City name   "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="info" type="MenuButton" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Information"
 alignment = 0
@@ -50,7 +67,7 @@ popup/item_6/id = 6
 popup/item_7/text = "Steel production: "
 popup/item_7/id = 7
 
-[node name="recruit" type="MenuButton" parent="Window/Camera2D/Control/VBoxContainer"]
+[node name="recruit" type="MenuButton" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Recruit"
 item_count = 3
@@ -60,7 +77,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Dragons"
 popup/item_2/id = 2
 
-[node name="build" type="MenuButton" parent="Window/Camera2D/Control/VBoxContainer"]
+[node name="build" type="MenuButton" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Build"
 item_count = 3
@@ -69,6 +86,3 @@ popup/item_1/text = "Armory"
 popup/item_1/id = 1
 popup/item_2/text = "Sawmill"
 popup/item_2/id = 2
-
-[connection signal="close_requested" from="Window" to="." method="_on_window_close_requested"]
-[connection signal="focus_exited" from="Window" to="." method="_on_window_focus_exited"]

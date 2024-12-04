@@ -1,29 +1,28 @@
-extends Node2D
+extends CanvasLayer
 
-@onready var popup = $Window
-@onready var info: MenuButton = $Window/Camera2D/Control/VBoxContainer/info
+@onready var popup = $Panel
+@onready var info: MenuButton = $Panel/VBoxContainer/info
+@onready var title = $Panel/VBoxContainer/MenuTitle/TitleLabel
+
+
+func _input(event):
+	if event is InputEventScreenTouch and event.pressed:
+		# Check if the tap is outside the panel's boundaries
+		if not popup.get_global_rect().has_point(event.position):
+			popup.hide()
 
 func _ready():
 	popup.hide()
 
-func _on_window_close_requested() -> void:
-	popup.hide()
-
 func windowPopup():
 	popup.show()
-
-func windowHide():
-	popup.hide()
+	popup.grab_focus()
 
 #Zmiana tytułu okna(na potrzeby nazwy miasta)
 func menuName(cityName: String):
-	popup.title = cityName
+	title.text = str("   ", cityName, "   ")
 
 #Funkcja potrzebna do wyświetlenia informacji o mieście
 func editTextOfButton(i: int, text: String):
 	var itemChange = info.get_popup()
 	itemChange.set_item_text(i, text)
-
-#Funckja, dzięki której kiedy klikamy gdziekolwiek na mapie, to menu się chowa
-func _on_window_focus_exited() -> void:
-	popup.hide()

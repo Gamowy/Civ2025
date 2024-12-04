@@ -61,7 +61,6 @@ metadata/_edit_lock_ = true
 z_index = 2
 tile_map_data = PackedByteArray(0, 0, 17, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 12, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 0)
 tile_set = ExtResource("7_y6bwc")
-script = ExtResource("4_m111d")
 
 [node name="FogThickLayer" type="TileMapLayer" parent="Map" groups=["fog"]]
 light_mask = 0

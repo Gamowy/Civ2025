@@ -14,8 +14,8 @@ class_name City
 @onready var fog_disperser:FogDisperser=$FogDisperser
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
-@onready var city_menu: Node2D = $City_Menu
-@onready var city_names = ["gliwice", "katowice", "tychy", "czestochowa", "zabrze", "mikolow", "chorzow", "zadupie", "ruda slaska", "sosnowiec", "orzesze"]
+@onready var city_menu: CanvasLayer = $City_Menu
+@onready var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Zadupie", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
 ## The city's name
@@ -132,6 +132,3 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		
 		city_menu.windowPopup()
 		
-	#Chowanie menu przy naciśnięciu jeszcze raz na miasto
-	elif event is InputEventScreenTouch and not event.is_pressed():
-		city_menu.windowHide()
