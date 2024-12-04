@@ -15,7 +15,12 @@ config/description="Mobile strategy game inspired by Freeciv"
 config/version="0.1"
 run/main_scene="res://scenes/loading_screen.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.2, 0.188235, 0.164706, 1)
+boot_splash/show_image=false
+boot_splash/image="res://img/logo.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://img/logo.png"
 
 [autoload]
 
@@ -75,3 +80,4 @@ pointing/emulate_touch_from_mouse=true
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.2, 0.1874, 0.164, 1)

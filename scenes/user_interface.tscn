@@ -23,7 +23,7 @@ region = Rect2(35, 548, 26, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qpvy7"]
 atlas = ExtResource("2_wme00")
-region = Rect2(67, 323, 26, 26)
+region = Rect2(99, 548, 26, 22)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hr6e0"]
 atlas = ExtResource("2_wme00")
@@ -94,8 +94,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
-text = "0
-"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -113,8 +112,7 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
-text = "0
-"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

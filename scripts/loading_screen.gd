@@ -4,13 +4,14 @@ var next_scene = "res://scenes/main.tscn"
 var progress = []
 var scene_load_status = 0
 
+@onready var progress_bar = $VBoxContainer2/ProgressBar
+
 func _ready():
 	ResourceLoader.load_threaded_request(next_scene)
 	
 func _process(_delta):
 	scene_load_status = ResourceLoader.load_threaded_get_status(next_scene, progress)
-	$TextureProgressBar.value = progress[0]*100
-	$VBoxContainer2/ProgressBar.value = progress[0]*100
+	progress_bar.value = progress[0]*100
 
 	if scene_load_status == ResourceLoader.THREAD_LOAD_LOADED:
 		var packed_scene = ResourceLoader.load_threaded_get(next_scene)

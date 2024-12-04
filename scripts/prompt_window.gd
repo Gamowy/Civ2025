@@ -1,27 +1,19 @@
 extends Control
 
 @export_group("Prompt")
-@export var prompt_title := "Prompt title"
-@export var prompt_content := "Prompt text"
+@export var text := "Prompt text"
 
-@onready var title_label = $PromptTitle/TitleLabel
-@onready var content_label = $Center/PanelContainer/Content/PromptText
+@onready var prompt_content = $Center/PanelContainer/Content/PromptText
 
-signal exit
-signal yes
 signal no
+signal yes
 
 func _ready() -> void:
-	title_label.text = str("   ", prompt_title, "   ")
-	content_label.text = prompt_content
+	prompt_content.text = text
 
-func setPrompt(title: String, content: String) -> void:
-	title_label.text = str("   ", title, "   ")
-	content_label.text = content
+func setPrompt(content: String) -> void:
+	prompt_content.text = content
 
-func _on_exit_button_pressed() -> void:
-	exit.emit()
-	
 func _on_yes_button_pressed() -> void:
 	yes.emit()
 	

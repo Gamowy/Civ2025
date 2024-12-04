@@ -1,11 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd7v1b6dnp601"]
+[gd_scene load_steps=3 format=3 uid="uid://cd7v1b6dnp601"]
 
 [ext_resource type="Script" path="res://scripts/prompt_window.gd" id="1_bs841"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_fkw5p"]
-[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="4_0mbpy"]
-[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="5_q06sv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boqd8"]
 
 [node name="PromptWindow" type="Control"]
 layout_mode = 3
@@ -15,33 +11,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bs841")
+metadata/_edit_lock_ = true
 
-[node name="Center" type="Control" parent="."]
+[node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -136.0
-offset_right = 350.0
-offset_bottom = 136.0
+offset_left = -355.5
+offset_top = -163.5
+offset_right = 355.5
+offset_bottom = 163.5
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="Center"]
 layout_mode = 2
-offset_right = 700.0
-offset_bottom = 272.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_vertical = 3
 theme = ExtResource("1_fkw5p")
+metadata/_edit_lock_ = true
 
 [node name="Content" type="VBoxContainer" parent="Center/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
+metadata/_edit_lock_ = true
 
 [node name="PromptText" type="Label" parent="Center/PanelContainer/Content"]
 custom_minimum_size = Vector2(500, 40)
@@ -70,53 +66,5 @@ focus_mode = 0
 text = "No
 "
 
-[node name="PromptTitle" type="MarginContainer" parent="."]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -95.5
-offset_top = -160.0
-offset_right = 95.5
-offset_bottom = -112.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
-
-[node name="TitleBox" type="TextureRect" parent="PromptTitle"]
-layout_mode = 2
-texture = ExtResource("4_0mbpy")
-expand_mode = 5
-
-[node name="TitleLabel" type="Label" parent="PromptTitle"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 32
-text = "   Prompt title   "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ExitButton" type="Button" parent="."]
-z_index = 1
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -345.0
-offset_top = 159.0
-offset_right = -256.0
-offset_bottom = 264.0
-grow_horizontal = 0
-theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_boqd8")
-icon = ExtResource("5_q06sv")
-flat = true
-expand_icon = true
-
 [connection signal="pressed" from="Center/PanelContainer/Content/Buttons/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Center/PanelContainer/Content/Buttons/NoButton" to="." method="_on_no_button_pressed"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
