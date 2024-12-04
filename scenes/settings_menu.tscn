@@ -1,0 +1,209 @@
+[gd_scene load_steps=9 format=3 uid="uid://bax4eb2fu5jv0"]
+
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_il05q"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="1_wsxdi"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="2_kluay"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="3_jtdat"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_or00f"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/prompt_window.tscn" id="6_5bjdp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdxgk"]
+shader = ExtResource("1_wsxdi")
+shader_parameter/lod = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_en5rl"]
+
+[node name="SettingsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_il05q")
+metadata/_edit_lock_ = true
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qdxgk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.5
+offset_top = -291.5
+offset_right = 436.5
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -408.5
+offset_top = -265.5
+offset_right = 408.5
+offset_bottom = 265.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("3_or00f")
+metadata/_edit_lock_ = true
+
+[node name="Content" type="VBoxContainer" parent="Center/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="SaveGameButton" type="Button" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "Save game"
+icon_alignment = 1
+
+[node name="LoadGameButton" type="Button" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "Load game"
+icon_alignment = 1
+
+[node name="VolumeContainer" type="VBoxContainer" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="MasterVolumeLabel" type="Label" parent="Center/PanelContainer/Content/VolumeContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "Master volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasterVolume" type="HBoxContainer" parent="Center/PanelContainer/Content/VolumeContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Center/PanelContainer/Content/VolumeContainer/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+focus_mode = 0
+value = 100.0
+
+[node name="MasterVolumeValue" type="Label" parent="Center/PanelContainer/Content/VolumeContainer/MasterVolume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXVolumeLabel" type="Label" parent="Center/PanelContainer/Content/VolumeContainer"]
+layout_mode = 2
+text = "Sound effects volume
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXVolume" type="HBoxContainer" parent="Center/PanelContainer/Content/VolumeContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SFXVolumeSlider" type="HSlider" parent="Center/PanelContainer/Content/VolumeContainer/SFXVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+focus_mode = 0
+value = 100.0
+
+[node name="FxVolumeValue" type="Label" parent="Center/PanelContainer/Content/VolumeContainer/SFXVolume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "Exit to menu"
+icon_alignment = 1
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = -4.0
+offset_right = 136.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 4
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("2_kluay")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "     Settings     "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -89.5
+offset_top = -24.5
+offset_right = 13.5
+offset_bottom = 83.5
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_en5rl")
+icon = ExtResource("3_jtdat")
+flat = true
+expand_icon = true
+metadata/_edit_lock_ = true
+
+[node name="Prompt" parent="." instance=ExtResource("6_5bjdp")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Center/PanelContainer/Content/SaveGameButton" to="." method="_on_save_game_button_pressed"]
+[connection signal="pressed" from="Center/PanelContainer/Content/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="value_changed" from="Center/PanelContainer/Content/VolumeContainer/MasterVolume/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="Center/PanelContainer/Content/VolumeContainer/SFXVolume/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="Center/PanelContainer/Content/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="no" from="Prompt" to="." method="_on_prompt_no"]
+[connection signal="yes" from="Prompt" to="." method="_on_prompt_yes"]
