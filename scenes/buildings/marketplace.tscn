@@ -5,7 +5,7 @@
 [node name="Marketplace" type="Node"]
 script = ExtResource("1_na5cr")
 building_name = "Marketplace"
-building_description = "Produces 5 units of food every turn."
+building_description = "Produces 5 units of gold every turn."
 building_picture = "res://img/buildings/marketplace.png"
 gold_cost = 5
 wood_cost = 3

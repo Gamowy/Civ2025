@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://ch03rvsjj8k6x"]
+
+[ext_resource type="Texture2D" uid="uid://dsj0vl1d2gmoa" path="res://img/ui/CharacterBox_56x57.png" id="1_flir7"]
+[ext_resource type="Texture2D" uid="uid://rteskqu1txff" path="res://img/ui/ValueBar_128x16.png" id="2_peh58"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmpkf"]
+texture = ExtResource("1_flir7")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_od838"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i7uw5"]
+texture = ExtResource("2_peh58")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxrl8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ts7nu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r15pq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwyh3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fg6v"]
+
+[resource]
+ItemList/font_sizes/font_size = 20
+ItemList/styles/panel = SubResource("StyleBoxTexture_pmpkf")
+ItemList/styles/selected = SubResource("StyleBoxEmpty_od838")
+ItemList/styles/selected_focus = SubResource("StyleBoxTexture_i7uw5")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_bxrl8")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_ts7nu")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_r15pq")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_qwyh3")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5fg6v")

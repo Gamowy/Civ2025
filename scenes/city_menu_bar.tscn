@@ -1,10 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://dddrfylkwyolx"]
+[gd_scene load_steps=15 format=3 uid="uid://3fp08v0qk70r"]
 
 [ext_resource type="Script" path="res://scripts/city_menu_bar.gd" id="1_86pho"]
-[ext_resource type="Theme" uid="uid://7wx3cc3sg3hk" path="res://resources/themes/city_menu_bar_theme.tres" id="2_se8nl"]
+[ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="2_se8nl"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_11rt3"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1rpv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j6hwi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig78w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ka6ii"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r3vfc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hlrgk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7bjx0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udl0q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wnrv3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr8iu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_loqu2"]
+
 [node name="City_Menu" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_86pho")
 
 [node name="Panel" type="PanelContainer" parent="."]
@@ -77,12 +100,19 @@ popup/item_1/id = 1
 popup/item_2/text = "Dragons"
 popup/item_2/id = 2
 
-[node name="build" type="MenuButton" parent="Panel/VBoxContainer"]
+[node name="build" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r1rpv")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_j6hwi")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ig78w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_ka6ii")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_r3vfc")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_hlrgk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7bjx0")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_udl0q")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wnrv3")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_jr8iu")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_loqu2")
 text = "Build"
-item_count = 3
-popup/item_0/text = "Farm"
-popup/item_1/text = "Armory"
-popup/item_1/id = 1
-popup/item_2/text = "Sawmill"
-popup/item_2/id = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/build" to="." method="_on_build_pressed"]

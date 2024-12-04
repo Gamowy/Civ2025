@@ -26,3 +26,11 @@ func menuName(cityName: String):
 func editTextOfButton(i: int, text: String):
 	var itemChange = info.get_popup()
 	itemChange.set_item_text(i, text)
+
+# TODO UWAGA kiedy bedziemy juz mieli graczy trzeba bedzie sprawdzic czy dane miasto nalezy
+# do gracza obecnie wykonujacego ture przed wyswietleniem menu
+func _on_build_pressed() -> void:
+	var buildings_menu=load("res://scenes/buildings_menu.tscn").instantiate()
+	if get_parent() is City:
+		buildings_menu.city=get_parent()
+	add_child(buildings_menu)

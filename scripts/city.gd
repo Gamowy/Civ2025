@@ -15,15 +15,17 @@ class_name City
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
-@onready var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Zadupie", "Ruda Śląska", "Sosnowiec", "Orzesze"]
+var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Zadupie", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
 ## The city's name
-@export var city_name:String= ""
+@export var city_name:String=city_names.pick_random()
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
 @export var city_health:int=100
+## Maximum number of buildings that can be built in this city
+@export var building_limit:int=5
 ## How many units of gold the city produces per turn
 @export var gold_production:int=1
 ## How many units of food the city produces per turn
@@ -52,9 +54,9 @@ func _ready() -> void:
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
 	
 	#Dodane na potrzeby testu menu miast - Paweł
-	randomize()
-	var index = randi() % city_names.size()
-	city_name = city_names[index]
+	#randomize()
+	#var index = randi() % city_names.size()
+	#city_name = city_names[index]
 	city_info_arr = [city_name, city_radius, city_health, gold_production, food_production, wood_production, stone_production, steel_production]
 	#koniec mojego dodania
 	
