@@ -1,9 +1,9 @@
 extends Node2D
 
 
-@onready var map_layer:MapLayer=$TileMap/MapLayer
-@onready var resource_layer:ResourceLayer=$TileMap/ResourceLayer
-@onready var fog_thick_layer:FogThickLayer=$TileMap/FogThickLayer
+@onready var map_layer:MapLayer=$Map/MapLayer
+@onready var resource_layer:ResourceLayer=$Map/ResourceLayer
+@onready var fog_thick_layer:FogThickLayer=$Map/FogThickLayer
 var previous_cell:Vector2=Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
@@ -13,7 +13,7 @@ func _ready() -> void:
 	fog_thick_layer.generate_fog(map_layer)
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		var global_clicked=get_global_mouse_position()
 		if event.is_pressed():

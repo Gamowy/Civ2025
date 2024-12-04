@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd7v1b6dnp601"]
+
+[ext_resource type="Script" path="res://scripts/prompt_window.gd" id="1_bs841"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_fkw5p"]
+
+[node name="PromptWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bs841")
+metadata/_edit_lock_ = true
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.5
+offset_top = -163.5
+offset_right = 355.5
+offset_bottom = 163.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Center"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_fkw5p")
+metadata/_edit_lock_ = true
+
+[node name="Content" type="VBoxContainer" parent="Center/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+metadata/_edit_lock_ = true
+
+[node name="PromptText" type="Label" parent="Center/PanelContainer/Content"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Prompt text"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 1
+max_lines_visible = 4
+
+[node name="Buttons" type="HBoxContainer" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "No
+"
+
+[connection signal="pressed" from="Center/PanelContainer/Content/Buttons/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="Center/PanelContainer/Content/Buttons/NoButton" to="." method="_on_no_button_pressed"]
