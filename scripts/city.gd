@@ -15,7 +15,7 @@ class_name City
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
-var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Zadupie", "Ruda Śląska", "Sosnowiec", "Orzesze"]
+var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
 ## The city's name

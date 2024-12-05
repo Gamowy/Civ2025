@@ -94,6 +94,7 @@ theme = ExtResource("1_p3xq6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="VBoxOwned" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 400)
