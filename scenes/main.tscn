@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=15 format=3 uid="uid://ccb4rxxam716v"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/user_interface.tscn" id="11_d6vjx"]
+[ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 1)
@@ -71,6 +72,10 @@ script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
+
+[node name="BUILDING_MENU_TEST_CITY" parent="." instance=ExtResource("14_3577x")]
+position = Vector2(978, 91)
+city_name = "TEST_CITY"
 
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]

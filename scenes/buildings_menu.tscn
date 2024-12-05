@@ -1,0 +1,313 @@
+[gd_scene load_steps=17 format=3 uid="uid://bklsmwhimlff3"]
+
+[ext_resource type="Script" path="res://scripts/buildings_menu.gd" id="1_ahtbv"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_p3xq6"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_h78so"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_d100m"]
+[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="3_vbw4b"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="4_e8kdd"]
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="5_5q7ss"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/prompt_window.tscn" id="8_iqelm"]
+[ext_resource type="Script" path="res://scripts/building_manager.gd" id="9_v7v06"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
+shader = ExtResource("2_h78so")
+shader_parameter/lod = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5v2"]
+atlas = ExtResource("5_5q7ss")
+region = Rect2(324, 387, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnqd6"]
+atlas = ExtResource("5_5q7ss")
+region = Rect2(3, 547, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6in8"]
+atlas = ExtResource("5_5q7ss")
+region = Rect2(35, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kq4a"]
+atlas = ExtResource("5_5q7ss")
+region = Rect2(99, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrtq5"]
+atlas = ExtResource("5_5q7ss")
+region = Rect2(3, 483, 26, 26)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pjb1"]
+
+[node name="BuildingsMenu" type="Control"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahtbv")
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fgfvw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.5
+offset_top = -291.5
+offset_right = 436.5
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -310.0
+offset_right = 404.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("1_p3xq6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxOwned" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
+layout_mode = 2
+text = "Owned (0/5)"
+horizontal_alignment = 1
+
+[node name="OwnedList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_vbw4b")
+allow_search = false
+max_columns = 0
+same_column_width = true
+fixed_column_width = 250
+fixed_icon_size = Vector2i(64, 64)
+
+[node name="VBoxBuildings" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
+layout_mode = 2
+text = "Build"
+horizontal_alignment = 1
+
+[node name="BuildingList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_vbw4b")
+allow_search = false
+fixed_icon_size = Vector2i(64, 64)
+
+[node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+text = "Info"
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Description"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 2
+
+[node name="CostLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Cost"
+horizontal_alignment = 1
+
+[node name="HBoxCostInfo" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxGold" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_cs5v2")
+
+[node name="GoldCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxWood" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="WoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_qnqd6")
+
+[node name="WoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxStone" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="StoneTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_j6in8")
+
+[node name="StoneCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SteelTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_6kq4a")
+
+[node name="SteelCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="FoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_mrtq5")
+
+[node name="FoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="ButtonBuild" type="Button" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+focus_mode = 0
+theme_override_font_sizes/font_size = 22
+text = "Build"
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = -4.0
+offset_right = 136.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 4
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("3_d100m")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Buildings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -23.0
+offset_top = -25.0
+offset_right = 80.0
+offset_bottom = 83.0
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3pjb1")
+icon = ExtResource("4_e8kdd")
+flat = true
+expand_icon = true
+
+[node name="PromptWindow" parent="." instance=ExtResource("8_iqelm")]
+visible = false
+layout_mode = 1
+text = "Destroy selected building?"
+
+[node name="BuildingManager" type="Node" parent="."]
+script = ExtResource("9_v7v06")
+
+[connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_empty_clicked"]
+[connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_scroll_owned_list"]
+[connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_item_selected"]
+[connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_building_list_empty_clicked"]
+[connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_scroll_building_list"]
+[connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_building_list_item_selected"]
+[connection signal="pressed" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonBuild" to="." method="_on_button_build_pressed"]
+[connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
+[connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

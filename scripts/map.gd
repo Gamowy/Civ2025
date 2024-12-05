@@ -11,6 +11,12 @@ func _ready() -> void:
 	map_layer.generate_map()
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
+	
+	var player=load("res://scenes/player.tscn").instantiate()
+	add_child(player)
+	$BUILDING_MENU_TEST_CITY.buildings.append(load("res://scenes/buildings/blacksmith.tscn").instantiate())
+	$BUILDING_MENU_TEST_CITY.buildings.append(load("res://scenes/buildings/sawmill.tscn").instantiate())
+	$BUILDING_MENU_TEST_CITY.city_owner=player
 
 
 func _unhandled_input(event: InputEvent) -> void:
