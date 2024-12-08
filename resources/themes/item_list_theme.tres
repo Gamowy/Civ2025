@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://ch03rvsjj8k6x"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ch03rvsjj8k6x"]
 
+[ext_resource type="FontFile" uid="uid://ckm33fjqnnpgp" path="res://resources/fonts/alagard_by_pix3m-d6awiwp.ttf" id="1_drj3d"]
 [ext_resource type="Texture2D" uid="uid://dsj0vl1d2gmoa" path="res://img/ui/CharacterBox_56x57.png" id="1_flir7"]
 [ext_resource type="Texture2D" uid="uid://rteskqu1txff" path="res://img/ui/ValueBar_128x16.png" id="2_peh58"]
 
@@ -23,6 +24,7 @@ texture = ExtResource("2_peh58")
 
 [resource]
 ItemList/font_sizes/font_size = 20
+ItemList/fonts/font = ExtResource("1_drj3d")
 ItemList/styles/panel = SubResource("StyleBoxTexture_pmpkf")
 ItemList/styles/selected = SubResource("StyleBoxEmpty_od838")
 ItemList/styles/selected_focus = SubResource("StyleBoxTexture_i7uw5")

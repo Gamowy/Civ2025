@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=16 format=3 uid="uid://ccb4rxxam716v"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -14,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
+light_mode = 2
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 1)
@@ -76,6 +79,16 @@ metadata/_edit_lock_ = true
 [node name="BUILDING_MENU_TEST_CITY" parent="." instance=ExtResource("14_3577x")]
 position = Vector2(978, 91)
 city_name = "TEST_CITY"
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_nxf7f")
+offset_left = 477.0
+offset_top = 206.0
+offset_right = 530.0
+offset_bottom = 255.0
+text = "enemy
+unit"
 
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]

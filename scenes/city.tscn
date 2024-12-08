@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkifdgmgejgib"]
+[gd_scene load_steps=11 format=3 uid="uid://dkifdgmgejgib"]
 
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/city.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
 [ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
 [ext_resource type="PackedScene" uid="uid://3fp08v0qk70r" path="res://scenes/city_menu.tscn" id="4_41d3i"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="5_ob1uf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o8t4l"]
 light_mode = 2
@@ -38,6 +39,7 @@ offset_left = -44.0
 offset_top = 11.0
 offset_right = 44.0
 offset_bottom = 34.0
+theme = ExtResource("5_ob1uf")
 label_settings = SubResource("LabelSettings_tuf3m")
 horizontal_alignment = 1
 vertical_alignment = 1

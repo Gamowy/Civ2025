@@ -261,6 +261,7 @@ offset_right = 136.0
 offset_bottom = 64.0
 grow_horizontal = 2
 size_flags_vertical = 4
+theme = ExtResource("1_p3xq6")
 metadata/_edit_lock_ = true
 
 [node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]

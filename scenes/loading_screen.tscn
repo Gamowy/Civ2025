@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmyc22eeeevpu"]
+[gd_scene load_steps=5 format=3 uid="uid://cmyc22eeeevpu"]
 
 [ext_resource type="Script" path="res://scripts/loading_screen.gd" id="1_mwgug"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_t3tb5"]
 [ext_resource type="Texture2D" uid="uid://bpqq18lm7uevx" path="res://img/fantasy-7555146_1920.jpg" id="2_h4o05"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7s20"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_t3tb5")
 script = ExtResource("1_mwgug")
 
 [node name="Background" type="TextureRect" parent="."]

@@ -114,7 +114,6 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		
 		#Dane do wyświetelenia w menu miasta
 		city_info_arr = [
-		"Name: "+city_name, 
 		"City radius: "+str(city_radius), 
 		"HP: "+str(city_health), 
 		"Gold production: "+str(gold_production), 
