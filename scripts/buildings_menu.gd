@@ -14,6 +14,10 @@ extends Control
 @onready var owned_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var prompt_window=$PromptWindow
 @onready var building_manager=$BuildingManager
+@onready var sfx_player=$AudioStreamPlayer
+
+var build_sound:AudioStream=preload("res://sfx/build.ogg")
+var destroy_sound:AudioStream=preload("res://sfx/destroy_building.ogg")
 
 #determines current building mode
 var _building_mode:String="Build":
@@ -118,6 +122,8 @@ func _on_button_build_pressed() -> void:
 		prompt_window.visible=true
 	if _building_mode=="Build":
 		building_manager.build_building(selected_building)
+		sfx_player.stream=build_sound
+		sfx_player.play()
 		_update_owned_buildings()
 		if building_manager.can_player_build_building(selected_building)==false:
 			build_button.disabled=true
@@ -126,6 +132,8 @@ func _on_button_build_pressed() -> void:
 # make sure player wants to destroy building
 func _on_prompt_window_yes() -> void:
 	building_manager.destroy_building(selected_building)
+	sfx_player.stream=destroy_sound
+	sfx_player.play()
 	_update_owned_buildings()
 	prompt_window.visible=false
 	owned_item_list.deselect_all()

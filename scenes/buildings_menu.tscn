@@ -302,6 +302,9 @@ text = "Destroy selected building?"
 [node name="BuildingManager" type="Node" parent="."]
 script = ExtResource("9_v7v06")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
 [connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_empty_clicked"]
 [connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_scroll_owned_list"]
 [connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_item_selected"]
