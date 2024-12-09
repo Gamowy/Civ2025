@@ -4,7 +4,9 @@ enum Prompt_Type {SAVE_GAME, LOAD_GAME, EXIT_TO_MAIN_MENU}
 var prompt_type = null
 
 @onready var master_volume_label = $"Center/PanelContainer/Content/VolumeContainer/MasterVolume/MasterVolumeValue"
+@onready var master_volume_slider:Slider=$Center/PanelContainer/Content/VolumeContainer/MasterVolume/MasterVolumeSlider
 @onready var sfx_volume_label = $Center/PanelContainer/Content/VolumeContainer/SFXVolume/FxVolumeValue
+@onready var sfx_volume_slider:Slider=$Center/PanelContainer/Content/VolumeContainer/SFXVolume/SFXVolumeSlider
 @onready var center = $Center
 @onready var prompt = $Prompt
 
@@ -13,6 +15,8 @@ signal exit_settings
 signal save_game
 signal load_game
 signal exit_to_menu
+signal master_volume_changed(volume:float)
+signal sfx_volume_changed(volume:float)
 
 func _ready() -> void:
 	center.visible = true
@@ -44,9 +48,11 @@ func _on_main_menu_button_pressed() -> void:
 
 func _on_master_volume_slider_value_changed(value: float) -> void:
 	master_volume_label.text = str(value)
+	master_volume_changed.emit(master_volume_slider.value/100)
 	
 func _on_sfx_volume_slider_value_changed(value: float) -> void:
 	sfx_volume_label.text = str(value)
+	sfx_volume_changed.emit(sfx_volume_slider.value/100)
 	
 func _on_prompt_no() -> void:
 	prompt.visible = false
@@ -62,3 +68,11 @@ func _on_prompt_yes() -> void:
 			load_game.emit()
 		Prompt_Type.EXIT_TO_MAIN_MENU:
 			exit_to_menu.emit()
+
+func set_master_volume_info(volume_db:float):
+	master_volume_slider.value=100*db_to_linear(volume_db)
+	master_volume_label.text=str(round(100*db_to_linear(volume_db)))
+
+func set_sfx_volume_info(volume_db:float):
+	sfx_volume_slider.value=int(100*db_to_linear(volume_db))
+	sfx_volume_label.text=str(round(100*db_to_linear(volume_db)))
