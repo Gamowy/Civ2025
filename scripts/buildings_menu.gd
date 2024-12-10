@@ -14,7 +14,7 @@ extends Control
 @onready var owned_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var prompt_window=$PromptWindow
 @onready var building_manager=$BuildingManager
-@onready var sfx_player=$AudioStreamPlayer
+@onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 
 var build_sound:AudioStream=preload("res://sfx/build.ogg")
 var destroy_sound:AudioStream=preload("res://sfx/destroy_building.ogg")

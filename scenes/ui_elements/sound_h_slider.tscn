@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpt7mit8awxvf"]
+
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_h_slider.gd" id="1_cpl3c"]
+
+[node name="SoundHSlider" type="HSlider"]
+offset_right = 8.0
+offset_bottom = 16.0
+script = ExtResource("1_cpl3c")

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_t6oqj"]
 [ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
-[ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/settings_menu.tscn" id="4_i4hap"]
+[ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/ui/settings_menu.tscn" id="4_i4hap"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_m111d"]
 [ext_resource type="TileSet" uid="uid://cjsfi1vxtrymg" path="res://resources/tilesets/resources_fantasy.tres" id="5_nwo4s"]
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_scdat"]
@@ -13,7 +13,7 @@
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
-[ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/user_interface.tscn" id="11_d6vjx"]
+[ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]

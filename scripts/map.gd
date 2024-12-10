@@ -16,10 +16,11 @@ func _ready() -> void:
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	
 	var player=load("res://scenes/player.tscn").instantiate()
+	player.flag_color=Color.ORANGE_RED
 	add_child(player)
 	$BUILDING_MENU_TEST_CITY.buildings.append(load("res://scenes/buildings/blacksmith.tscn").instantiate())
 	$BUILDING_MENU_TEST_CITY.buildings.append(load("res://scenes/buildings/sawmill.tscn").instantiate())
-	$BUILDING_MENU_TEST_CITY.city_owner=player
+	$BUILDING_MENU_TEST_CITY.set_city_owner(player)
 
 
 func _unhandled_input(event: InputEvent) -> void:

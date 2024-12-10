@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://3fp08v0qk70r"]
+[gd_scene load_steps=7 format=3 uid="uid://3fp08v0qk70r"]
 
 [ext_resource type="Script" path="res://scripts/city_menu_bar.gd" id="1_tgyn3"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="2_v31im"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_15xnh"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_hp2g5"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_menu_button.gd" id="3_iuk05"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_s64af"]
 
 [node name="City_Menu" type="CanvasLayer"]
@@ -62,6 +64,7 @@ popup/item_5/text = "Stone production: "
 popup/item_5/id = 5
 popup/item_6/text = "Steel production: "
 popup/item_6/id = 6
+script = ExtResource("3_iuk05")
 
 [node name="recruit" type="MenuButton" parent="Center/Panel/VBoxContainer"]
 layout_mode = 2
@@ -73,11 +76,13 @@ popup/item_1/text = "Knights"
 popup/item_1/id = 1
 popup/item_2/text = "Dragons"
 popup/item_2/id = 2
+script = ExtResource("3_iuk05")
 
 [node name="build" type="Button" parent="Center/Panel/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Build"
+script = ExtResource("3_15xnh")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
