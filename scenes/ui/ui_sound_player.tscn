@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dupj663d4xq2n"]
+
+[ext_resource type="Script" path="res://scripts/ui_sound_player.gd" id="1_nntbb"]
+
+[node name="UISoundPlayer" type="AudioStreamPlayer"]
+process_mode = 3
+max_polyphony = 2
+bus = &"SFX"
+script = ExtResource("1_nntbb")

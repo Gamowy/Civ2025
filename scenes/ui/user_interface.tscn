@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bph0olvwfmg4n"]
+[gd_scene load_steps=17 format=3 uid="uid://bph0olvwfmg4n"]
 
 [ext_resource type="Script" path="res://scripts/user_interface.gd" id="1_hndyv"]
 [ext_resource type="Texture2D" uid="uid://jnhsscek7ubf" path="res://img/ui/SettingsButton.png" id="1_tvif2"]
 [ext_resource type="Texture2D" uid="uid://d0iomjchp1jq5" path="res://img/ui/EndTurnButton.png" id="2_vupm2"]
 [ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="2_wme00"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_f1cjw"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_hhegn"]
 [ext_resource type="Texture2D" uid="uid://63f7pyi1wuor" path="res://img/ui/HealthBarPanel_160x41.png" id="3_hw1g8"]
 [ext_resource type="Texture2D" uid="uid://d4hahhb0pabg4" path="res://img/ui/MenuButton.png" id="4_tmfvy"]
 
@@ -60,6 +62,7 @@ icon = ExtResource("1_tvif2")
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("3_hhegn")
 
 [node name="TopRightCorner" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -69,6 +72,7 @@ anchor_right = 1.0
 offset_left = -551.0
 offset_bottom = 80.0
 grow_horizontal = 0
+theme = ExtResource("3_f1cjw")
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 metadata/_edit_lock_ = true
@@ -191,6 +195,7 @@ icon = ExtResource("4_tmfvy")
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("3_hhegn")
 
 [node name="CenterBottom" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -214,6 +219,7 @@ expand_mode = 2
 
 [node name="TurnLabel" type="Label" parent="CenterBottom"]
 layout_mode = 2
+theme = ExtResource("3_f1cjw")
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "   Player 1 turn   "
@@ -245,6 +251,7 @@ icon = ExtResource("2_vupm2")
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("3_hhegn")
 
 [connection signal="pressed" from="TopLeftCorner/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="BottomLeftCorner/CivilizationButton" to="." method="_on_civilization_button_pressed"]

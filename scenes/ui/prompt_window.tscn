@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd7v1b6dnp601"]
+[gd_scene load_steps=5 format=3 uid="uid://cd7v1b6dnp601"]
 
 [ext_resource type="Script" path="res://scripts/prompt_window.gd" id="1_bs841"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_fkw5p"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_cdxp3"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://sfx/button_no_press.ogg" id="4_ijd4b"]
 
 [node name="PromptWindow" type="Control"]
 layout_mode = 3
@@ -58,6 +60,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 text = "Yes"
+script = ExtResource("3_cdxp3")
 
 [node name="NoButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
 layout_mode = 2
@@ -65,6 +68,8 @@ size_flags_horizontal = 3
 focus_mode = 0
 text = "No
 "
+script = ExtResource("3_cdxp3")
+press_sound = ExtResource("4_ijd4b")
 
 [connection signal="pressed" from="Center/PanelContainer/Content/Buttons/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Center/PanelContainer/Content/Buttons/NoButton" to="." method="_on_no_button_pressed"]

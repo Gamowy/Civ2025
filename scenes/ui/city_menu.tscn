@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://3fp08v0qk70r"]
+[gd_scene load_steps=7 format=3 uid="uid://3fp08v0qk70r"]
 
 [ext_resource type="Script" path="res://scripts/city_menu_bar.gd" id="1_tgyn3"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="2_v31im"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_15xnh"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_hp2g5"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_menu_button.gd" id="3_iuk05"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_s64af"]
 
 [node name="City_Menu" type="CanvasLayer"]
 layer = 2
 script = ExtResource("1_tgyn3")
 
 [node name="Center" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -48,22 +50,21 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 text = "Information"
 flat = false
-item_count = 8
-popup/item_0/text = "Name: "
-popup/item_1/text = "City radius: "
+item_count = 7
+popup/item_0/text = "City radius: "
+popup/item_1/text = "HP: "
 popup/item_1/id = 1
-popup/item_2/text = "HP: "
+popup/item_2/text = "Gold Production: "
 popup/item_2/id = 2
-popup/item_3/text = "Gold Production: "
+popup/item_3/text = "Food production: "
 popup/item_3/id = 3
-popup/item_4/text = "Food production: "
+popup/item_4/text = "Wood production: "
 popup/item_4/id = 4
-popup/item_5/text = "Wood production: "
+popup/item_5/text = "Stone production: "
 popup/item_5/id = 5
-popup/item_6/text = "Stone production: "
+popup/item_6/text = "Steel production: "
 popup/item_6/id = 6
-popup/item_7/text = "Steel production: "
-popup/item_7/id = 7
+script = ExtResource("3_iuk05")
 
 [node name="recruit" type="MenuButton" parent="Center/Panel/VBoxContainer"]
 layout_mode = 2
@@ -75,11 +76,13 @@ popup/item_1/text = "Knights"
 popup/item_1/id = 1
 popup/item_2/text = "Dragons"
 popup/item_2/id = 2
+script = ExtResource("3_iuk05")
 
 [node name="build" type="Button" parent="Center/Panel/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Build"
+script = ExtResource("3_15xnh")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
@@ -96,6 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_s64af")
 metadata/_edit_lock_ = true
 
 [node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]

@@ -1,37 +1,40 @@
-[gd_scene load_steps=17 format=3 uid="uid://bklsmwhimlff3"]
+[gd_scene load_steps=20 format=3 uid="uid://bklsmwhimlff3"]
 
-[ext_resource type="Script" path="res://scripts/buildings_menu.gd" id="1_ahtbv"]
-[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_p3xq6"]
-[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_h78so"]
-[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_d100m"]
-[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="3_vbw4b"]
-[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="4_e8kdd"]
-[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="5_5q7ss"]
-[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/prompt_window.tscn" id="8_iqelm"]
-[ext_resource type="Script" path="res://scripts/building_manager.gd" id="9_v7v06"]
+[ext_resource type="Script" path="res://scripts/buildings_menu.gd" id="1_8ys0e"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_spcvv"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_3px7k"]
+[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="4_v6qan"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_item_list.gd" id="5_c8swu"]
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="5_tw4s3"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="6_kxqyt"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="7_72i5w"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="8_dnvnu"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="9_14sfl"]
+[ext_resource type="Script" path="res://scripts/building_manager.gd" id="10_25kiv"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://sfx/button_no_press.ogg" id="10_quyni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
-shader = ExtResource("2_h78so")
+shader = ExtResource("2_spcvv")
 shader_parameter/lod = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cs5v2"]
-atlas = ExtResource("5_5q7ss")
+atlas = ExtResource("5_tw4s3")
 region = Rect2(324, 387, 26, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qnqd6"]
-atlas = ExtResource("5_5q7ss")
+atlas = ExtResource("5_tw4s3")
 region = Rect2(3, 547, 26, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j6in8"]
-atlas = ExtResource("5_5q7ss")
+atlas = ExtResource("5_tw4s3")
 region = Rect2(35, 548, 26, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6kq4a"]
-atlas = ExtResource("5_5q7ss")
+atlas = ExtResource("5_tw4s3")
 region = Rect2(99, 548, 26, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mrtq5"]
-atlas = ExtResource("5_5q7ss")
+atlas = ExtResource("5_tw4s3")
 region = Rect2(3, 483, 26, 26)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pjb1"]
@@ -45,7 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ahtbv")
+script = ExtResource("1_8ys0e")
 
 [node name="Blur" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_fgfvw")
@@ -90,7 +93,7 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Center/CenterContainer"]
 layout_mode = 2
-theme = ExtResource("1_p3xq6")
+theme = ExtResource("3_3px7k")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -109,12 +112,13 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 1
-theme = ExtResource("3_vbw4b")
+theme = ExtResource("4_v6qan")
 allow_search = false
 max_columns = 0
 same_column_width = true
 fixed_column_width = 250
 fixed_icon_size = Vector2i(64, 64)
+script = ExtResource("5_c8swu")
 
 [node name="VBoxBuildings" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 400)
@@ -130,9 +134,10 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 1
-theme = ExtResource("3_vbw4b")
+theme = ExtResource("4_v6qan")
 allow_search = false
 fixed_icon_size = Vector2i(64, 64)
+script = ExtResource("5_c8swu")
 
 [node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 400)
@@ -249,6 +254,7 @@ size_flags_vertical = 10
 focus_mode = 0
 theme_override_font_sizes/font_size = 22
 text = "Build"
+script = ExtResource("6_kxqyt")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
@@ -261,11 +267,12 @@ offset_right = 136.0
 offset_bottom = 64.0
 grow_horizontal = 2
 size_flags_vertical = 4
+theme = ExtResource("3_3px7k")
 metadata/_edit_lock_ = true
 
 [node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
 layout_mode = 2
-texture = ExtResource("3_d100m")
+texture = ExtResource("7_72i5w")
 expand_mode = 5
 
 [node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
@@ -289,17 +296,21 @@ offset_bottom = 83.0
 grow_horizontal = 0
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3pjb1")
-icon = ExtResource("4_e8kdd")
+icon = ExtResource("8_dnvnu")
 flat = true
 expand_icon = true
+script = ExtResource("6_kxqyt")
+press_sound = ExtResource("10_quyni")
 
-[node name="PromptWindow" parent="." instance=ExtResource("8_iqelm")]
+[node name="PromptWindow" parent="." instance=ExtResource("9_14sfl")]
 visible = false
 layout_mode = 1
 text = "Destroy selected building?"
 
 [node name="BuildingManager" type="Node" parent="."]
-script = ExtResource("9_v7v06")
+script = ExtResource("10_25kiv")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_empty_clicked"]
 [connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_scroll_owned_list"]
