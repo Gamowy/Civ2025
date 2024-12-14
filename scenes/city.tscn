@@ -45,6 +45,7 @@ texture = ExtResource("3_fjvm6")
 [node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
 
 [node name="Label" type="Label" parent="."]
+texture_filter = 2
 material = SubResource("CanvasItemMaterial_2wuao")
 offset_left = -44.0
 offset_top = 11.0

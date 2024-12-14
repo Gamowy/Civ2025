@@ -23,10 +23,14 @@ light_mode = 2
 position = Vector2(0, 1)
 script = ExtResource("1_5huqx")
 
+[node name="Camera" parent="." instance=ExtResource("2_eceig")]
+can_zoom = true
+can_pan = true
+
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundTexture" type="TextureRect" parent="BackgroundLayer"]
 modulate = Color(0.687215, 0.687215, 0.687215, 1)
 z_index = -1
 z_as_relative = false
@@ -42,17 +46,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_t6oqj")
 
-[node name="Camera" parent="." instance=ExtResource("2_eceig")]
-can_zoom = true
-can_pan = true
-
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
 process_mode = 3
-visible = false
 mouse_filter = 1
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
@@ -100,7 +99,7 @@ metadata/_edit_lock_ = true
 position = Vector2(978, 91)
 city_name = "TEST_CITY"
 
-[node name="Label" type="Label" parent="."]
+[node name="ENEMY_UNIT_TEST" type="Label" parent="."]
 z_index = 2
 material = SubResource("CanvasItemMaterial_nxf7f")
 offset_left = 477.0
