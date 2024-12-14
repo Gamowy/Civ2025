@@ -15,6 +15,7 @@ class_name City
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
+@onready var flag:Sprite2D=$CityFlag
 var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
@@ -52,16 +53,13 @@ func _ready() -> void:
 		resource_layer=get_tree().get_first_node_in_group("resource_layer")
 	
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
-	
 	#Dodane na potrzeby testu menu miast - Paweł
-	#randomize()
-	#var index = randi() % city_names.size()
-	#city_name = city_names[index]
 	city_info_arr = [city_name, city_radius, city_health, gold_production, food_production, wood_production, stone_production, steel_production]
 	#koniec mojego dodania
-	
-	
+
 	name_label.text=city_name
+	if city_owner!=null:#set flag color to match that of the player
+		flag.modulate=city_owner.flag_color
 	fog_disperser.set_radius(city_radius)
 	resource_scan_area.force_update_transform()
 	
@@ -82,6 +80,9 @@ func collect_building_boons()->void:
 	for building in buildings:
 		building.grant_boon(self)
 
+func set_city_owner(new_city_owner:Player):
+	city_owner=new_city_owner
+	flag.modulate=new_city_owner.flag_color
 
 #scan city area for resources, check type and increase production for found resources
 func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
@@ -114,7 +115,6 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		
 		#Dane do wyświetelenia w menu miasta
 		city_info_arr = [
-		"Name: "+city_name, 
 		"City radius: "+str(city_radius), 
 		"HP: "+str(city_health), 
 		"Gold production: "+str(gold_production), 

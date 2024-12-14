@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://bax4eb2fu5jv0"]
+[gd_scene load_steps=12 format=3 uid="uid://bax4eb2fu5jv0"]
 
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_il05q"]
 [ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="1_wsxdi"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="2_kluay"]
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="3_jtdat"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_or00f"]
-[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/prompt_window.tscn" id="6_5bjdp"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="4_7xoeo"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_h_slider.gd" id="5_ygugn"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="6_5bjdp"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://sfx/button_no_press.ogg" id="8_uh88h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdxgk"]
 shader = ExtResource("1_wsxdi")
@@ -61,9 +64,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -408.5
-offset_top = -265.5
+offset_top = -227.0
 offset_right = 408.5
-offset_bottom = 265.5
+offset_bottom = 227.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -80,6 +83,7 @@ size_flags_horizontal = 4
 focus_mode = 0
 text = "Save game"
 icon_alignment = 1
+script = ExtResource("4_7xoeo")
 
 [node name="LoadGameButton" type="Button" parent="Center/PanelContainer/Content"]
 layout_mode = 2
@@ -87,6 +91,7 @@ size_flags_horizontal = 4
 focus_mode = 0
 text = "Load game"
 icon_alignment = 1
+script = ExtResource("4_7xoeo")
 
 [node name="VolumeContainer" type="VBoxContainer" parent="Center/PanelContainer/Content"]
 layout_mode = 2
@@ -109,6 +114,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 focus_mode = 0
 value = 100.0
+script = ExtResource("5_ygugn")
 
 [node name="MasterVolumeValue" type="Label" parent="Center/PanelContainer/Content/VolumeContainer/MasterVolume"]
 layout_mode = 2
@@ -135,6 +141,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 focus_mode = 0
 value = 100.0
+script = ExtResource("5_ygugn")
 
 [node name="FxVolumeValue" type="Label" parent="Center/PanelContainer/Content/VolumeContainer/SFXVolume"]
 layout_mode = 2
@@ -150,18 +157,20 @@ size_flags_horizontal = 4
 focus_mode = 0
 text = "Exit to menu"
 icon_alignment = 1
+script = ExtResource("4_7xoeo")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -136.0
-offset_top = -4.0
-offset_right = 136.0
-offset_bottom = 64.0
+offset_left = -144.5
+offset_top = 28.0
+offset_right = 144.5
+offset_bottom = 100.25
 grow_horizontal = 2
 size_flags_vertical = 4
+theme = ExtResource("3_or00f")
 metadata/_edit_lock_ = true
 
 [node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
@@ -184,15 +193,17 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -89.5
-offset_top = -24.5
+offset_top = 12.5
 offset_right = 13.5
-offset_bottom = 83.5
+offset_bottom = 120.5
 grow_horizontal = 0
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_en5rl")
 icon = ExtResource("3_jtdat")
 flat = true
 expand_icon = true
+script = ExtResource("4_7xoeo")
+press_sound = ExtResource("8_uh88h")
 metadata/_edit_lock_ = true
 
 [node name="Prompt" parent="." instance=ExtResource("6_5bjdp")]

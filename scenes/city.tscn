@@ -1,11 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkifdgmgejgib"]
+[gd_scene load_steps=13 format=3 uid="uid://dkifdgmgejgib"]
 
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/city.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
+[ext_resource type="Texture2D" uid="uid://ds27cg60fbn21" path="res://img/city_flag.png" id="3_fjvm6"]
 [ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
-[ext_resource type="PackedScene" uid="uid://3fp08v0qk70r" path="res://scenes/city_menu.tscn" id="4_41d3i"]
+[ext_resource type="PackedScene" uid="uid://3fp08v0qk70r" path="res://scenes/ui/city_menu.tscn" id="4_41d3i"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="5_ob1uf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o8t4l"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ouryp"]
 light_mode = 2
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2wuao"]
@@ -18,7 +23,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_vepcl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fbglb"]
-radius = 32.0
+radius = 14.0
 
 [node name="City" type="Sprite2D"]
 z_index = 2
@@ -27,6 +32,13 @@ material = SubResource("CanvasItemMaterial_o8t4l")
 texture = ExtResource("1_bewxo")
 offset = Vector2(0, -4)
 script = ExtResource("2_l6ga2")
+
+[node name="CityFlag" type="Sprite2D" parent="."]
+show_behind_parent = true
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_ouryp")
+position = Vector2(-7, -13)
+texture = ExtResource("3_fjvm6")
 
 [node name="City_Menu" parent="." instance=ExtResource("4_41d3i")]
 
@@ -38,6 +50,7 @@ offset_left = -44.0
 offset_top = 11.0
 offset_right = 44.0
 offset_bottom = 34.0
+theme = ExtResource("5_ob1uf")
 label_settings = SubResource("LabelSettings_tuf3m")
 horizontal_alignment = 1
 vertical_alignment = 1

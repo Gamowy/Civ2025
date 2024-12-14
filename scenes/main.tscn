@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=17 format=3 uid="uid://ccb4rxxam716v"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
+[ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_t6oqj"]
 [ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
-[ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/settings_menu.tscn" id="4_i4hap"]
+[ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/ui/settings_menu.tscn" id="4_i4hap"]
 [ext_resource type="Script" path="res://scripts/map_layer.gd" id="4_m111d"]
 [ext_resource type="TileSet" uid="uid://cjsfi1vxtrymg" path="res://resources/tilesets/resources_fantasy.tres" id="5_nwo4s"]
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_scdat"]
@@ -12,16 +13,38 @@
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
-[ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/user_interface.tscn" id="11_d6vjx"]
+[ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
+light_mode = 2
 
 [node name="Main" type="Node2D"]
 position = Vector2(0, 1)
 script = ExtResource("1_5huqx")
 
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundLayer"]
+modulate = Color(0.687215, 0.687215, 0.687215, 1)
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t6oqj")
+
 [node name="Camera" parent="." instance=ExtResource("2_eceig")]
-can_pan = true
 can_zoom = true
+can_pan = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -77,10 +100,22 @@ metadata/_edit_lock_ = true
 position = Vector2(978, 91)
 city_name = "TEST_CITY"
 
+[node name="Label" type="Label" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_nxf7f")
+offset_left = 477.0
+offset_top = 206.0
+offset_right = 530.0
+offset_bottom = 255.0
+text = "enemy
+unit"
+
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
 [connection signal="exit_settings" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_exit_settings"]
 [connection signal="exit_to_menu" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_exit_to_menu"]
 [connection signal="load_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_load_game"]
+[connection signal="master_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_master_volume_changed"]
 [connection signal="save_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_save_game"]
+[connection signal="sfx_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_sfx_volume_changed"]

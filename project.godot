@@ -13,7 +13,7 @@ config_version=5
 config/name="Civ2025"
 config/description="Mobile strategy game inspired by Freeciv"
 config/version="0.1"
-run/main_scene="res://scenes/loading_screen.tscn"
+run/main_scene="res://scenes/ui/loading_screen.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 boot_splash/bg_color=Color(0.2, 0.188235, 0.164706, 1)
 boot_splash/show_image=false
@@ -25,6 +25,7 @@ config/icon="res://img/logo.png"
 [autoload]
 
 MapInfo="*res://scripts/map_info.gd"
+UISoundPlayer="*res://scenes/ui/ui_sound_player.tscn"
 
 [display]
 
@@ -45,7 +46,8 @@ folder_colors={
 "res://img/": "yellow",
 "res://resources/": "red",
 "res://scenes/": "green",
-"res://scripts/": "blue"
+"res://scripts/": "blue",
+"res://sfx/": "purple"
 }
 
 [global_group]
