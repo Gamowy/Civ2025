@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="8_dnvnu"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="9_14sfl"]
 [ext_resource type="Script" path="res://scripts/building_manager.gd" id="10_25kiv"]
-[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://sfx/button_no_press.ogg" id="10_quyni"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="10_quyni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
 shader = ExtResource("2_spcvv")

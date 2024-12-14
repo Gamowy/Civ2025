@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://3fp08v0qk70r"]
 
-[ext_resource type="Script" path="res://scripts/city_menu_bar.gd" id="1_tgyn3"]
+[ext_resource type="Script" path="res://scripts/city_menu.gd" id="1_tgyn3"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="2_v31im"]
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_15xnh"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_hp2g5"]
@@ -12,6 +12,7 @@ layer = 2
 script = ExtResource("1_tgyn3")
 
 [node name="Center" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

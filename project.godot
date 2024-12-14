@@ -22,6 +22,10 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://img/logo.png"
 
+[audio]
+
+buses/default_bus_layout="res://audio/default_bus_layout.tres"
+
 [autoload]
 
 MapInfo="*res://scripts/map_info.gd"
@@ -43,11 +47,11 @@ movie_writer/movie_file="D:/Godot/Godot_v4.3-stable_win64.exe/MOVIES/fog.avi"
 [file_customization]
 
 folder_colors={
+"res://audio/": "purple",
 "res://img/": "yellow",
 "res://resources/": "red",
 "res://scenes/": "green",
-"res://scripts/": "blue",
-"res://sfx/": "purple"
+"res://scripts/": "blue"
 }
 
 [global_group]
@@ -57,7 +61,7 @@ resource_layer="Group containing the resource layer"
 
 [gui]
 
-theme/custom_font="res://resources/fonts/PixelifySans-Regular.ttf"
+theme/custom_font="res://resources/fonts/PixelifySans-Regular.otf"
 
 [input]
 

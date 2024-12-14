@@ -16,8 +16,8 @@ extends Control
 @onready var building_manager=$BuildingManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 
-var build_sound:AudioStream=preload("res://sfx/build.ogg")
-var destroy_sound:AudioStream=preload("res://sfx/destroy_building.ogg")
+var build_sound:AudioStream=preload("res://audio/build.ogg")
+var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
 
 #determines current building mode
 var _building_mode:String="Build":
