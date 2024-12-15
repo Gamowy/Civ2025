@@ -1,11 +1,22 @@
 extends Node
 
-@export var players: Array[Player] = []
-@export var number_of_players: int :
+@export var _players: Array[Player] = []
+@export var _number_of_players: int :
 	get:
-		return players.size()
-@export var current_player_id: int = 0
-@export var turn_number: int = 1
+		return _players.size()
+	set(value):
+		pass
+@export var _current_player_id: int = 0
+@export var _turn_number: int = 1
+
+# Use this to access current player
+var current_player: Player :
+	get:
+		return _players[_current_player_id]
+	set(value):
+		pass
+
+signal current_player_resource_changed(resource: String, value: int)
 
 func _ready() -> void:
 	child_entered_tree.connect(_player_added)
@@ -14,32 +25,37 @@ func _ready() -> void:
 ## Called every time a player is added
 func _player_added(player):
 	await player.ready
-	players.append(player)
-
+	_players.append(player)
+	player.resource_value_changed.connect(on_resource_value_changed)
+	
 ## Called every time a player is removed
 func _player_removed(player):
-	players.erase(player)
+	_players.erase(player)
 
 ##  Use this to add player from within code
 func add_player(player: Player) -> void:
 	add_child(player)
-
+	
 ## Use this to remove player from within code
 func remove_player(player: Player) -> void:
 	remove_child(player)
 
 ## Save fog of war uncovered cells for current player
 func save_current_player_fog(cells: Array[Vector2i]) -> void:
-	players[current_player_id].uncovered_cells = cells
+	_players[_current_player_id].uncovered_cells = cells
 
 ## Get fog of war uncovered cells for current player
 func get_current_player_fog() -> Array[Vector2i]:
-	return players[current_player_id].uncovered_cells
+	return _players[_current_player_id].uncovered_cells
 
 ## Switch current player
 func switch_players() -> void:
-	if current_player_id+1 > number_of_players:
-		current_player_id = 0
-		turn_number += 1
+	print("player_id before ", _current_player_id)
+	if _current_player_id+1 < _number_of_players:
+		_current_player_id += 1
 	else:
-		current_player_id += 1
+		_current_player_id = 0
+		_turn_number += 1
+
+func on_resource_value_changed(resource: String, value: int) -> void:
+	current_player_resource_changed.emit(resource, value)

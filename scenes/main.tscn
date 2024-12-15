@@ -95,7 +95,6 @@ metadata/_edit_lock_ = true
 
 [node name="PlayersManager" type="Node" parent="."]
 script = ExtResource("15_u1y2v")
-number_of_players = 2
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
@@ -109,6 +108,7 @@ offset_bottom = 255.0
 text = "enemy
 unit"
 
+[connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
@@ -118,3 +118,4 @@ unit"
 [connection signal="master_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_master_volume_changed"]
 [connection signal="save_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_save_game"]
 [connection signal="sfx_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_sfx_volume_changed"]
+[connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
