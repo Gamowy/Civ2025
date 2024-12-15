@@ -16,11 +16,11 @@ class_name City
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
 @onready var flag:Sprite2D=$CityFlag
-var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
+var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
 ## The city's name
-@export var city_name:String=city_names.pick_random()
+@export var city_name:String=default_city_names.pick_random()
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
@@ -38,13 +38,11 @@ var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mik
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
 
-
-var city_owner:Player#this should be the player that owns this city
-var buildings:Array[BuildingBaseClass]=[]
+var city_owner: Player#this should be the player that owns this city
+var buildings: Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
 var city_info_arr = []
-
-
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !(get_tree().get_first_node_in_group("resource_layer") is ResourceLayer):
@@ -62,9 +60,7 @@ func _ready() -> void:
 		flag.modulate=city_owner.flag_color
 	fog_disperser.set_radius(city_radius)
 	resource_scan_area.force_update_transform()
-	
-	
-	
+		
 #collect resources produced by the city
 #and give them to the city owner
 func collect_resources()->void:
@@ -83,6 +79,10 @@ func collect_building_boons()->void:
 func set_city_owner(new_city_owner:Player):
 	city_owner=new_city_owner
 	flag.modulate=new_city_owner.flag_color
+
+func set_city_name(new_city_name: String):
+	city_name = new_city_name
+	name_label.text = new_city_name
 
 #scan city area for resources, check type and increase production for found resources
 func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
@@ -133,4 +133,3 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 			i+=1
 		
 		city_menu.windowPopup()
-		

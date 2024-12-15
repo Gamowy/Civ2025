@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=18 format=3 uid="uid://ccb4rxxam716v"]
 
-[ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_t6oqj"]
+[ext_resource type="PackedScene" uid="uid://b65tfk5f8i537" path="res://scenes/player.tscn" id="2_vv3y8"]
 [ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
 [ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/ui/settings_menu.tscn" id="4_i4hap"]
@@ -14,7 +15,7 @@
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
-[ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
+[ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
 light_mode = 2
@@ -40,8 +41,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -20.5
 offset_top = -19.5
-offset_right = 20.5
-offset_bottom = 21.5
+offset_right = 400.5
+offset_bottom = 360.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_t6oqj")
@@ -52,6 +53,7 @@ script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
 process_mode = 3
+visible = false
 mouse_filter = 1
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
@@ -82,8 +84,8 @@ metadata/_edit_lock_ = true
 
 [node name="CityLayer" type="TileMapLayer" parent="Map"]
 z_index = 2
-tile_map_data = PackedByteArray(0, 0, 17, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 12, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 0)
 tile_set = ExtResource("7_y6bwc")
+script = ExtResource("12_nt62r")
 
 [node name="FogThickLayer" type="TileMapLayer" parent="Map" groups=["fog"]]
 light_mask = 0
@@ -93,11 +95,18 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
-[node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
+[node name="Players" type="Node" parent="."]
 
-[node name="BUILDING_MENU_TEST_CITY" parent="." instance=ExtResource("14_3577x")]
-position = Vector2(978, 91)
-city_name = "TEST_CITY"
+[node name="Player1" parent="Players" instance=ExtResource("2_vv3y8")]
+player_id = 1
+player_name = "Player 1"
+flag_color = Color(1, 1, 1, 1)
+
+[node name="Player2" parent="Players" instance=ExtResource("2_vv3y8")]
+player_id = 2
+player_name = "Player 2"
+
+[node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
 [node name="ENEMY_UNIT_TEST" type="Label" parent="."]
 z_index = 2

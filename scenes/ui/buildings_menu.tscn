@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://bklsmwhimlff3"]
 
-[ext_resource type="Script" path="res://scripts/buildings_menu.gd" id="1_8ys0e"]
+[ext_resource type="Script" path="res://scripts/ui/buildings_menu.gd" id="1_8ys0e"]
 [ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_spcvv"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_3px7k"]
 [ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="4_v6qan"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="7_72i5w"]
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="8_dnvnu"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="9_14sfl"]
-[ext_resource type="Script" path="res://scripts/building_manager.gd" id="10_25kiv"]
+[ext_resource type="Script" path="res://scripts/ui/building_manager.gd" id="10_25kiv"]
 [ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="10_quyni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]

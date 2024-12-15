@@ -13,7 +13,6 @@ func _pause_game() -> void:
 func _resume_game() -> void:
 	get_tree().paused = false
 	
-	
 # User interface signal handlers
 func _on_user_interface_open_settings() -> void:
 	_pause_game()
@@ -52,7 +51,6 @@ func _on_settings_menu_exit_to_menu() -> void:
 	# TODO: replace this when main menu is done
 	print("Exit to menu!")
 	_on_settings_menu_exit_settings()
-
 
 func _on_settings_menu_master_volume_changed(volume: float) -> void:
 	var index:int=AudioServer.get_bus_index("Master")

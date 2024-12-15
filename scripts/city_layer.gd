@@ -1,0 +1,34 @@
+extends TileMapLayer
+class_name CityLayer
+
+@export var cities: Array[City] = []
+
+var city_scene = preload("res://scenes/city.tscn")
+
+func _ready() -> void:
+	child_entered_tree.connect(_city_added)
+	child_exiting_tree.connect(_city_removed)
+
+# Called every time a new city is added to tilemap
+func _city_added(city):
+	await city.ready
+	var coords = local_to_map(to_local(city.global_position))
+	cities.append(city)
+	city.set_meta("city_coords", coords)
+
+# Called every time a city is removed from tilemap
+func _city_removed(city):
+	cities.erase(city)
+
+# Use this to add city from within code
+func add_city(coords: Vector2i, city_owner: Player, city_name = "") -> void:
+	var new_city: City = city_scene.instantiate()
+	add_child(new_city)
+	new_city.set_city_owner(city_owner)
+	if city_name != "":
+		new_city.set_city_name(city_name)
+	new_city.position = map_to_local(coords)
+
+# Use this to remove city from within code
+func remove_city(coords: Vector2i) -> void:
+	self.erase_cell(coords)
