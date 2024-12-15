@@ -3,40 +3,40 @@ extends Node2D
 # Everything below needs to be saved in save_game() func.
 # All properties annotated with @export will be saved
 # ---------------------------------------------------------------------
-# Number of turns passed (incremented after each player's turn)
-var turn_count: int
-# Number of players
-var number_of_players: int
-# Id of player in control
-var current_player_id: int
-
-# Contains data for players
-@onready var players = $Players
+# Contains data about players
+@onready var players_manager = $PlayersManager
 
 # Contains data for map layers
 @onready var map_layer:MapLayer=$Map/MapLayer
 @onready var resource_layer:ResourceLayer = $"Map/ResourceLayer"
-@onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var city_layer = $"Map/CityLayer"
 # ---------------------------------------------------------------------
-
+@onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	map_layer.generate_map()
-	resource_layer.generate_resources(map_layer)
-	fog_thick_layer.generate_fog(map_layer)
+	var players: Array[Player] = []
+	players.append(Player.new(0, "Player1", Color.WHITE))
+	players.append(Player.new(1, "Player2", Color.RED))
+	initNewGame(players)
+	
 	#Set camera movement boundary
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	
 	# TEST
-	var player1=$Players/Player1
-	city_layer.add_city(Vector2i(10, 10), player1)
-	city_layer.add_city(Vector2i(30, 15), player1)
-	city_layer.add_city(Vector2i(50, 20), player1)
-	city_layer.add_city(Vector2i(10, 25), player1)
+	city_layer.add_city(Vector2i(10, 10), players[0])
+	city_layer.add_city(Vector2i(30, 15), players[0])
+	city_layer.add_city(Vector2i(50, 20), players[1])
+	city_layer.add_city(Vector2i(10, 25), players[1])
+
+func initNewGame(players: Array[Player]) -> void:
+	map_layer.generate_map()
+	resource_layer.generate_resources(map_layer)
+	fog_thick_layer.generate_fog(map_layer)
+	for player in players:
+		players_manager.add_player(player)
 
 # Mouse input on map
 func _unhandled_input(event: InputEvent) -> void:
@@ -54,22 +54,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func save_game():
 	var save_data = FileAccess.open("user://save1.dat", FileAccess.WRITE)
-	
-	# Store number of turns and current player id
-	save_data.store_var(turn_count)
-	save_data.store_var(current_player_id)
-	
-	# Store data for each player
-	var players_data = []
-	for player in self.get_children():
-		if player is Player:
-			players_data.append(player)
-	save_data.store_var(players_data, true)
+	# Store data about players
+	save_data.store_var(players_manager, true)
 		
 	# Store data about map and resources
 	save_data.store_var(map_layer, true)
 	save_data.store_var(resource_layer, true)
 	
 	# Store data about cities
-	
-		
+	save_data.store_var(city_layer, true)

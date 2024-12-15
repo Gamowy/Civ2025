@@ -1,10 +1,16 @@
 extends Node
 class_name Player
 
+func _init(id: int, playerName: String, flagColor: Color):
+	player_id = id
+	player_name = playerName
+	flag_color = flagColor
+
 @export_category("Player info")
-## Player's id and name
+## Player's id (must be unique), player's id's should start from 0 and increment
 @export var player_id:int
-@export var player_name:String
+## Player's name
+@export var player_name:String = "Player"
 ## Player's flag color
 @export_color_no_alpha var flag_color:Color
 
@@ -19,3 +25,5 @@ class_name Player
 @export var steel:int=10
 ## Starting number of food units
 @export var food:int=10
+## Fog of war uncovered cells
+@export var uncovered_cells:Array[Vector2i]

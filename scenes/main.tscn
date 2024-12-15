@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_t6oqj"]
-[ext_resource type="PackedScene" uid="uid://b65tfk5f8i537" path="res://scenes/player.tscn" id="2_vv3y8"]
 [ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
 [ext_resource type="TileSet" uid="uid://byo5qmkvoxi1w" path="res://resources/tilesets/map_fantasy.tres" id="3_ns1bu"]
 [ext_resource type="PackedScene" uid="uid://bax4eb2fu5jv0" path="res://scenes/ui/settings_menu.tscn" id="4_i4hap"]
@@ -16,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
+[ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
 light_mode = 2
@@ -73,14 +73,12 @@ metadata/_edit_lock_ = true
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
-metadata/_edit_lock_ = true
 
 [node name="ResourceLayer" type="TileMapLayer" parent="Map" groups=["resource_layer"]]
 z_index = 1
 texture_filter = 1
 tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
-metadata/_edit_lock_ = true
 
 [node name="CityLayer" type="TileMapLayer" parent="Map"]
 z_index = 2
@@ -95,16 +93,9 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
-[node name="Players" type="Node" parent="."]
-
-[node name="Player1" parent="Players" instance=ExtResource("2_vv3y8")]
-player_id = 1
-player_name = "Player 1"
-flag_color = Color(1, 1, 1, 1)
-
-[node name="Player2" parent="Players" instance=ExtResource("2_vv3y8")]
-player_id = 2
-player_name = "Player 2"
+[node name="PlayersManager" type="Node" parent="."]
+script = ExtResource("15_u1y2v")
+number_of_players = 2
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 

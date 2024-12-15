@@ -37,9 +37,10 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var stone_production:int=1
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
-
-var city_owner: Player#this should be the player that owns this city
-var buildings: Array[BuildingBaseClass]=[]
+## Player that owns the city
+@export var city_owner: Player
+## Buildings within city
+@export var buildings: Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
 var city_info_arr = []
  
