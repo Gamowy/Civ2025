@@ -58,6 +58,7 @@ folder_colors={
 
 fog="Group for refrencing fog layer on map"
 resource_layer="Group containing the resource layer"
+players="Group for refrencing players"
 
 [gui]
 

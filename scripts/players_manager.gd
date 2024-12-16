@@ -1,4 +1,5 @@
 extends Node
+class_name PlayersManager
 
 @export var _players: Array[Player] = []
 @export var _number_of_players: int :
@@ -44,13 +45,8 @@ func remove_player(player: Player) -> void:
 func save_current_player_fog(cells: Array[Vector2i]) -> void:
 	_players[_current_player_id].uncovered_cells = cells
 
-## Get fog of war uncovered cells for current player
-func get_current_player_fog() -> Array[Vector2i]:
-	return _players[_current_player_id].uncovered_cells
-
 ## Switch current player
 func switch_players() -> void:
-	print("player_id before ", _current_player_id)
 	if _current_player_id+1 < _number_of_players:
 		_current_player_id += 1
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=18 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -93,7 +93,7 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
-[node name="PlayersManager" type="Node" parent="."]
+[node name="PlayersManager" type="Node" parent="." groups=["players"]]
 script = ExtResource("15_u1y2v")
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]

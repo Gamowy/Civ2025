@@ -22,12 +22,20 @@ func _city_removed(city):
 ## Use this to add city from within code
 func add_city(coords: Vector2i, city_owner: Player, city_name = "") -> void:
 	var new_city: City = city_scene.instantiate()
-	add_child(new_city)
-	new_city.set_city_owner(city_owner)
+	add_child(new_city)	
 	if city_name != "":
 		new_city.set_city_name(city_name)
+	new_city.set_city_owner(city_owner)
 	new_city.position = map_to_local(coords)
 	
 ## Use this to remove city from within code
 func remove_city(city: City) -> void:
 	remove_child(city)
+	
+## Called when switching turns to switch fog for cities
+func switch_city_fog(currentPlayer: Player):
+	for city in cities:
+		if city.city_owner == currentPlayer:
+			city.fog_disperser_point_light.visible = true
+		else:
+			city.fog_disperser_point_light.visible = false

@@ -12,6 +12,7 @@ class_name City
 
 @onready var name_label:Label=$Label
 @onready var fog_disperser:FogDisperser=$FogDisperser
+@onready var fog_disperser_point_light = $FogDisperser/PointLight2D
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
@@ -60,8 +61,10 @@ func _ready() -> void:
 	if city_owner!=null:#set flag color to match that of the player
 		flag.modulate=city_owner.flag_color
 	fog_disperser.set_radius(city_radius)
+	fog_disperser.set_fog_disperser_enabled(true)
+	fog_disperser_point_light.visible = false
 	resource_scan_area.force_update_transform()
-		
+
 #collect resources produced by the city
 #and give them to the city owner
 func collect_resources()->void:
@@ -80,7 +83,8 @@ func collect_building_boons()->void:
 func set_city_owner(new_city_owner:Player):
 	city_owner=new_city_owner
 	flag.modulate=new_city_owner.flag_color
-
+	
+	
 func set_city_name(new_city_name: String):
 	city_name = new_city_name
 	name_label.text = new_city_name
@@ -111,9 +115,10 @@ func get_city_info()->String:
 
 
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventScreenTouch and event.is_pressed():
-		print(get_city_info())
-		
+	var players = get_tree().get_first_node_in_group("players")
+	var current_player = players.current_player
+	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
+		print(get_city_info())	
 		#Dane do wyświetelenia w menu miasta
 		city_info_arr = [
 		"City radius: "+str(city_radius), 
@@ -123,8 +128,7 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		"Wood production: "+str(wood_production), 
 		"Stone production: "+str(stone_production), 
 		"Steel production: "+str(steel_production)
-		]
-		
+		]		
 		#Nadanie nazwy menu - nazwa miasta
 		#Oraz dodanie informacji o tym mieście do menu
 		city_menu.menuName(city_name)
