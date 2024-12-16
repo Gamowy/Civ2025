@@ -32,10 +32,12 @@ func initGame() -> void:
 	# TEST
 	players_manager.add_player(0, "Andrzej", Color.GREEN)
 	players_manager.add_player(1, "Adam", Color.RED)
+	players_manager.add_player(2, "Karol", Color.BLUE)
 	city_layer.add_city(Vector2i(10, 10), players_manager.players[0])
 	city_layer.add_city(Vector2i(30, 15), players_manager.players[0])
 	city_layer.add_city(Vector2i(50, 20), players_manager.players[1])
 	city_layer.add_city(Vector2i(10, 25), players_manager.players[1])
+	city_layer.add_city(Vector2i(30, 25), players_manager.players[2])
 	setup_current_player()
 
 # Mouse input on map
@@ -125,7 +127,6 @@ func load_game():
 		city_layer.reload_city(saved_city)
 	file.close()
 	
-
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())

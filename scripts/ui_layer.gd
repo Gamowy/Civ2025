@@ -33,7 +33,6 @@ func _on_user_interface_open_civilization_menu() -> void:
 	print("Open civilization menu!")
 
 func _on_user_interface_end_turn() -> void:
-	print("End turn!")
 	end_player_turn.emit()
 
 
