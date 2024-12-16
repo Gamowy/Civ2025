@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func initGame() -> void:
 	# TEST
-	players_manager.add_player(0, "Andrzej", Color.WHITE)
+	players_manager.add_player(0, "Andrzej", Color.GREEN)
 	players_manager.add_player(1, "Adam", Color.RED)
 	city_layer.add_city(Vector2i(10, 10), players_manager.players[0])
 	city_layer.add_city(Vector2i(30, 15), players_manager.players[0])
@@ -57,12 +57,16 @@ func setup_current_player() -> void:
 	fog_thick_layer.generate_fog()
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
 	city_layer.switch_city_fog(player)
-	user_interface.update_ui("turn_label", player.player_name)
-	user_interface.update_ui("gold", str(player.gold))
-	user_interface.update_ui("wood", str(player.wood))
-	user_interface.update_ui("stone", str(player.stone))
-	user_interface.update_ui("steel", str(player.steel))
-	user_interface.update_ui("food", str(player.food))
+	user_interface.update_turn_label(player.player_name, player.flag_color)
+	user_interface.update_resources("gold", str(player.gold))
+	user_interface.update_resources("wood", str(player.wood))
+	user_interface.update_resources("stone", str(player.stone))
+	user_interface.update_resources("steel", str(player.steel))
+	user_interface.update_resources("food", str(player.food))
+	# TEST
+	var fog_disperser_label = $FogDisperserDemo/Label
+	fog_disperser_label.text = player.player_name
+	fog_disperser_label.modulate = player.flag_color
 
 # All properties within class annotated with @export or @export_storage will be saved for restoring
 # Use @export_storage if you want to save property without displaying it in editor
@@ -104,7 +108,6 @@ func load_game():
 		var saved_player: Player = file.get_var(true)
 		players_manager.reload_player(saved_player)
 
-	
 	# Restore map layer
 	var saved_map_layer: MapLayer = file.get_var(true)
 	map_layer.reload(saved_map_layer)
@@ -113,7 +116,6 @@ func load_game():
 	var saved_resource_layer: ResourceLayer = file.get_var(true)
 	resource_layer.reload(saved_resource_layer)
 	
-	
 	# Restore city layer data
 	var saved_number_of_cities = file.get_var(true)
 	# Clear old cities and restore saved cities
@@ -121,8 +123,6 @@ func load_game():
 	for i in range(saved_number_of_cities):
 		var saved_city = file.get_var(true)
 		city_layer.reload_city(saved_city)
-	
-	
 	file.close()
 	
 
@@ -142,4 +142,4 @@ func _on_ui_layer_load_game() -> void:
 
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
-	user_interface.update_ui(resource, str(value))
+	user_interface.update_resources(resource, str(value))

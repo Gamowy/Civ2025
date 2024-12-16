@@ -21,7 +21,7 @@ func _on_civilization_button_pressed() -> void:
 func _on_end_turn_button_pressed() -> void:
 	end_turn.emit()
 	
-func update_ui(element: String, value: String) -> void:
+func update_resources(element: String, value: String) -> void:
 	match(element):
 		"gold":
 			gold.text = value
@@ -33,5 +33,7 @@ func update_ui(element: String, value: String) -> void:
 			steel.text = value
 		"food":
 			food.text = value
-		"turn_label":
-			turn_label.text = str("   ", value, " turn   ")
+
+func update_turn_label(string: String, color: Color):
+	turn_label.text = str("   ", string, " turn   ")
+	turn_label.modulate = color
