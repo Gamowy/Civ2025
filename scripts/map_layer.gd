@@ -1,8 +1,9 @@
 extends TileMapLayer
 class_name MapLayer
 
-var noise=FastNoiseLite.new()
+
 var previous_cell:Vector2=Vector2(0,0)
+var noise=FastNoiseLite.new()
 
 @export_category("Map generation")
 ## Width of the map. Should be divisible by 16
@@ -30,3 +31,9 @@ func generate_map()->void:
 		for y in height:
 			var rand:int=int((noise.get_noise_2d(x,y)+1)*5)%5
 			set_cell(Vector2(x,y),0,Vector2(rand,0),0)
+					
+func reload(saved_map_layer: MapLayer):
+	self.noise = saved_map_layer.noise
+	self.width = saved_map_layer.width
+	self.height = saved_map_layer.height
+	

@@ -38,10 +38,10 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var stone_production:int=1
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
-## Player that owns the city
-@export var city_owner: Player
-## Buildings within city
-@export var buildings: Array[BuildingBaseClass]=[]
+
+@export_storage var city_owner: Player
+@export_storage var city_coords: Vector2i
+@export_storage var buildings: Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
 var city_info_arr = []
  
@@ -115,8 +115,8 @@ func get_city_info()->String:
 
 
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	var players = get_tree().get_first_node_in_group("players")
-	var current_player = players.current_player
+	var players_manager: PlayersManager = get_tree().get_first_node_in_group("players")
+	var current_player = players_manager.current_player
 	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
 		print(get_city_info())	
 		#Dane do wyświetelenia w menu miasta

@@ -3,6 +3,8 @@ extends CanvasLayer
 @onready var user_interface = $UserInterface
 @onready var settings_menu = $SettingsMenu
 
+signal save_game
+signal load_game
 signal end_player_turn
 
 func _ready() -> void:
@@ -41,13 +43,11 @@ func _on_settings_menu_exit_settings() -> void:
 	settings_menu.visible = false
 
 func _on_settings_menu_save_game() -> void:
-	# TODO: replace this when saving/loading is done
-	print("Save game!")
+	save_game.emit()
 	_on_settings_menu_exit_settings()
 
 func _on_settings_menu_load_game() -> void:
-	# TODO: replace this when saving/loading is done
-	print("Load game!")
+	load_game.emit()
 	_on_settings_menu_exit_settings()
 	
 func _on_settings_menu_exit_to_menu() -> void:

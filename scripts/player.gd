@@ -3,11 +3,6 @@ class_name Player
 
 signal resource_value_changed(resource: String, value: int)
 
-func _init(id: int, playerName: String, flagColor: Color):
-	player_id = id
-	player_name = playerName
-	flag_color = flagColor
-
 @export_category("Player info")
 ## Player's id (must be unique), player's id's should start from 0 and increment
 @export var player_id:int
@@ -55,7 +50,7 @@ func _init(id: int, playerName: String, flagColor: Color):
 		return food
 	set(value):
 		food = value
-		resource_value_changed.emit(food, value)
+		resource_value_changed.emit("food", value)
 		
 ## Fog of war uncovered cells
 @export var uncovered_cells:Array[Vector2i]

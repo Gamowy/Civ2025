@@ -1,7 +1,7 @@
 extends TileMapLayer
 class_name ResourceLayer
 
-var rng:RandomNumberGenerator=RandomNumberGenerator.new()
+@export_storage var rng:RandomNumberGenerator=RandomNumberGenerator.new()
 
 @export_category("Resource generation")
 ## Maximum number of resources that can be generated on a single chunk
@@ -22,7 +22,6 @@ var resource_dict:Dictionary={
 	"fish":Vector2i(9,0),
 	"sheep":Vector2i(10,0),
 	"empty":Vector2i(-1,-1)}
-
 
 func _ready() -> void:
 	rng.seed=resource_seed
@@ -67,3 +66,7 @@ func draw_resource(terrain_type:String):
 		return("fish")
 	else:
 		return("empty")
+
+func reload(saved_resource_layer: ResourceLayer) -> void:
+	self.rng = saved_resource_layer.rng
+	self.tile_map_data = saved_resource_layer.tile_map_data
