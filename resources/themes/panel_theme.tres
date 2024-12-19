@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://xtw2il5ua0g5"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://xtw2il5ua0g5"]
 
 [ext_resource type="Texture2D" uid="uid://c874mkh8kh0q7" path="res://img/ui/Button_52x14.png" id="1_iqhv4"]
 [ext_resource type="Texture2D" uid="uid://wqgssqxoj0ha" path="res://img/ui/RectangleBox_96x96.png" id="1_q5mp5"]
+[ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="1_w65ig"]
 [ext_resource type="Texture2D" uid="uid://udiu46gf6s1g" path="res://img/ui/GrabberIcon.png" id="2_l1ilq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ddfuj"]
@@ -109,7 +110,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 8
 Button/font_sizes/font_size = 36
-Button/fonts/font = null
+Button/fonts/font = ExtResource("1_w65ig")
 Button/styles/disabled = SubResource("StyleBoxTexture_ddfuj")
 Button/styles/focus = SubResource("StyleBoxTexture_4wodg")
 Button/styles/hover = SubResource("StyleBoxTexture_4wodg")
@@ -133,7 +134,7 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 30
-Label/fonts/font = null
+Label/fonts/font = ExtResource("1_w65ig")
 Label/styles/normal = SubResource("StyleBoxEmpty_safuv")
 Panel/styles/panel = SubResource("StyleBoxTexture_t6frc")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_48vaj")
