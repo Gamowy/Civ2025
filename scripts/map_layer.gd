@@ -36,4 +36,5 @@ func reload(saved_map_layer: MapLayer):
 	self.noise = saved_map_layer.noise
 	self.width = saved_map_layer.width
 	self.height = saved_map_layer.height
+	self.tile_map_data = saved_map_layer.tile_map_data
 	

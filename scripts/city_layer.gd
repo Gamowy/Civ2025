@@ -52,9 +52,4 @@ func reload_city(saved_city: City) -> void:
 	cities[cities.size()-1].city_radius = saved_city.city_radius
 	cities[cities.size()-1].city_health = saved_city.city_health
 	cities[cities.size()-1].building_limit = saved_city.building_limit
-	cities[cities.size()-1].gold_production = saved_city.gold_production
-	cities[cities.size()-1].food_production = saved_city.food_production
-	cities[cities.size()-1].wood_production = saved_city.wood_production
-	cities[cities.size()-1].stone_production = saved_city.stone_production
-	cities[cities.size()-1].steel_production = saved_city.steel_production
 	cities[cities.size()-1].buildings = saved_city.buildings
