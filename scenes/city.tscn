@@ -33,7 +33,7 @@ texture = ExtResource("3_fjvm6")
 [node name="City_Menu" parent="." instance=ExtResource("4_41d3i")]
 
 [node name="Label" type="Label" parent="."]
-texture_filter = 2
+texture_filter = 3
 offset_left = -44.0
 offset_top = 11.0
 offset_right = 44.0
