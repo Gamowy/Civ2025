@@ -17,6 +17,7 @@ class_name BuildingBaseClass
 @export_multiline var building_description:String="No description."
 ## Picture representing the building.
 @export_file("*.png") var building_picture="res://img/essentials-4xgames-tileset/tile-village.png"
+@export_group("Building cost")
 ## How many units of gold are required to build this building
 @export var gold_cost:int
 ## How many units of wood are required to build this building
@@ -33,6 +34,14 @@ var cost:Dictionary={"gold":gold_cost,
 					"stone":stone_cost,
 					"steel":steel_cost,
 					"food":food_cost}
+
+# Resources that buildings generate
+@export_group("Building production")
+@export var gold_production:int=0
+@export var wood_production:int=0
+@export var stone_production:int=0
+@export var steel_production:int=0
+@export var food_production:int=0
 
 #intended to be called at the start of every turn
 #for example to produce extra resources for

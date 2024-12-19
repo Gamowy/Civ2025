@@ -146,5 +146,6 @@ func _on_prompt_window_no() -> void:
 
 #exit building menu and unpause game
 func _on_exit_button_pressed() -> void:
+	city.update_city_info()
 	get_tree().paused=false
 	queue_free()

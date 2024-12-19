@@ -125,6 +125,8 @@ func load_game():
 			var saved_city = file.get_var(true)
 			city_layer.reload_city(saved_city)
 		file.close()
+	else:
+		printerr("Save file not found!")
 	
 func switch_turns() -> void:
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())

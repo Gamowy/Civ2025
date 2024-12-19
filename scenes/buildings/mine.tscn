@@ -1,12 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://dl6xci88o70gk"]
 
-[ext_resource type="Script" path="res://scripts/buildings/mine.gd" id="1_bmcec"]
+[ext_resource type="Script" path="res://scripts/buildings/resource_grainting_building.gd" id="1_8tcg8"]
 
 [node name="Mine" type="Node"]
-script = ExtResource("1_bmcec")
+script = ExtResource("1_8tcg8")
 building_name = "Mine"
 building_description = "Produces 15 units of stone every turn."
 building_picture = "res://img/buildings/mine.png"
 gold_cost = 10
 stone_cost = 15
 steel_cost = 5
+stone_production = 15

@@ -43,7 +43,7 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export_storage var city_coords: Vector2i
 @export_storage var buildings: Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
-var city_info_arr = []
+var city_info_arr: Array
  
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,9 +53,6 @@ func _ready() -> void:
 		resource_layer=get_tree().get_first_node_in_group("resource_layer")
 	
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
-	#Dodane na potrzeby testu menu miast - Paweł
-	city_info_arr = [city_name, city_radius, city_health, gold_production, food_production, wood_production, stone_production, steel_production]
-	#koniec mojego dodania
 
 	name_label.text=city_name
 	if city_owner!=null:#set flag color to match that of the player
@@ -84,7 +81,6 @@ func set_city_owner(new_city_owner:Player):
 	city_owner=new_city_owner
 	flag.modulate=new_city_owner.flag_color
 	
-	
 func set_city_name(new_city_name: String):
 	city_name = new_city_name
 	name_label.text = new_city_name
@@ -99,41 +95,41 @@ func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_in
 		"stone":stone_production+=1
 		"steel":steel_production+=1
 
-func get_city_info()->String:
-	var city_info:String = "----------CITY INFO---------------\n"
-	city_info+="Name: "+city_name+"\n"
-	city_info+="City radius: "+str(city_radius)+"\n"
-	city_info+="HP: "+str(city_health)+"\n"
-	city_info+="Gold production: "+str(gold_production)+"\n"
-	city_info+="Food production: "+str(food_production)+"\n"
-	city_info+="Wood production: "+str(wood_production)+"\n"
-	city_info+="Stone production: "+str(stone_production)+"\n"
-	city_info+="Steel production: "+str(steel_production)+"\n"
-	city_info+="----------------------------------\n"
-	return city_info
+func update_city_info() -> void:
+	var buildings_gold_production = 0
+	var buildings_wood_production = 0
+	var buildings_stone_production = 0
+	var buildings_steel_production = 0
+	var buildings_food_production = 0
+	
+	for building in buildings:
+		buildings_gold_production += building.gold_production
+		buildings_wood_production += building.wood_production
+		buildings_stone_production += building.stone_production
+		buildings_steel_production += building.steel_production
+		buildings_food_production += building.food_production
+	
+	city_info_arr = [
+		"City radius: "+str(city_radius), 
+		"HP: "+str(city_health), 
+		"Gold production: "+str(gold_production + buildings_gold_production), 
+		"Food production: "+str(food_production + buildings_food_production), 
+		"Wood production: "+str(wood_production + buildings_wood_production), 
+		"Stone production: "+str(stone_production + buildings_stone_production), 
+		"Steel production: "+str(steel_production + buildings_steel_production)
+		]
+	var i = 0
+	for property in city_info_arr:
+		city_menu.editTextOfButton(i, str(city_info_arr[i]))
+		i+=1	
 
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
-		print(get_city_info())	
-		#Dane do wyświetelenia w menu miasta
-		city_info_arr = [
-		"City radius: "+str(city_radius), 
-		"HP: "+str(city_health), 
-		"Gold production: "+str(gold_production), 
-		"Food production: "+str(food_production), 
-		"Wood production: "+str(wood_production), 
-		"Stone production: "+str(stone_production), 
-		"Steel production: "+str(steel_production)
-		]		
 		#Nadanie nazwy menu - nazwa miasta
 		#Oraz dodanie informacji o tym mieście do menu
 		city_menu.menuName(city_name)
-		var i = 0
-		for property in city_info_arr:
-			city_menu.editTextOfButton(i, str(city_info_arr[i]))
-			i+=1
-		
+		update_city_info()
 		city_menu.windowPopup()
 
 ## Called when new city first appears on map

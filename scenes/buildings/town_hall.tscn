@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://p2n1rnap2rn1"]
 
-[ext_resource type="Script" path="res://scripts/buildings/town_hall.gd" id="1_wq48l"]
+[ext_resource type="Script" path="res://scripts/buildings/resource_grainting_building.gd" id="1_1ukwv"]
 
 [node name="TownHall" type="Node"]
-script = ExtResource("1_wq48l")
+script = ExtResource("1_1ukwv")
 building_name = "Town Hall"
 building_description = "Produces 15 units of gold every turn."
 building_picture = "res://img/buildings/town_hall.png"
