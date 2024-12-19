@@ -45,6 +45,12 @@ func switch_city_fog(currentPlayer: Player) -> void:
 		else:
 			city.fog_disperser_point_light.visible = false
 
+func get_resources_from_cities(currentPlayer: Player) -> void:
+	for city in cities:
+		if city.city_owner == currentPlayer:
+			city.collect_resources()
+			city.collect_building_boons()
+
 func reload_city(saved_city: City) -> void:
 	var players_manager: PlayersManager = get_tree().get_first_node_in_group("players")
 	var saved_city_owner: Player = players_manager.players[saved_city.city_owner.player_id]
