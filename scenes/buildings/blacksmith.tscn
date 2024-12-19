@@ -10,3 +10,4 @@ building_picture = "res://img/buildings/blacksmith.png"
 gold_cost = 3
 stone_cost = 3
 steel_cost = 5
+steel_production = 5

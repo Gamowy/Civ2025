@@ -10,3 +10,4 @@ building_picture = "res://img/buildings/forester.png"
 gold_cost = 3
 wood_cost = 5
 food_cost = 3
+wood_production = 5

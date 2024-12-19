@@ -10,3 +10,4 @@ building_picture = "res://img/buildings/quarry.png"
 gold_cost = 3
 stone_cost = 5
 steel_cost = 3
+stone_production = 5
