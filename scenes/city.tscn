@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkifdgmgejgib"]
+[gd_scene load_steps=11 format=3 uid="uid://dkifdgmgejgib"]
 
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/city.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
 [ext_resource type="Texture2D" uid="uid://ds27cg60fbn21" path="res://img/city_flag.png" id="3_fjvm6"]
-[ext_resource type="PackedScene" uid="uid://785rivt554my" path="res://scenes/fog_disperser.tscn" id="3_n68j0"]
 [ext_resource type="PackedScene" uid="uid://3fp08v0qk70r" path="res://scenes/ui/city_menu.tscn" id="4_41d3i"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="5_ob1uf"]
+[ext_resource type="PackedScene" uid="uid://jxk0d465c50j" path="res://scenes/city_fog_disperser.tscn" id="6_ky7ws"]
+[ext_resource type="Script" path="res://scripts/city_fog_disperser.gd" id="7_af1va"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tuf3m"]
 outline_size = 6
@@ -42,7 +43,8 @@ label_settings = SubResource("LabelSettings_tuf3m")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FogDisperser" parent="." instance=ExtResource("3_n68j0")]
+[node name="CityFogDisperser" parent="." instance=ExtResource("6_ky7ws")]
+script = ExtResource("7_af1va")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -56,5 +58,6 @@ shape = SubResource("CircleShape2D_vepcl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_fbglb")
 
+[connection signal="city_entered" from="CityFogDisperser" to="." method="_on_city_fog_disperser_city_entered"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="input_event" from="TouchArea" to="." method="_on_touch_area_input_event"]

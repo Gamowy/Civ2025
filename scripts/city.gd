@@ -11,8 +11,8 @@ extends Sprite2D
 class_name City
 
 @onready var name_label:Label=$Label
-@onready var fog_disperser:FogDisperser=$FogDisperser
-@onready var fog_disperser_point_light = $FogDisperser/PointLight2D
+@onready var fog_disperser:CityFogDisperser=$CityFogDisperser
+@onready var fog_disperser_point_light = $CityFogDisperser/PointLight2D
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
@@ -62,7 +62,7 @@ func _ready() -> void:
 		flag.modulate=city_owner.flag_color
 	fog_disperser.set_radius(city_radius)
 	fog_disperser.set_fog_disperser_enabled(true)
-	fog_disperser_point_light.visible = false
+	fog_disperser_point_light.visible = true
 	resource_scan_area.force_update_transform()
 
 #collect resources produced by the city
@@ -112,11 +112,8 @@ func get_city_info()->String:
 	city_info+="----------------------------------\n"
 	return city_info
 
-
-
 func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	var players_manager: PlayersManager = get_tree().get_first_node_in_group("players")
-	var current_player = players_manager.current_player
+	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
 		print(get_city_info())	
 		#Dane do wyświetelenia w menu miasta
@@ -138,3 +135,11 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 			i+=1
 		
 		city_menu.windowPopup()
+
+## Called when new city first appears on map
+func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:
+	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+	var fog_layer: FogThickLayer= get_tree().get_first_node_in_group("fog")
+	city_owner.uncovered_cells.append(coords)
+	if current_player == city_owner:
+		fog_layer.restore_uncovered_cells(current_player.uncovered_cells)

@@ -1,7 +1,6 @@
 extends Node2D
 class_name Main
 
-
 var save_path = "user://save.dat"
 # Everything below needs to be saved in save_game() func
 # ---------------------------------------------------------------------
@@ -18,6 +17,7 @@ var save_path = "user://save.dat"
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,7 +39,7 @@ func initGame() -> void:
 	city_layer.add_city(Vector2i(10, 25), players_manager.players[1])
 	city_layer.add_city(Vector2i(30, 25), players_manager.players[2])
 	setup_current_player()
-
+	
 # Mouse input on map
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -56,7 +56,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func setup_current_player() -> void:
 	var player: Player = players_manager.current_player
-	fog_thick_layer.generate_fog()
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
 	city_layer.switch_city_fog(player)
 	user_interface.update_turn_label(player.player_name, player.flag_color)
@@ -127,11 +126,14 @@ func load_game():
 		city_layer.reload_city(saved_city)
 	file.close()
 	
-# UI Layer signal handlers
-func _on_ui_layer_end_player_turn() -> void:
+func switch_turns() -> void:
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
 	players_manager.switch_players()
 	setup_current_player()
+	
+# UI Layer signal handlers
+func _on_ui_layer_end_player_turn() -> void:
+	switch_turns()
 	
 func _on_ui_layer_save_game() -> void:
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
