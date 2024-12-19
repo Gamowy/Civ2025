@@ -20,3 +20,20 @@ func _on_civilization_button_pressed() -> void:
 
 func _on_end_turn_button_pressed() -> void:
 	end_turn.emit()
+	
+func update_resources(element: String, value: String) -> void:
+	match(element):
+		"gold":
+			gold.text = value
+		"wood":
+			wood.text = value
+		"stone":
+			stone.text = value
+		"steel":
+			steel.text = value
+		"food":
+			food.text = value
+
+func update_turn_label(string: String, color: Color):
+	turn_label.text = str("   ", string, " turn   ")
+	turn_label.modulate = color

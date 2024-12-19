@@ -19,7 +19,6 @@ func _input(event: InputEvent) -> void:
 
 [sub_resource type="LabelSettings" id="LabelSettings_x8t36"]
 font_size = 30
-font_color = Color(1, 0, 0.462745, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 30

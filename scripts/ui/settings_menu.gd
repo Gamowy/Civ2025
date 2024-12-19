@@ -10,7 +10,6 @@ var prompt_type = null
 @onready var center = $Center
 @onready var prompt = $Prompt
 
-
 signal exit_settings
 signal save_game
 signal load_game
@@ -18,7 +17,16 @@ signal exit_to_menu
 signal master_volume_changed(volume:float)
 signal sfx_volume_changed(volume:float)
 
+var config_path = "user://config.cfg"
+var config = ConfigFile.new()
+
 func _ready() -> void:
+	var config_file = config.load(config_path)
+	if config_file == OK:
+		for settings in config.get_sections():
+			master_volume_slider.value = config.get_value(settings, "master_volume", 100)
+			sfx_volume_slider.value = config.get_value(settings, "sfx_volume", 100)
+	
 	center.visible = true
 	prompt.visible = false
 
@@ -26,6 +34,7 @@ func _ready() -> void:
 func _on_exit_button_pressed() -> void:
 	prompt.visible = false
 	center.visible = true
+	save_config()
 	exit_settings.emit()
 
 func _on_save_game_button_pressed() -> void:
@@ -49,10 +58,12 @@ func _on_main_menu_button_pressed() -> void:
 func _on_master_volume_slider_value_changed(value: float) -> void:
 	master_volume_label.text = str(value)
 	master_volume_changed.emit(master_volume_slider.value/100)
+	config.set_value("settings", "master_volume", value)
 	
 func _on_sfx_volume_slider_value_changed(value: float) -> void:
 	sfx_volume_label.text = str(value)
 	sfx_volume_changed.emit(sfx_volume_slider.value/100)
+	config.set_value("settings", "sfx_volume", value)
 	
 func _on_prompt_no() -> void:
 	prompt.visible = false
@@ -61,6 +72,7 @@ func _on_prompt_no() -> void:
 func _on_prompt_yes() -> void:
 	prompt.visible = false
 	center.visible = true
+	save_config()
 	match prompt_type:
 		Prompt_Type.SAVE_GAME:
 			save_game.emit()
@@ -76,3 +88,7 @@ func set_master_volume_info(volume_db:float):
 func set_sfx_volume_info(volume_db:float):
 	sfx_volume_slider.value=int(100*db_to_linear(volume_db))
 	sfx_volume_label.text=str(round(100*db_to_linear(volume_db)))
+
+func save_config() -> void:
+	config.save(config_path)
+	

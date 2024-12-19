@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=16 format=3 uid="uid://5qu464eye42a"]
 
 [ext_resource type="Texture2D" uid="uid://c874mkh8kh0q7" path="res://img/ui/Button_52x14.png" id="1_5d0vn"]
-[ext_resource type="FontFile" uid="uid://ckm33fjqnnpgp" path="res://resources/fonts/alagard_by_pix3m-d6awiwp.ttf" id="1_uqpga"]
+[ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="1_n6r5q"]
 [ext_resource type="Texture2D" uid="uid://udiu46gf6s1g" path="res://img/ui/GrabberIcon.png" id="2_msr73"]
 [ext_resource type="Texture2D" uid="uid://wqgssqxoj0ha" path="res://img/ui/RectangleBox_96x96.png" id="3_mi2l4"]
 
@@ -118,7 +118,7 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 8
 Button/font_sizes/font_size = 36
-Button/fonts/font = ExtResource("1_uqpga")
+Button/fonts/font = ExtResource("1_n6r5q")
 Button/styles/disabled = SubResource("StyleBoxTexture_u4e11")
 Button/styles/focus = SubResource("StyleBoxTexture_4wodg")
 Button/styles/hover = SubResource("StyleBoxTexture_4wodg")
@@ -142,13 +142,13 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 30
-Label/fonts/font = ExtResource("1_uqpga")
+Label/fonts/font = ExtResource("1_n6r5q")
 Label/styles/normal = SubResource("StyleBoxEmpty_safuv")
 Panel/styles/panel = SubResource("StyleBoxTexture_t6frc")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_48vaj")
 PopupMenu/font_sizes/font_size = 24
 PopupMenu/font_sizes/title_font_size = 24
-PopupMenu/fonts/font = ExtResource("1_uqpga")
-PopupMenu/fonts/title_font = ExtResource("1_uqpga")
+PopupMenu/fonts/font = ExtResource("1_n6r5q")
+PopupMenu/fonts/title_font = ExtResource("1_n6r5q")
 PopupMenu/styles/hover = SubResource("StyleBoxEmpty_ny66p")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_8el3a")

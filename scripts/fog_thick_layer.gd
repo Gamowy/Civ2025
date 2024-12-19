@@ -28,5 +28,6 @@ func get_uncovered_cells()->Array[Vector2i]:
 
 #to be used when switching between players or loading a saved game
 func restore_uncovered_cells(uncovered_cells:Array[Vector2i])->void:
+	generate_fog()
 	for cell in uncovered_cells:
 		erase_cell(cell)

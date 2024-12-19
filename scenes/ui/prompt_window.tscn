@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cd7v1b6dnp601"]
 
-[ext_resource type="Script" path="res://scripts/prompt_window.gd" id="1_bs841"]
+[ext_resource type="Script" path="res://scripts/ui/prompt_window.gd" id="1_bs841"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_fkw5p"]
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_cdxp3"]
-[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://sfx/button_no_press.ogg" id="4_ijd4b"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="4_ijd4b"]
 
 [node name="PromptWindow" type="Control"]
 layout_mode = 3
