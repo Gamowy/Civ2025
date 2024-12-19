@@ -16,8 +16,8 @@ extends Control
 @onready var building_manager=$BuildingManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 
-var build_sound:AudioStream=preload("res://sfx/build.ogg")
-var destroy_sound:AudioStream=preload("res://sfx/destroy_building.ogg")
+var build_sound:AudioStream=preload("res://audio/build.ogg")
+var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
 
 #determines current building mode
 var _building_mode:String="Build":
@@ -146,5 +146,6 @@ func _on_prompt_window_no() -> void:
 
 #exit building menu and unpause game
 func _on_exit_button_pressed() -> void:
+	city.update_city_info()
 	get_tree().paused=false
 	queue_free()

@@ -1,12 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7ktam7n0616x"]
 
-[ext_resource type="Script" path="res://scripts/buildings/mill.gd" id="1_pcxsa"]
+[ext_resource type="Script" path="res://scripts/buildings/resource_grainting_building.gd" id="1_dv1hu"]
 
 [node name="Mill" type="Node"]
-script = ExtResource("1_pcxsa")
+script = ExtResource("1_dv1hu")
 building_name = "Mill"
 building_description = "Produces 5 units of food every turn."
 building_picture = "res://img/buildings/mill.png"
 gold_cost = 3
 wood_cost = 3
 food_cost = 5
+food_production = 5

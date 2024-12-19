@@ -11,16 +11,17 @@ extends Sprite2D
 class_name City
 
 @onready var name_label:Label=$Label
-@onready var fog_disperser:FogDisperser=$FogDisperser
+@onready var fog_disperser:CityFogDisperser=$CityFogDisperser
+@onready var fog_disperser_point_light = $CityFogDisperser/PointLight2D
 @onready var resource_scan_area:Area2D=$Area2D
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
 @onready var flag:Sprite2D=$CityFlag
-var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
+var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
 ## The city's name
-@export var city_name:String=city_names.pick_random()
+@export var city_name:String=default_city_names.pick_random()
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
@@ -38,13 +39,12 @@ var city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mik
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
 
-
-var city_owner:Player#this should be the player that owns this city
-var buildings:Array[BuildingBaseClass]=[]
+@export_storage var city_owner: Player
+@export_storage var city_coords: Vector2i
+@export_storage var buildings: Array[BuildingBaseClass]=[]
 var resource_layer:ResourceLayer
-var city_info_arr = []
-
-
+var city_info_arr: Array
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !(get_tree().get_first_node_in_group("resource_layer") is ResourceLayer):
@@ -53,18 +53,15 @@ func _ready() -> void:
 		resource_layer=get_tree().get_first_node_in_group("resource_layer")
 	
 	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
-	#Dodane na potrzeby testu menu miast - Paweł
-	city_info_arr = [city_name, city_radius, city_health, gold_production, food_production, wood_production, stone_production, steel_production]
-	#koniec mojego dodania
 
 	name_label.text=city_name
 	if city_owner!=null:#set flag color to match that of the player
 		flag.modulate=city_owner.flag_color
 	fog_disperser.set_radius(city_radius)
+	fog_disperser.set_fog_disperser_enabled(true)
+	fog_disperser_point_light.visible = true
 	resource_scan_area.force_update_transform()
-	
-	
-	
+
 #collect resources produced by the city
 #and give them to the city owner
 func collect_resources()->void:
@@ -83,6 +80,10 @@ func collect_building_boons()->void:
 func set_city_owner(new_city_owner:Player):
 	city_owner=new_city_owner
 	flag.modulate=new_city_owner.flag_color
+	
+func set_city_name(new_city_name: String):
+	city_name = new_city_name
+	name_label.text = new_city_name
 
 #scan city area for resources, check type and increase production for found resources
 func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
@@ -94,43 +95,47 @@ func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_in
 		"stone":stone_production+=1
 		"steel":steel_production+=1
 
-func get_city_info()->String:
-	var city_info:String = "----------CITY INFO---------------\n"
-	city_info+="Name: "+city_name+"\n"
-	city_info+="City radius: "+str(city_radius)+"\n"
-	city_info+="HP: "+str(city_health)+"\n"
-	city_info+="Gold production: "+str(gold_production)+"\n"
-	city_info+="Food production: "+str(food_production)+"\n"
-	city_info+="Wood production: "+str(wood_production)+"\n"
-	city_info+="Stone production: "+str(stone_production)+"\n"
-	city_info+="Steel production: "+str(steel_production)+"\n"
-	city_info+="----------------------------------\n"
-	return city_info
-
-
-
-func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventScreenTouch and event.is_pressed():
-		print(get_city_info())
-		
-		#Dane do wyświetelenia w menu miasta
-		city_info_arr = [
+func update_city_info() -> void:
+	var buildings_gold_production = 0
+	var buildings_wood_production = 0
+	var buildings_stone_production = 0
+	var buildings_steel_production = 0
+	var buildings_food_production = 0
+	
+	for building in buildings:
+		buildings_gold_production += building.gold_production
+		buildings_wood_production += building.wood_production
+		buildings_stone_production += building.stone_production
+		buildings_steel_production += building.steel_production
+		buildings_food_production += building.food_production
+	
+	city_info_arr = [
 		"City radius: "+str(city_radius), 
 		"HP: "+str(city_health), 
-		"Gold production: "+str(gold_production), 
-		"Food production: "+str(food_production), 
-		"Wood production: "+str(wood_production), 
-		"Stone production: "+str(stone_production), 
-		"Steel production: "+str(steel_production)
+		"Gold production: "+str(gold_production + buildings_gold_production), 
+		"Food production: "+str(food_production + buildings_food_production), 
+		"Wood production: "+str(wood_production + buildings_wood_production), 
+		"Stone production: "+str(stone_production + buildings_stone_production), 
+		"Steel production: "+str(steel_production + buildings_steel_production)
 		]
-		
+	var i = 0
+	for property in city_info_arr:
+		city_menu.editTextOfButton(i, str(city_info_arr[i]))
+		i+=1	
+
+func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
 		#Nadanie nazwy menu - nazwa miasta
 		#Oraz dodanie informacji o tym mieście do menu
 		city_menu.menuName(city_name)
-		var i = 0
-		for property in city_info_arr:
-			city_menu.editTextOfButton(i, str(city_info_arr[i]))
-			i+=1
-		
+		update_city_info()
 		city_menu.windowPopup()
-		
+
+## Called when new city first appears on map
+func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:
+	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+	var fog_layer: FogThickLayer= get_tree().get_first_node_in_group("fog")
+	city_owner.uncovered_cells.append(coords)
+	if current_player == city_owner:
+		fog_layer.restore_uncovered_cells(current_player.uncovered_cells)

@@ -1,12 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://bk86rpg5llmoq"]
 
-[ext_resource type="Script" path="res://scripts/buildings/blacksmith.gd" id="1_0t0gg"]
+[ext_resource type="Script" path="res://scripts/buildings/resource_grainting_building.gd" id="1_a3g16"]
 
 [node name="Blacksmith" type="Node"]
-script = ExtResource("1_0t0gg")
+script = ExtResource("1_a3g16")
 building_name = "Blacksmith"
 building_description = "Produces 5 units of steel every turn."
 building_picture = "res://img/buildings/blacksmith.png"
 gold_cost = 3
 stone_cost = 3
 steel_cost = 5
+steel_production = 5

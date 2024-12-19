@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://ccb4rxxam716v"]
+[gd_scene load_steps=18 format=3 uid="uid://jbtltnr7ag8c"]
 
-[ext_resource type="Script" path="res://scripts/map.gd" id="1_5huqx"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_t6oqj"]
 [ext_resource type="Script" path="res://scripts/ui_layer.gd" id="3_l7sjw"]
@@ -14,19 +14,26 @@
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
-[ext_resource type="PackedScene" uid="uid://dkifdgmgejgib" path="res://scenes/city.tscn" id="14_3577x"]
+[ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
+[ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
 light_mode = 2
 
 [node name="Main" type="Node2D"]
-position = Vector2(0, 1)
 script = ExtResource("1_5huqx")
+
+[node name="PlayersManager" type="Node" parent="." groups=["players"]]
+script = ExtResource("15_u1y2v")
+
+[node name="Camera" parent="." instance=ExtResource("2_eceig")]
+can_zoom = true
+can_pan = true
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="TextureRect" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundTexture" type="TextureRect" parent="BackgroundLayer"]
 modulate = Color(0.687215, 0.687215, 0.687215, 1)
 z_index = -1
 z_as_relative = false
@@ -34,17 +41,9 @@ texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -20.5
-offset_top = -19.5
-offset_right = 20.5
-offset_bottom = 21.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_t6oqj")
-
-[node name="Camera" parent="." instance=ExtResource("2_eceig")]
-can_zoom = true
-can_pan = true
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -72,19 +71,17 @@ metadata/_edit_lock_ = true
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
-metadata/_edit_lock_ = true
 
 [node name="ResourceLayer" type="TileMapLayer" parent="Map" groups=["resource_layer"]]
 z_index = 1
 texture_filter = 1
 tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
-metadata/_edit_lock_ = true
 
 [node name="CityLayer" type="TileMapLayer" parent="Map"]
 z_index = 2
-tile_map_data = PackedByteArray(0, 0, 17, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 12, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 0)
 tile_set = ExtResource("7_y6bwc")
+script = ExtResource("12_nt62r")
 
 [node name="FogThickLayer" type="TileMapLayer" parent="Map" groups=["fog"]]
 light_mask = 0
@@ -96,11 +93,7 @@ metadata/_edit_lock_ = true
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
-[node name="BUILDING_MENU_TEST_CITY" parent="." instance=ExtResource("14_3577x")]
-position = Vector2(978, 91)
-city_name = "TEST_CITY"
-
-[node name="Label" type="Label" parent="."]
+[node name="ENEMY_UNIT_TEST" type="Label" parent="."]
 z_index = 2
 material = SubResource("CanvasItemMaterial_nxf7f")
 offset_left = 477.0
@@ -110,6 +103,10 @@ offset_bottom = 255.0
 text = "enemy
 unit"
 
+[connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
+[connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
+[connection signal="load_game" from="UILayer" to="." method="_on_ui_layer_load_game"]
+[connection signal="save_game" from="UILayer" to="." method="_on_ui_layer_save_game"]
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_civilization_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_civilization_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
