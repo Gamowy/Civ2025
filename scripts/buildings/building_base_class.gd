@@ -17,7 +17,6 @@ class_name BuildingBaseClass
 @export_multiline var building_description:String="No description."
 ## Picture representing the building.
 @export_file("*.png") var building_picture="res://img/essentials-4xgames-tileset/tile-village.png"
-@export_category("Cost")
 ## How many units of gold are required to build this building
 @export var gold_cost:int
 ## How many units of wood are required to build this building
@@ -28,17 +27,7 @@ class_name BuildingBaseClass
 @export var steel_cost:int
 ## How many units of food are required to build this building
 @export var food_cost:int
-@export_category("Production")
-## How many units of gold the building produces per turn
-@export var gold_production:int=0
-## How many units of wood the building produces per turn
-@export var wood_production:int=0
-## How many units of stone the building produces per turn
-@export var stone_production:int=0
-## How many units of steel the building produces per turn
-@export var steel_production:int=0
-## How many units of food the building produces per turn
-@export var food_production:int=0
+
 var cost:Dictionary={"gold":gold_cost,
 					"wood":wood_cost,
 					"stone":stone_cost,
@@ -48,12 +37,9 @@ var cost:Dictionary={"gold":gold_cost,
 #intended to be called at the start of every turn
 #for example to produce extra resources for
 #the building's owner
-func grant_boon(building_city:City)->void:
-	building_city.city_owner.gold+=gold_production
-	building_city.city_owner.wood+=wood_production
-	building_city.city_owner.stone+=stone_production
-	building_city.city_owner.steel+=steel_production
-	building_city.city_owner.food+=food_production
+func grant_boon(_building_city:City)->void:
+	printerr(name+": grant_boon function is not implemented")
+
 
 func print_info():
 	print("Name: "+building_name)

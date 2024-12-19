@@ -30,7 +30,6 @@ func build_building(building:BuildingBaseClass):
 	city.city_owner.steel-=cost["steel"]
 	city.city_owner.food-=cost["food"]
 	city.buildings.append(building)
-	city.update_city_menu_info()
 
 #checks if player can build a building
 func can_player_build_building(building:BuildingBaseClass)->bool:

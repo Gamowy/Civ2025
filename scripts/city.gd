@@ -30,17 +30,14 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var building_limit:int=5
 ## How many units of gold the city produces per turn
 @export var gold_production:int=1
+## How many units of food the city produces per turn
+@export var food_production:int=1
 ## How many units of wood the city produces per turn
 @export var wood_production:int=1
 ## How many units of stone the city produces per turn
 @export var stone_production:int=1
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
-## How many units of food the city produces per turn
-@export var food_production:int=1
-
-
-
 
 @export_storage var city_owner: Player
 @export_storage var city_coords: Vector2i
@@ -108,10 +105,10 @@ func get_city_info()->String:
 	city_info+="City radius: "+str(city_radius)+"\n"
 	city_info+="HP: "+str(city_health)+"\n"
 	city_info+="Gold production: "+str(gold_production)+"\n"
+	city_info+="Food production: "+str(food_production)+"\n"
 	city_info+="Wood production: "+str(wood_production)+"\n"
 	city_info+="Stone production: "+str(stone_production)+"\n"
 	city_info+="Steel production: "+str(steel_production)+"\n"
-	city_info+="Food production: "+str(food_production)+"\n"
 	city_info+="----------------------------------\n"
 	return city_info
 
@@ -119,26 +116,15 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
 		print(get_city_info())	
-		update_city_menu_info()
-		city_menu.menuName(city_name)
-		var i = 0
-		for property in city_info_arr:
-			city_menu.editTextOfButton(i, str(city_info_arr[i]))
-			i+=1
-		
-		city_menu.windowPopup()
-
-func update_city_menu_info():
 		#Dane do wyświetelenia w menu miasta
-		var production:Dictionary=get_actual_production_values()
 		city_info_arr = [
 		"City radius: "+str(city_radius), 
 		"HP: "+str(city_health), 
-		"Gold production: "+str(production["gold"]), 
-		"Wood production: "+str(production["wood"]), 
-		"Stone production: "+str(production["stone"]), 
-		"Steel production: "+str(production["steel"]),
-		"Food production: "+str(production["food"])
+		"Gold production: "+str(gold_production), 
+		"Food production: "+str(food_production), 
+		"Wood production: "+str(wood_production), 
+		"Stone production: "+str(stone_production), 
+		"Steel production: "+str(steel_production)
 		]		
 		#Nadanie nazwy menu - nazwa miasta
 		#Oraz dodanie informacji o tym mieście do menu
@@ -147,22 +133,8 @@ func update_city_menu_info():
 		for property in city_info_arr:
 			city_menu.editTextOfButton(i, str(city_info_arr[i]))
 			i+=1
-
-func get_actual_production_values()->Dictionary:
-	var actual_gold_production:int=gold_production
-	var actual_wood_production:int=wood_production
-	var actual_stone_production:int=stone_production
-	var actual_steel_production:int=steel_production
-	var actual_food_production:int=food_production
-	for building in buildings:
-		actual_gold_production+=building.gold_production
-		actual_wood_production+=building.wood_production
-		actual_stone_production+=building.stone_production
-		actual_steel_production+=building.steel_production
-		actual_food_production+=building.food_production
-	var actual_production_dict:Dictionary={"gold":actual_gold_production,"wood":actual_wood_production,
-	"stone":actual_stone_production,"steel":actual_steel_production,"food":actual_food_production}
-	return actual_production_dict
+		
+		city_menu.windowPopup()
 
 ## Called when new city first appears on map
 func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:

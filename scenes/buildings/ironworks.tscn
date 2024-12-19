@@ -10,4 +10,3 @@ building_picture = "res://img/buildings/ironworks.png"
 gold_cost = 10
 stone_cost = 5
 steel_cost = 15
-steel_production = 15

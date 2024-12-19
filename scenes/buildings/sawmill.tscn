@@ -10,4 +10,3 @@ building_picture = "res://img/buildings/sawmill.png"
 gold_cost = 10
 wood_cost = 15
 steel_cost = 5
-wood_production = 15
