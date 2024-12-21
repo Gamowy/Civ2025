@@ -1,4 +1,4 @@
-name: 'Export godot on PR'
+name: 'Build godot on PR'
 on:
   pull_request:
     types: [opened, reopened, synchronize]
