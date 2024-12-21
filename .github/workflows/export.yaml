@@ -37,7 +37,7 @@ jobs:
           name: Civ2025
           path: ${{ steps.export.outputs.build_directory }}/*
 
-      - name: Post apk
+      - name: Send apk
         uses: thollander/actions-comment-pull-request@v3.0.1
         with:
             message: 'Plik apk do przetestowania zmian na telefonie :iphone:<br> Link: ${{ steps.upload.outputs.artifact-url }}'
