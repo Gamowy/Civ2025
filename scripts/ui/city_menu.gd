@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var popup = $Center/Panel
 @onready var info: MenuButton = $Center/Panel/VBoxContainer/info
 @onready var title = $Center/MenuTitle/TitleLabel
-
+@onready var unitlayer = get_node("/root/Main/Map/UnitLayer")
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
@@ -34,3 +34,11 @@ func _on_build_pressed() -> void:
 	if get_parent() is City:
 		buildings_menu.city=get_parent()
 	add_child(buildings_menu)
+
+#func _on_recruit_pressed() -> void:
+#	print("boom")
+#	unitlayer.spawn_warrior()
+
+
+func _on_recruit_pressed():
+	unitlayer.spawn_warrior()
