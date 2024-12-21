@@ -1,0 +1,44 @@
+name: 'Export godot on PR'
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  export_apk:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: Export apk
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup java
+        uses: actions/setup-java@v4.6.0
+        with:
+          java-version: '17'
+          distribution: 'jetbrains'
+      
+      - name: Setup android
+        uses: android-actions/setup-android@v3
+
+      - name: Export game
+        id: export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          export_debug: true
+          relative_project_path: ./
+          
+      - name: Upload apk
+        id: upload
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: Civ2025
+          path: ${{ steps.export.outputs.build_directory }}/*
+
+      - name: Post apk
+        uses: thollander/actions-comment-pull-request@v3.0.1
+        with:
+            message: 'Plik apk do przetestowania zmian na telefonie :iphone:<br> Link: ${{ steps.upload.outputs.artifact-url }}'
+      
