@@ -1,0 +1,41 @@
+name: 'Publish release apk'
+on: 
+    push:
+      tags:
+      - 'v*'
+
+jobs:
+  publish_apk:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: Publish apk
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup java
+        uses: actions/setup-java@v4.6.0
+        with:
+          java-version: '17'
+          distribution: 'jetbrains'
+      
+      - name: Setup android
+        uses: android-actions/setup-android@v3
+
+      - name: Export game
+        id: export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          export_debug: true
+          archive_output: true
+          relative_project_path: ./
+      
+      - name: Publish apk
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          allowUpdates: true
+          removeArtifacts: true
+          tag: ${{ github.ref_name }}
+          artifacts: ${{ steps.export.outputs.archive_directory }}/*
