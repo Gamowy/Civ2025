@@ -1,5 +1,5 @@
 extends BuildingBaseClass
-class_name resource_granting_building
+class_name ResourceGrantingBuilding
 
 func grant_boon(building_city:City)->void:
 	building_city.city_owner.gold += gold_production
