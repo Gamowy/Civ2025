@@ -19,4 +19,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
 			pos_clicked = local_to_map(to_local(global_clicked))
-			#pos_clicked.x -= 1
+			pos_clicked.x += 1
+			pos_clicked.y -= 1

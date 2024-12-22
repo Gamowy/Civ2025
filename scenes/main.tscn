@@ -19,6 +19,9 @@
 [ext_resource type="Script" path="res://scripts/unit_layer.gd" id="16_fle2d"]
 
 [sub_resource type="TileSet" id="TileSet_2qcii"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(32, 28)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
 light_mode = 2
