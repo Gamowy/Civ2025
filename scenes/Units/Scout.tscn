@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dc8hkj8bnhye8"]
+
+[ext_resource type="Script" path="res://scripts/Units/scout.gd" id="1_et4t3"]
+[ext_resource type="Texture2D" uid="uid://1ig8fc3mr0xj" path="res://resources/Units/Scout.png" id="2_qt6wc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7to8"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m28c"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj3om"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dyfa"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_juxxi"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7at2"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amjo6"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubvor"]
+atlas = ExtResource("2_qt6wc")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7to8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m28c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj3om")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dyfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_juxxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7at2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amjo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubvor")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_et4t3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m07on")
+animation = &"Idle"
+autoplay = "Idle"

@@ -41,4 +41,4 @@ func _on_build_pressed() -> void:
 
 
 func _on_recruit_pressed():
-	unitlayer.spawn_warrior()
+	unitlayer.spawn_archmage()
