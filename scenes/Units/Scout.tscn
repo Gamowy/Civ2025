@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dc8hkj8bnhye8"]
+[gd_scene load_steps=13 format=3 uid="uid://dc8hkj8bnhye8"]
 
 [ext_resource type="Script" path="res://scripts/Units/scout.gd" id="1_et4t3"]
 [ext_resource type="Texture2D" uid="uid://1ig8fc3mr0xj" path="res://resources/Units/Scout.png" id="2_qt6wc"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rv20s"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x7to8"]
 atlas = ExtResource("2_qt6wc")
@@ -71,6 +74,7 @@ animations = [{
 script = ExtResource("1_et4t3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_rv20s")
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"

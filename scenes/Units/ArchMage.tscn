@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bo2anmodnfvwi"]
+[gd_scene load_steps=9 format=3 uid="uid://bo2anmodnfvwi"]
 
 [ext_resource type="Script" path="res://scripts/Units/arch_mage.gd" id="1_cbkqs"]
 [ext_resource type="Texture2D" uid="uid://dvv0522xixsr3" path="res://resources/Units/ArchMage.png" id="2_x7qhk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nvuwd"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qivm4"]
 atlas = ExtResource("2_x7qhk")
@@ -43,6 +46,7 @@ animations = [{
 script = ExtResource("1_cbkqs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_nvuwd")
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"

@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpj2np0vniipy"]
+[gd_scene load_steps=9 format=3 uid="uid://bpj2np0vniipy"]
 
 [ext_resource type="Script" path="res://scripts/Units/warrior.gd" id="1_061m6"]
 [ext_resource type="Texture2D" uid="uid://ig077oace0jl" path="res://resources/Units/SwordMan.png" id="2_y4xu3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gsogs"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ilxj"]
 atlas = ExtResource("2_y4xu3")
@@ -43,6 +46,7 @@ animations = [{
 script = ExtResource("1_061m6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_gsogs")
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"

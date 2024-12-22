@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var popup = $Center/Panel
 @onready var info: MenuButton = $Center/Panel/VBoxContainer/info
 @onready var title = $Center/MenuTitle/TitleLabel
-@onready var unitlayer = get_node("/root/Main/Map/UnitLayer")
+@onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
@@ -27,18 +27,11 @@ func editTextOfButton(i: int, text: String):
 	var itemChange = info.get_popup()
 	itemChange.set_item_text(i, text)
 
-# TODO UWAGA kiedy bedziemy juz mieli graczy trzeba bedzie sprawdzic czy dane miasto nalezy
-# do gracza obecnie wykonujacego ture przed wyswietleniem menu
 func _on_build_pressed() -> void:
 	var buildings_menu=load("res://scenes/ui/buildings_menu.tscn").instantiate()
 	if get_parent() is City:
 		buildings_menu.city=get_parent()
 	add_child(buildings_menu)
 
-#func _on_recruit_pressed() -> void:
-#	print("boom")
-#	unitlayer.spawn_warrior()
-
-
 func _on_recruit_pressed():
-	unitlayer.spawn_archmage()
+	unitlayer.spawn_warrior()

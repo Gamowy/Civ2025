@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://0d0766v5wur3"]
+[gd_scene load_steps=13 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
 [ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_06idc"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -71,6 +74,7 @@ animations = [{
 script = ExtResource("1_l7x35")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_06idc")
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"

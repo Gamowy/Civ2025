@@ -68,7 +68,6 @@ offset_right = 0.0
 [node name="Map" type="Node" parent="."]
 
 [node name="FogThinLayer" type="CanvasModulate" parent="Map"]
-z_index = 2
 position = Vector2(0, 1)
 color = Color(0.447059, 0.447059, 0.447059, 1)
 metadata/_edit_lock_ = true
@@ -89,17 +88,18 @@ z_index = 2
 tile_set = ExtResource("7_y6bwc")
 script = ExtResource("12_nt62r")
 
+[node name="UnitLayer" type="TileMapLayer" parent="Map"]
+z_index = 1
+tile_set = SubResource("TileSet_2qcii")
+script = ExtResource("16_fle2d")
+
 [node name="FogThickLayer" type="TileMapLayer" parent="Map" groups=["fog"]]
 light_mask = 0
-z_index = 3
+z_index = 4
 texture_filter = 1
 tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
-
-[node name="UnitLayer" type="TileMapLayer" parent="Map"]
-tile_set = SubResource("TileSet_2qcii")
-script = ExtResource("16_fle2d")
 
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 

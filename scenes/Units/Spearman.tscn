@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=9 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j8bpt"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c00ss"]
 atlas = ExtResource("2_xf8o8")
@@ -43,6 +46,7 @@ animations = [{
 script = ExtResource("1_ro8s4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_j8bpt")
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"
