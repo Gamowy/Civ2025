@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://idjj7t65s3nv"]
+
+[ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
+[ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_se3sf"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijqil"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(0, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvg8r"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(64, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b34hx"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(128, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5bek"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(192, 12, 64, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijqil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvg8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b34hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5bek")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fvn48")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_se3sf")
+sprite_frames = SubResource("SpriteFrames_m07on")
+animation = &"Idle"
+autoplay = "Idle"

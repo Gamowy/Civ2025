@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://0d0766v5wur3"]
+
+[ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
+[ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_06idc"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlpb2"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i17wy"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbexx"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21f2t"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvbxg"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toq32"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkgj2"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blpyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlpb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i17wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbexx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21f2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvbxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toq32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkgj2")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_l7x35")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_06idc")
+sprite_frames = SubResource("SpriteFrames_m07on")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.369376

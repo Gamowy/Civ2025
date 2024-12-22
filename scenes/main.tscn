@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://jbtltnr7ag8c"]
+[gd_scene load_steps=20 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -16,6 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 [ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
+[ext_resource type="Script" path="res://scripts/unit_layer.gd" id="16_fle2d"]
+
+[sub_resource type="TileSet" id="TileSet_2qcii"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(32, 28)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
 light_mode = 2
@@ -62,7 +68,6 @@ offset_right = 0.0
 [node name="Map" type="Node" parent="."]
 
 [node name="FogThinLayer" type="CanvasModulate" parent="Map"]
-z_index = 2
 position = Vector2(0, 1)
 color = Color(0.447059, 0.447059, 0.447059, 1)
 metadata/_edit_lock_ = true
@@ -83,9 +88,14 @@ z_index = 2
 tile_set = ExtResource("7_y6bwc")
 script = ExtResource("12_nt62r")
 
+[node name="UnitLayer" type="TileMapLayer" parent="Map"]
+z_index = 1
+tile_set = SubResource("TileSet_2qcii")
+script = ExtResource("16_fle2d")
+
 [node name="FogThickLayer" type="TileMapLayer" parent="Map" groups=["fog"]]
 light_mask = 0
-z_index = 3
+z_index = 4
 texture_filter = 1
 tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")

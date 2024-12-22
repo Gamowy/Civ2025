@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://c38ew0e8cor2y"]
+
+[ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
+[ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j8bpt"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c00ss"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(0, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rse5"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(64, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_achd3"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(128, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2thx"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(192, 12, 64, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c00ss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rse5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_achd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2thx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ro8s4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_j8bpt")
+sprite_frames = SubResource("SpriteFrames_m07on")
+animation = &"Idle"
+autoplay = "Idle"

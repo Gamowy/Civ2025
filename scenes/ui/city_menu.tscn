@@ -117,4 +117,5 @@ text = "   City name   "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="Center/Panel/VBoxContainer/recruit" to="." method="_on_recruit_pressed"]
 [connection signal="pressed" from="Center/Panel/VBoxContainer/build" to="." method="_on_build_pressed"]
