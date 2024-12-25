@@ -38,6 +38,8 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var stone_production:int=1
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
+## Status of city
+@export var city_level:int=0
 
 @export_storage var city_owner: Player
 @export_storage var city_coords: Vector2i
