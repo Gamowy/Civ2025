@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var info: MenuButton = $Center/Panel/VBoxContainer/info
 @onready var title = $Center/MenuTitle/TitleLabel
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
+@onready var upgrade: SoundButton = $Center/Panel/VBoxContainer/upgrade
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:

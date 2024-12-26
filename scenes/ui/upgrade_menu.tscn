@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://cw26sir1f7dlw"]
+[gd_scene load_steps=18 format=3 uid="uid://cw26sir1f7dlw"]
 
 [ext_resource type="Script" path="res://scripts/ui/upgrade_menu.gd" id="1_hce8h"]
 [ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_5bn5h"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_q5it3"]
+[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="4_8kq82"]
 [ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="6_h1oyh"]
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="7_s0kmt"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="8_bk1l7"]
@@ -96,45 +97,95 @@ theme = ExtResource("3_q5it3")
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="VBoxOwned" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 200)
+[node name="VBoxUpgradeInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 200)
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
-custom_minimum_size = Vector2(250, 200)
-layout_mode = 2
-
-[node name="Before" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer2"]
+[node name="Before" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
 layout_mode = 2
 text = "Before Upgrade"
 horizontal_alignment = 1
 
-[node name="AreaOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer2"]
+[node name="VBoxOwned" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(260, 90)
 layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="AreaOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "City Radius: 0"
 horizontal_alignment = 1
 
-[node name="BuildingsLimitOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer2"]
+[node name="BuildingsLimitOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
 layout_mode = 2
+offset_top = 41.0
+offset_right = 250.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Buildings Limit: 0"
+horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
-custom_minimum_size = Vector2(250, 150)
+[node name="VBoxBlank" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="After" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer"]
+[node name="After" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
 layout_mode = 2
 text = "After Upgrade"
 horizontal_alignment = 1
 
-[node name="AreaUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer"]
+[node name="VBoxUpgrade" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(250, 90)
 layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="AreaUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 37.0
 text = "City Radius: 0"
 horizontal_alignment = 1
 
-[node name="BuildingsLimitUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/VBoxContainer"]
+[node name="BuildingsLimitUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
 layout_mode = 2
+offset_top = 41.0
+offset_right = 250.0
+offset_bottom = 78.0
 text = "Buildings Limit: 0"
+horizontal_alignment = 1
+
+[node name="VBoxMaximumLevel" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+visible = false
+custom_minimum_size = Vector2(260, 90)
+layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxMaximumLevel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You have reached"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Label2" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxMaximumLevel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "the maxium level"
 horizontal_alignment = 1
 
 [node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
