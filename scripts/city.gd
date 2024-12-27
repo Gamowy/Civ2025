@@ -133,6 +133,8 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		city_menu.menuName(city_name)
 		update_city_info()
 		city_menu.windowPopup()
+		if city_level == 2:
+			city_menu.disableUpgrade()
 
 ## Called when new city first appears on map
 func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:

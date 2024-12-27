@@ -15,6 +15,7 @@ extends Control
 @onready var prompt_window=$PromptWindow
 @onready var building_manager=$BuildingManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
+@onready var buildings_limit_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 
 var build_sound:AudioStream=preload("res://audio/build.ogg")
 var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
@@ -63,7 +64,7 @@ func _update_owned_buildings()->void:
 		for building in city.buildings:
 			how_many+=1
 			owned_item_list.add_item(building.building_name,load(building.building_picture))
-	owned_label.text="Owned ("+str(how_many)+"/5)"
+	owned_label.text="Owned ("+str(how_many)+"/"+str(city.building_limit)+")"
 
 #updates displayed info
 func _display_building_info(building:BuildingBaseClass)->void:

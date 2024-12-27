@@ -207,7 +207,10 @@ horizontal_alignment = 1
 [node name="Description" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
 custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 21
+text = "Your city radius and
+building limit will increase by 0"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="CostLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]

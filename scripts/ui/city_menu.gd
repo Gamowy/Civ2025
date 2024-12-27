@@ -23,6 +23,9 @@ func windowPopup():
 func menuName(cityName: String):
 	title.text = str("   ", cityName, "   ")
 
+func disableUpgrade():
+	upgrade.disabled = true
+
 #Funkcja potrzebna do wyświetlenia informacji o mieście
 func editTextOfButton(i: int, text: String):
 	var itemChange = info.get_popup()
@@ -42,3 +45,4 @@ func _on_upgrade_pressed() -> void:
 
 func _on_recruit_pressed():
 	unitlayer.spawn_warrior()
+	
