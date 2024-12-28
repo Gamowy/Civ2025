@@ -9,17 +9,15 @@ extends Control
 @onready var v_box_upgrade: ItemList = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade
 @onready var v_box_maximum_level: ItemList = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxMaximumLevel
 @onready var button_upgrade: SoundButton = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonUpgrade
-@onready var label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var gold_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold/GoldCost
 @onready var wood_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood/WoodCost
 @onready var stone_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone/StoneCost
 @onready var steel_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer/SteelCost
 @onready var food_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2/FoodCost
 @onready var description_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/Description
-@onready var city_fog_disperser: CityFogDisperser = $CityFogDisperser
 
-var village: CompressedTexture2D = load("res://img/buildings/farm.png") as CompressedTexture2D
-var town: CompressedTexture2D = load("res://img/buildings/town_hall.png") as CompressedTexture2D
+var city_texture: CompressedTexture2D = load("res://img/city.png") as CompressedTexture2D
+var town_texture: CompressedTexture2D = load("res://img/town.png") as CompressedTexture2D
 
 var city:City
 var selected_building:BuildingBaseClass
@@ -59,15 +57,15 @@ func first_upgrade_info() -> void:
 	else:
 		button_upgrade.disabled = true
 	
-	
-	
+		
 func first_upgrade_upgrade() -> void:
 	city.city_level+=1
 	city.city_radius+=2
 	city.building_limit+=2
+	city.city_health+=20
 	city.fog_disperser.set_radius(city.city_radius)
 	upgrade_cost(10,2,2,2,2)
-	city.texture = village
+	city.texture = town_texture
 	
 func second_upgrade_info() -> void:
 	before.text = "Level 2: Town"
@@ -91,9 +89,10 @@ func second_upgrade_upgrade() -> void:
 	city.city_level+=1
 	city.city_radius+=3
 	city.building_limit+=3
+	city.city_health+=30
 	city.fog_disperser.set_radius(city.city_radius)
 	upgrade_cost(20,4,4,4,4)
-	city.texture = town
+	city.texture = city_texture
 
 func third_upgrade_info() -> void:
 	after.visible = false
