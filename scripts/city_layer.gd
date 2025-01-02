@@ -59,3 +59,6 @@ func reload_city(saved_city: City) -> void:
 	cities[cities.size()-1].city_health = saved_city.city_health
 	cities[cities.size()-1].building_limit = saved_city.building_limit
 	cities[cities.size()-1].buildings = saved_city.buildings
+	cities[cities.size()-1].city_level = saved_city.city_level
+	cities[cities.size()-1].fog_disperser.set_radius(saved_city.city_radius)
+	cities[cities.size()-1].texture = saved_city.texture
