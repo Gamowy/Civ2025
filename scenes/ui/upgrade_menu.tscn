@@ -1,0 +1,367 @@
+[gd_scene load_steps=18 format=3 uid="uid://cw26sir1f7dlw"]
+
+[ext_resource type="Script" path="res://scripts/ui/upgrade_menu.gd" id="1_hce8h"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_5bn5h"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="3_q5it3"]
+[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="4_8kq82"]
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="6_h1oyh"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="7_s0kmt"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="8_bk1l7"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="9_0hgl7"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="10_n1d3t"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="11_cnbmh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
+shader = ExtResource("2_5bn5h")
+shader_parameter/lod = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5v2"]
+atlas = ExtResource("6_h1oyh")
+region = Rect2(324, 387, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnqd6"]
+atlas = ExtResource("6_h1oyh")
+region = Rect2(3, 547, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6in8"]
+atlas = ExtResource("6_h1oyh")
+region = Rect2(35, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kq4a"]
+atlas = ExtResource("6_h1oyh")
+region = Rect2(99, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrtq5"]
+atlas = ExtResource("6_h1oyh")
+region = Rect2(3, 483, 26, 26)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pjb1"]
+
+[node name="UpgradesMenu" type="Control"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hce8h")
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fgfvw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.5
+offset_top = -291.5
+offset_right = 436.5
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -310.0
+offset_right = 404.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("3_q5it3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VBoxUpgradeInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 200)
+layout_mode = 2
+
+[node name="Before" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+layout_mode = 2
+text = "Before Upgrade"
+horizontal_alignment = 1
+
+[node name="VBoxOwned" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(260, 90)
+layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="AreaOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "City Radius: 0"
+horizontal_alignment = 1
+
+[node name="BuildingsLimitOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
+layout_mode = 2
+offset_top = 41.0
+offset_right = 250.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Buildings Limit: 0"
+horizontal_alignment = 1
+
+[node name="VBoxBlank" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="After" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+layout_mode = 2
+text = "After Upgrade"
+horizontal_alignment = 1
+
+[node name="VBoxUpgrade" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+custom_minimum_size = Vector2(250, 90)
+layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="AreaUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 37.0
+text = "City Radius: 0"
+horizontal_alignment = 1
+
+[node name="BuildingsLimitUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
+layout_mode = 2
+offset_top = 41.0
+offset_right = 250.0
+offset_bottom = 78.0
+text = "Buildings Limit: 0"
+horizontal_alignment = 1
+
+[node name="VBoxMaximumLevel" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
+visible = false
+custom_minimum_size = Vector2(260, 90)
+layout_mode = 2
+theme = ExtResource("4_8kq82")
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxMaximumLevel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You have reached"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Label2" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxMaximumLevel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "the maximum level"
+horizontal_alignment = 1
+
+[node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+text = "Info"
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Description"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Your city radius and
+building limit will increase by 0"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CostLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Cost"
+horizontal_alignment = 1
+
+[node name="HBoxCostInfo" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxGold" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_cs5v2")
+
+[node name="GoldCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxWood" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="WoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_qnqd6")
+
+[node name="WoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxStone" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="StoneTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_j6in8")
+
+[node name="StoneCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SteelTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_6kq4a")
+
+[node name="SteelCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="FoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_mrtq5")
+
+[node name="FoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="ButtonUpgrade" type="Button" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+focus_mode = 0
+theme_override_font_sizes/font_size = 22
+text = "Upgrade"
+script = ExtResource("7_s0kmt")
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = -4.0
+offset_right = 136.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 4
+theme = ExtResource("3_q5it3")
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("8_bk1l7")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -135.5
+offset_top = -27.5
+offset_right = -32.5
+offset_bottom = 80.5
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3pjb1")
+icon = ExtResource("9_0hgl7")
+flat = true
+expand_icon = true
+script = ExtResource("7_s0kmt")
+press_sound = ExtResource("10_n1d3t")
+
+[node name="PromptWindow" parent="." instance=ExtResource("11_cnbmh")]
+visible = false
+layout_mode = 1
+text = "Destroy selected building?"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonUpgrade" to="." method="_on_button_upgrade_pressed"]
+[connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
+[connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

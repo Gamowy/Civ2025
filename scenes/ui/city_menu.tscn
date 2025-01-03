@@ -12,7 +12,6 @@ layer = 2
 script = ExtResource("1_tgyn3")
 
 [node name="Center" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -85,6 +84,12 @@ focus_mode = 0
 text = "Build"
 script = ExtResource("3_15xnh")
 
+[node name="upgrade" type="Button" parent="Center/Panel/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Upgrade"
+script = ExtResource("3_15xnh")
+
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
 anchors_preset = 8
@@ -92,10 +97,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -115.5
-offset_top = -191.875
-offset_right = 115.5
-offset_bottom = -134.125
+offset_left = -109.5
+offset_top = -233.0
+offset_right = 109.5
+offset_bottom = -178.25
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -119,3 +124,4 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="Center/Panel/VBoxContainer/recruit" to="." method="_on_recruit_pressed"]
 [connection signal="pressed" from="Center/Panel/VBoxContainer/build" to="." method="_on_build_pressed"]
+[connection signal="pressed" from="Center/Panel/VBoxContainer/upgrade" to="." method="_on_upgrade_pressed"]

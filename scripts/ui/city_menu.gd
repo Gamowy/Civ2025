@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var info: MenuButton = $Center/Panel/VBoxContainer/info
 @onready var title = $Center/MenuTitle/TitleLabel
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
+@onready var upgrade: SoundButton = $Center/Panel/VBoxContainer/upgrade
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
@@ -22,6 +23,9 @@ func windowPopup():
 func menuName(cityName: String):
 	title.text = str("   ", cityName, "   ")
 
+func disableUpgrade():
+	upgrade.disabled = true
+
 #Funkcja potrzebna do wyświetlenia informacji o mieście
 func editTextOfButton(i: int, text: String):
 	var itemChange = info.get_popup()
@@ -33,5 +37,12 @@ func _on_build_pressed() -> void:
 		buildings_menu.city=get_parent()
 	add_child(buildings_menu)
 
+func _on_upgrade_pressed() -> void:
+	var upgrade_menu=load("res://scenes/ui/upgrade_menu.tscn").instantiate()
+	if get_parent() is City:
+		upgrade_menu.city=get_parent()
+	add_child(upgrade_menu)
+
 func _on_recruit_pressed():
 	unitlayer.spawn_warrior()
+	

@@ -38,6 +38,8 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var stone_production:int=1
 ## How many units of steel the city produces per turn
 @export var steel_production:int=1
+## Status of city
+@export var city_level:int=0
 
 @export_storage var city_owner: Player
 @export_storage var city_coords: Vector2i
@@ -84,7 +86,11 @@ func set_city_owner(new_city_owner:Player):
 func set_city_name(new_city_name: String):
 	city_name = new_city_name
 	name_label.text = new_city_name
-
+	
+func set_city_radius(new_radius: int):
+	city_radius = new_radius
+	resource_scan_area_shape.radius=city_radius*MapInfo.CELL_SIZE
+	
 #scan city area for resources, check type and increase production for found resources
 func _on_area_2d_body_shape_entered(body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	var cell:Vector2i=(resource_layer.get_coords_for_body_rid(body_rid))
@@ -123,7 +129,7 @@ func update_city_info() -> void:
 		city_menu.editTextOfButton(i, str(city_info_arr[i]))
 		i+=1	
 
-func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:		
 	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 	if event is InputEventScreenTouch and event.is_pressed() and current_player == city_owner:
 		#Nadanie nazwy menu - nazwa miasta
@@ -131,6 +137,8 @@ func _on_touch_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 		city_menu.menuName(city_name)
 		update_city_info()
 		city_menu.windowPopup()
+		if city_level == 2:
+			city_menu.disableUpgrade()
 
 ## Called when new city first appears on map
 func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:
