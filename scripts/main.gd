@@ -145,3 +145,7 @@ func _on_ui_layer_save_game() -> void:
 func _on_ui_layer_load_game() -> void:
 	load_game()
 	setup_current_player()
+
+# PlayerManager signal handlers
+func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
+	user_interface.update_resources(resource, str(value))
