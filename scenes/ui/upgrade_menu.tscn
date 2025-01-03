@@ -185,7 +185,7 @@ anchor_bottom = 1.0
 offset_top = -37.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "the maxium level"
+text = "the maximum level"
 horizontal_alignment = 1
 
 [node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]

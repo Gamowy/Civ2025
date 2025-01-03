@@ -60,7 +60,7 @@ func first_upgrade_info() -> void:
 		
 func first_upgrade_upgrade() -> void:
 	city.city_level+=1
-	city.city_radius+=2
+	city.set_city_radius(city.city_radius+2)
 	city.building_limit+=2
 	city.city_health+=20
 	city.fog_disperser.set_radius(city.city_radius)
@@ -87,7 +87,7 @@ func second_upgrade_info() -> void:
 	
 func second_upgrade_upgrade() -> void:
 	city.city_level+=1
-	city.city_radius+=3
+	city.set_city_radius(city.city_radius+3)
 	city.building_limit+=3
 	city.city_health+=30
 	city.fog_disperser.set_radius(city.city_radius)
@@ -103,6 +103,7 @@ func third_upgrade_info() -> void:
 	buildings_limit_owned.text = "Buildings Limit: " + str(city.building_limit)
 	description_label.text = ""
 	_display_building_info(0,0,0,0,0)
+	
 
 func _on_exit_button_pressed() -> void:
 	city.update_city_info()

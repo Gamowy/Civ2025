@@ -55,7 +55,7 @@ func reload_city(saved_city: City) -> void:
 	var players_manager: PlayersManager = get_tree().get_first_node_in_group("players")
 	var saved_city_owner: Player = players_manager.players[saved_city.city_owner.player_id]
 	add_city(saved_city.city_coords, saved_city_owner, saved_city.city_name)
-	cities[cities.size()-1].city_radius = saved_city.city_radius
+	cities[cities.size()-1].set_city_radius(saved_city.city_radius)
 	cities[cities.size()-1].city_health = saved_city.city_health
 	cities[cities.size()-1].building_limit = saved_city.building_limit
 	cities[cities.size()-1].buildings = saved_city.buildings

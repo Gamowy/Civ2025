@@ -13,6 +13,7 @@ outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vepcl"]
+resource_local_to_scene = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fbglb"]
 radius = 14.0
