@@ -107,13 +107,14 @@ text = "Before Upgrade"
 horizontal_alignment = 1
 
 [node name="VBoxOwned" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
-custom_minimum_size = Vector2(260, 90)
+custom_minimum_size = Vector2(280, 90)
 layout_mode = 2
 theme = ExtResource("4_8kq82")
 
 [node name="AreaOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
 layout_mode = 2
-offset_right = 250.0
+offset_left = 7.0
+offset_right = 275.0
 offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -122,8 +123,9 @@ horizontal_alignment = 1
 
 [node name="BuildingsLimitOwned" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxOwned"]
 layout_mode = 2
+offset_left = 5.0
 offset_top = 41.0
-offset_right = 250.0
+offset_right = 276.0
 offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -140,28 +142,30 @@ text = "After Upgrade"
 horizontal_alignment = 1
 
 [node name="VBoxUpgrade" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
-custom_minimum_size = Vector2(250, 90)
+custom_minimum_size = Vector2(280, 90)
 layout_mode = 2
 theme = ExtResource("4_8kq82")
 
 [node name="AreaUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
 layout_mode = 2
-offset_right = 250.0
+offset_left = 5.0
+offset_right = 276.0
 offset_bottom = 37.0
 text = "City Radius: 0"
 horizontal_alignment = 1
 
 [node name="BuildingsLimitUpgrade" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo/VBoxUpgrade"]
 layout_mode = 2
+offset_left = 6.0
 offset_top = 41.0
-offset_right = 250.0
+offset_right = 277.0
 offset_bottom = 78.0
 text = "Buildings Limit: 0"
 horizontal_alignment = 1
 
 [node name="VBoxMaximumLevel" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxUpgradeInfo"]
 visible = false
-custom_minimum_size = Vector2(260, 90)
+custom_minimum_size = Vector2(280, 90)
 layout_mode = 2
 theme = ExtResource("4_8kq82")
 
@@ -170,6 +174,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "You have reached"

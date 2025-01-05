@@ -14,6 +14,7 @@ var save_path = "user://save.dat"
 # ---------------------------------------------------------------------
 
 @onready var user_interface = $UILayer/UserInterface
+@onready var turn_transition = $UILayer/SwitchTurnTransition
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
@@ -129,10 +130,14 @@ func load_game():
 		printerr("Save file not found!")
 	
 func switch_turns() -> void:
+	turn_transition.fade_to_black()
+	await turn_transition.transition_finished
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
 	city_layer.get_resources_from_cities(players_manager.current_player)
 	players_manager.switch_players()
 	setup_current_player()
+	turn_transition.fade_to_normal()
+	await turn_transition.transition_finished
 	
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:

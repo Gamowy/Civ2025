@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://jbtltnr7ag8c"]
+[gd_scene load_steps=25 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -11,12 +11,67 @@
 [ext_resource type="Script" path="res://scripts/resource_layer.gd" id="6_scdat"]
 [ext_resource type="TileSet" uid="uid://o4nwph64r4uk" path="res://resources/tilesets/city_tileset.tres" id="7_y6bwc"]
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
+[ext_resource type="Script" path="res://scripts/ui_elements/switch_turn_transition.gd" id="8_yokiu"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
 [ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 [ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
 [ext_resource type="Script" path="res://scripts/unit_layer.gd" id="16_fle2d"]
+
+[sub_resource type="Animation" id="Animation_2h1k4"]
+resource_name = "fade_to_black"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchTurnTransition/BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.43333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jvtkf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchTurnTransition/BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cvh7q"]
+resource_name = "fade_to_normal"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchTurnTransition/BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ioxtu"]
+_data = {
+"RESET": SubResource("Animation_jvtkf"),
+"fade_to_black": SubResource("Animation_2h1k4"),
+"fade_to_normal": SubResource("Animation_cvh7q")
+}
 
 [sub_resource type="TileSet" id="TileSet_2qcii"]
 tile_shape = 3
@@ -64,6 +119,21 @@ mouse_filter = 1
 visible = false
 offset_left = 0.0
 offset_right = 0.0
+
+[node name="SwitchTurnTransition" type="AnimationPlayer" parent="UILayer"]
+libraries = {
+"": SubResource("AnimationLibrary_ioxtu")
+}
+script = ExtResource("8_yokiu")
+
+[node name="BlackScreen" type="ColorRect" parent="UILayer/SwitchTurnTransition"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
 [node name="Map" type="Node" parent="."]
 
@@ -126,3 +196,4 @@ unit"
 [connection signal="master_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_master_volume_changed"]
 [connection signal="save_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_save_game"]
 [connection signal="sfx_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_sfx_volume_changed"]
+[connection signal="animation_finished" from="UILayer/SwitchTurnTransition" to="UILayer/SwitchTurnTransition" method="_on_animation_finished"]
