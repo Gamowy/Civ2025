@@ -129,7 +129,6 @@ func _on_button_build_pressed() -> void:
 		if building_manager.can_player_build_building(selected_building)==false:
 			build_button.disabled=true
 
-
 # make sure player wants to destroy building
 func _on_prompt_window_yes() -> void:
 	building_manager.destroy_building(selected_building)
@@ -143,7 +142,6 @@ func _on_prompt_window_yes() -> void:
 # cancel destroying building
 func _on_prompt_window_no() -> void:
 	prompt_window.visible=false
-
 
 #exit building menu and unpause game
 func _on_exit_button_pressed() -> void:

@@ -5,8 +5,8 @@ extends Control
 
 @onready var prompt_content = $Center/PanelContainer/Content/PromptText
 
-signal no
 signal yes
+signal no
 
 func _ready() -> void:
 	prompt_content.text = text

@@ -1,0 +1,295 @@
+[gd_scene load_steps=19 format=3 uid="uid://bcwni1q5fqi87"]
+
+[ext_resource type="Script" path="res://scripts/ui/actions_menu.gd" id="1_3p6un"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="1_iuuxg"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="2_wc1wx"]
+[ext_resource type="Theme" uid="uid://ch03rvsjj8k6x" path="res://resources/themes/item_list_theme.tres" id="3_hv3kn"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_item_list.gd" id="4_dmkmf"]
+[ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="5_ise7i"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="6_5aefo"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="7_kpyko"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="8_e8coh"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="9_e3ud8"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="10_hlbhi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
+shader = ExtResource("1_iuuxg")
+shader_parameter/lod = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5v2"]
+atlas = ExtResource("5_ise7i")
+region = Rect2(324, 387, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnqd6"]
+atlas = ExtResource("5_ise7i")
+region = Rect2(3, 547, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6in8"]
+atlas = ExtResource("5_ise7i")
+region = Rect2(35, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kq4a"]
+atlas = ExtResource("5_ise7i")
+region = Rect2(99, 548, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrtq5"]
+atlas = ExtResource("5_ise7i")
+region = Rect2(3, 483, 26, 26)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pjb1"]
+
+[node name="ActionsMenu" type="Control"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3p6un")
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fgfvw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.5
+offset_top = -291.5
+offset_right = 436.5
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -310.0
+offset_right = 404.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center/CenterContainer"]
+custom_minimum_size = Vector2(720, 0)
+layout_mode = 2
+theme = ExtResource("2_wc1wx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxActions" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions"]
+layout_mode = 2
+text = "Actions"
+horizontal_alignment = 1
+
+[node name="ActionsList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_hv3kn")
+allow_search = false
+max_columns = 0
+same_column_width = true
+fixed_column_width = 250
+fixed_icon_size = Vector2i(64, 64)
+script = ExtResource("4_dmkmf")
+
+[node name="VBoxInfo" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+text = "Info"
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Description"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 2
+
+[node name="CostLabel" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Cost"
+horizontal_alignment = 1
+
+[node name="HBoxCostInfo" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxGold" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_cs5v2")
+
+[node name="GoldCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxWood" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="WoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_qnqd6")
+
+[node name="WoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxStone" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="StoneTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_j6in8")
+
+[node name="StoneCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SteelTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_6kq4a")
+
+[node name="SteelCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2"]
+layout_mode = 2
+
+[node name="FoodTexture" type="TextureRect" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_mrtq5")
+
+[node name="FoodCost" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="ActionButton" type="Button" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+focus_mode = 0
+theme_override_font_sizes/font_size = 22
+disabled = true
+text = "Buy"
+script = ExtResource("6_5aefo")
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = -4.0
+offset_right = 136.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 4
+theme = ExtResource("2_wc1wx")
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("7_kpyko")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "   Civilization   "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -147.0
+offset_top = -20.0
+offset_right = -44.0
+offset_bottom = 88.0
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3pjb1")
+icon = ExtResource("8_e8coh")
+flat = true
+expand_icon = true
+script = ExtResource("6_5aefo")
+press_sound = ExtResource("9_e3ud8")
+
+[node name="PromptWindow" parent="." instance=ExtResource("10_hlbhi")]
+visible = false
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList" to="." method="_on_scroll_actions_list"]
+[connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList" to="." method="_on_actions_list_item_selected"]
+[connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]

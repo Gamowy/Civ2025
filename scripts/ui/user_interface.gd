@@ -9,14 +9,14 @@ extends Control
 @onready var turn_label = $CenterBottom/TurnLabel
 
 signal open_settings
-signal open_civilization_menu
+signal open_actions_menu
 signal end_turn
 
 func _on_settings_button_pressed() -> void:
 	open_settings.emit()
 
-func _on_civilization_button_pressed() -> void:
-	open_civilization_menu.emit()
+func _on_actions_button_pressed() -> void:
+	open_actions_menu.emit()
 
 func _on_end_turn_button_pressed() -> void:
 	end_turn.emit()
