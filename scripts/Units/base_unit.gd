@@ -13,22 +13,28 @@ var ownerID: int = -1
 
 
 #Unit movement
-func move_to(target_position: Vector2, unit_layer: TileMapLayer) -> bool:
+func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
+	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
-	var distance = hex_coords.distance_to(target_position)
+	var distance = hex_coords.distance_to(target_hex)
 	var move_time = distance
 	#Checking if there is no obstacle and if unit can move there
-	if distance <= movementRange and unit_layer.is_cell_free(target_position):
+	if distance <= movementRange and unit_layer.is_cell_free(target_hex):
 		var tween = create_tween()
 		#position = unit_layer.map_to_local(target_position)
+		if target_position.x < position.x:
+			sprite.flip_h = true
+		else:
+			sprite.flip_h = false
+		
 		sprite.play("Walk")
-		tween.tween_property(self,"position",unit_layer.map_to_local(target_position), move_time)
+		tween.tween_property(self,"position",unit_layer.map_to_local(target_hex), move_time)
 		tween.finished.connect(func():
 			sprite.play("Idle")
 			)
 		return true
 		
-	return false
+	return true
 		
 
 func takeDamage(damage: int):
