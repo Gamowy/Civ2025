@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cucaciw8btpl0"]
+[gd_scene load_steps=16 format=3 uid="uid://cucaciw8btpl0"]
 
 [ext_resource type="Script" path="res://scripts/Units/archer.gd" id="1_g2ghf"]
 [ext_resource type="Texture2D" uid="uid://q1wimt04swd0" path="res://resources/Units/Archer.png" id="2_fwosj"]
@@ -25,6 +25,30 @@ region = Rect2(128, 12, 64, 52)
 atlas = ExtResource("2_fwosj")
 region = Rect2(192, 12, 64, 52)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcqf4"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(0, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v55mm"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(64, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbpib"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(128, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wybf6"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(192, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eskn"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(256, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vsp2"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(320, 76, 64, 52)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
 "frames": [{
@@ -43,6 +67,29 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcqf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v55mm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbpib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wybf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eskn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vsp2")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 8.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -53,7 +100,5 @@ script = ExtResource("1_g2ghf")
 material = SubResource("CanvasItemMaterial_fd3v3")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Idle"
+animation = &"Walk"
 autoplay = "Idle"
-frame = 2
-frame_progress = 0.96219

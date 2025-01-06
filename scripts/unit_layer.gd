@@ -26,7 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			if selected_unit:
 				if selected_unit.move_to(pos_clicked, self):
-					print("Unit mover succesfully.")
+					print("Unit moved succesfully.")
 					selected_unit = null
 					clear_highlight()
 				else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1o18kkh3ayxf"]
+[gd_scene load_steps=15 format=3 uid="uid://c1o18kkh3ayxf"]
 
 [ext_resource type="Script" path="res://scripts/Units/crossbowman.gd" id="1_a5tle"]
 [ext_resource type="Texture2D" uid="uid://devfkf6fyy5xh" path="res://resources/Units/CrossbowMan.png" id="2_8pufn"]
@@ -22,6 +22,30 @@ region = Rect2(128, 12, 64, 52)
 atlas = ExtResource("2_8pufn")
 region = Rect2(192, 12, 64, 52)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo22v"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(0, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn5hv"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(64, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xye7"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(128, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ym5t"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(192, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mlha"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(256, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bodo"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(320, 76, 64, 52)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
 "frames": [{
@@ -40,6 +64,29 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vo22v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn5hv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xye7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ym5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mlha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bodo")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 8.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -49,5 +96,5 @@ script = ExtResource("1_a5tle")
 material = SubResource("CanvasItemMaterial_eeeb1")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Idle"
+animation = &"Walk"
 autoplay = "Idle"
