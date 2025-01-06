@@ -67,7 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 						build_city(pos_clicked)
 				else:
 					# Display info about incorrect city placment and wait for some time before reverting to old message
-					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.FIREBRICK, 3)
+					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.RED, 3)
 
 func get_coords_around_cities() -> Array[Vector2i]:
 	var cities: Array[City] = city_layer.cities

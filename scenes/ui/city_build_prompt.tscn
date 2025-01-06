@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ce43vxqbljdqo"]
+[gd_scene load_steps=10 format=3 uid="uid://ce43vxqbljdqo"]
 
 [ext_resource type="Script" path="res://scripts/ui/city_build_prompt.gd" id="1_gqrnv"]
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/village.png" id="2_0o1eh"]
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="2_tsvun"]
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_8ear7"]
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="4_rctlr"]
+[ext_resource type="AudioStream" uid="uid://cwp1xpdjfbxot" path="res://audio/build.ogg" id="5_k05o4"]
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="5_pghu5"]
 [ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="6_vp3gc"]
 
@@ -65,7 +66,8 @@ max_lines_visible = 4
 
 [node name="CityNameEdit" type="LineEdit" parent="Center/PanelContainer/Content/VBoxContainer"]
 layout_mode = 2
-max_length = 20
+placeholder_text = "City name"
+max_length = 15
 right_icon = ExtResource("2_0o1eh")
 
 [node name="BuildButton" type="Button" parent="Center/PanelContainer/Content"]
@@ -74,6 +76,7 @@ size_flags_horizontal = 3
 focus_mode = 0
 text = "Build"
 script = ExtResource("3_8ear7")
+press_sound = ExtResource("5_k05o4")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 2
@@ -119,5 +122,6 @@ script = ExtResource("3_8ear7")
 press_sound = ExtResource("6_vp3gc")
 metadata/_edit_lock_ = true
 
+[connection signal="text_changed" from="Center/PanelContainer/Content/VBoxContainer/CityNameEdit" to="." method="_on_city_name_edit_text_changed"]
 [connection signal="pressed" from="Center/PanelContainer/Content/BuildButton" to="." method="_on_build_button_pressed"]
 [connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
