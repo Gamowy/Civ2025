@@ -47,6 +47,7 @@ script = ExtResource("1_uuqkf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_hg4jl")
+position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Idle"
 autoplay = "Idle"

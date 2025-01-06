@@ -7,8 +7,8 @@ var pos_clicked # = Vector2(0,0)
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 
 func spawn_warrior():
-	pos_clicked.x += 1
-	pos_clicked.y -= 1
+	#pos_clicked.x += 1
+	#pos_clicked.y -= 1
 	print("boom")
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)

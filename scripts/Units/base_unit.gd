@@ -10,15 +10,17 @@ var rangeOfView: int = 2
 var ownerID: int = -1
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
+#var tween = get_tree().create_tween()
 
 #Unit movement
 func move_to(target_position: Vector2, unit_layer: TileMapLayer) -> bool:
 	var hex_coords = unit_layer.local_to_map(position)
 	var distance = hex_coords.distance_to(target_position)
-	
+	var move_time = distance * 2.0
 	#Checking if there is no obstacle and if unit can move there
 	if distance <= movementRange and unit_layer.is_cell_free(target_position):
 		position = unit_layer.map_to_local(target_position)
+		#tween.tween_property(self,"position",target_position,1)
 		return true
 		
 	return false

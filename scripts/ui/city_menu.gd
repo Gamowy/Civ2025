@@ -44,5 +44,7 @@ func _on_upgrade_pressed() -> void:
 	add_child(upgrade_menu)
 
 func _on_recruit_pressed():
-	unitlayer.spawn_warrior()
+	unitlayer.pos_clicked.x += 1
+	unitlayer.pos_clicked.y -= 1
+	unitlayer.spawn_mage()
 	
