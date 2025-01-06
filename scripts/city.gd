@@ -146,4 +146,4 @@ func _on_city_fog_disperser_city_entered(coords: Vector2i) -> void:
 	var fog_layer: FogThickLayer= get_tree().get_first_node_in_group("fog")
 	city_owner.uncovered_cells.append(coords)
 	if current_player == city_owner:
-		fog_layer.restore_uncovered_cells(current_player.uncovered_cells)
+		fog_layer.append_uncovered_cells(current_player.uncovered_cells)

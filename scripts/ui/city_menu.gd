@@ -1,23 +1,26 @@
 extends CanvasLayer
 
-@onready var center = $Center
-@onready var popup = $Center/Panel
-@onready var info: MenuButton = $Center/Panel/VBoxContainer/info
-@onready var title = $Center/MenuTitle/TitleLabel
+@onready var menu = $Menu
+@onready var center = $Menu/Center
+@onready var popup = $Menu/Center/Panel
+@onready var info: MenuButton = $Menu/Center/Panel/VBoxContainer/info
+@onready var title = $Menu/Center/MenuTitle/TitleLabel
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
-@onready var upgrade: SoundButton = $Center/Panel/VBoxContainer/upgrade
+@onready var upgrade: SoundButton = $Menu/Center/Panel/VBoxContainer/upgrade
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
 		# Check if the tap is outside the panel's boundaries
 		if not popup.get_global_rect().has_point(event.position):
 			center.hide()
+			menu.mouse_filter = 2
 
 func _ready():
 	center.hide()
 
 func windowPopup():
 	center.show()
+	menu.mouse_filter = 0
 
 #Zmiana tytułu okna(na potrzeby nazwy miasta)
 func menuName(cityName: String):

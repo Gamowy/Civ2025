@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bph0olvwfmg4n"]
+[gd_scene load_steps=18 format=3 uid="uid://bph0olvwfmg4n"]
 
 [ext_resource type="Script" path="res://scripts/ui/user_interface.gd" id="1_hndyv"]
 [ext_resource type="Texture2D" uid="uid://jnhsscek7ubf" path="res://img/ui/SettingsButton.png" id="1_tvif2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_hhegn"]
 [ext_resource type="Texture2D" uid="uid://63f7pyi1wuor" path="res://img/ui/HealthBarPanel_160x41.png" id="3_hw1g8"]
 [ext_resource type="Texture2D" uid="uid://d4hahhb0pabg4" path="res://img/ui/MenuButton.png" id="4_tmfvy"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="9_ramr0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8j6n"]
 
@@ -46,7 +47,7 @@ script = ExtResource("1_hndyv")
 metadata/_edit_lock_ = true
 
 [node name="TopLeftCorner" type="MarginContainer" parent="."]
-layout_mode = 0
+layout_mode = 1
 offset_right = 136.0
 offset_bottom = 123.0
 mouse_filter = 0
@@ -187,7 +188,7 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="CivilizationButton" type="Button" parent="BottomLeftCorner"]
+[node name="ActionsButton" type="Button" parent="BottomLeftCorner"]
 layout_mode = 2
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_h16yd")
@@ -207,6 +208,7 @@ anchor_bottom = 1.0
 offset_left = -139.5
 offset_top = -99.0
 offset_right = 139.5
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 15
@@ -253,6 +255,34 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_hhegn")
 
+[node name="ActionInfo" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -172.0
+offset_right = 172.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 15
+metadata/_edit_lock_ = true
+
+[node name="ActionLabelBackground" type="TextureRect" parent="ActionInfo"]
+layout_mode = 2
+texture = ExtResource("9_ramr0")
+expand_mode = 2
+
+[node name="ActionLabel" type="Label" parent="ActionInfo"]
+layout_mode = 2
+theme = ExtResource("3_f1cjw")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "   Action label text   "
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 1
+
 [connection signal="pressed" from="TopLeftCorner/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="BottomLeftCorner/CivilizationButton" to="." method="_on_civilization_button_pressed"]
+[connection signal="pressed" from="BottomLeftCorner/ActionsButton" to="." method="_on_actions_button_pressed"]
 [connection signal="pressed" from="BottomRightCorner/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

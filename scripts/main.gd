@@ -12,12 +12,15 @@ var save_path = "user://save.dat"
 @onready var resource_layer:ResourceLayer = $"Map/ResourceLayer"
 @onready var city_layer = $"Map/CityLayer"
 # ---------------------------------------------------------------------
-
+@onready var map = $Map
+@onready var ui_layer = $UILayer
 @onready var user_interface = $UILayer/UserInterface
+@onready var action_menu = $UILayer/ActionsMenu
+@onready var transition = $UILayer/Transition
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
-
+var adding_city = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,15 +48,52 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		var global_clicked=get_global_mouse_position()
 		if event.is_pressed():
-			var pos_clicked=map_layer.local_to_map(to_local(global_clicked))
+			var pos_clicked: Vector2i =map_layer.local_to_map(to_local(global_clicked))
 			map_layer.set_cell(previous_cell,map_layer.get_cell_source_id(previous_cell),map_layer.get_cell_atlas_coords(previous_cell),0)
 			map_layer.set_cell(pos_clicked,map_layer.get_cell_source_id(pos_clicked),map_layer.get_cell_atlas_coords(pos_clicked),1)			
 			previous_cell=pos_clicked
 			
-			print("clicked tile: "+str(pos_clicked)+" "+map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(pos_clicked))+
-			", resource: "+resource_layer.resource_dict.find_key(resource_layer.get_cell_atlas_coords(pos_clicked))+
-			", fog: "+fog_thick_layer.fog_dict.find_key(fog_thick_layer.get_cell_atlas_coords(pos_clicked)))			
+			var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(pos_clicked))
+			var resource = resource_layer.resource_dict.find_key(resource_layer.get_cell_atlas_coords(pos_clicked))
+			var fog = fog_thick_layer.fog_dict.find_key(fog_thick_layer.get_cell_atlas_coords(pos_clicked))
+			print("clicked tile: " + str(pos_clicked) + " " + tile + ", resource: " + resource + ", fog: "+ fog)
+			
+			if adding_city and event.is_double_tap():
+				var cities_coords = get_coords_around_cities()
+				if (pos_clicked.x >= 0 and pos_clicked.x <= map_layer.width 
+				and pos_clicked.y >= 0 and pos_clicked.y <= map_layer.height 
+				and tile != "ocean" and resource == "empty" and fog == "empty"
+				and !cities_coords.has(pos_clicked)):
+						build_city(pos_clicked)
+				else:
+					# Display info about incorrect city placment and wait for some time before reverting to old message
+					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.RED, 3)
 
+func get_coords_around_cities() -> Array[Vector2i]:
+	var cities: Array[City] = city_layer.cities
+	var coords_array: Array[Vector2i]
+	for city in cities:
+		for x in range(-5, 5):
+			for y in range(-5, 5):
+				coords_array.append(Vector2i(city.city_coords.x + x, city.city_coords.y + y))
+	return coords_array
+
+func build_city(pos: Vector2i) -> void:
+	var prompt_window: CityBuildPrompt = load("res://scenes/ui/city_build_prompt.tscn").instantiate()
+	user_interface.hide_action_info()
+	ui_layer.add_child(prompt_window)
+	var result = await prompt_window.button_pressed
+	if result == CityBuildPrompt.Result.Yes:
+		city_layer.add_city(pos, players_manager.current_player, prompt_window.city_name.text)
+	else:
+		action_menu.revert_last_action_cost()
+		
+	adding_city = false
+	map.process_mode = Node.PROCESS_MODE_INHERIT
+	ui_layer.remove_child(prompt_window)
+	prompt_window.queue_free()
+	user_interface.switch_ui_visibility()
+	
 func setup_current_player() -> void:
 	var player: Player = players_manager.current_player
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
@@ -94,7 +134,6 @@ func save_game():
 		file.store_var(city, true)
 	file.close()
 	
-
 # When loading previous state, make sure the order of loading is same as in save_game() method
 func load_game():
 	if FileAccess.file_exists(save_path):
@@ -129,10 +168,14 @@ func load_game():
 		printerr("Save file not found!")
 	
 func switch_turns() -> void:
+	transition.fade_to_black()
+	await transition.transition_finished
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
 	city_layer.get_resources_from_cities(players_manager.current_player)
 	players_manager.switch_players()
 	setup_current_player()
+	transition.fade_to_normal()
+	await transition.transition_finished
 	
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
@@ -143,8 +186,18 @@ func _on_ui_layer_save_game() -> void:
 	save_game()
 
 func _on_ui_layer_load_game() -> void:
+	transition.fade_to_black()
+	await transition.transition_finished
 	load_game()
 	setup_current_player()
+	transition.fade_to_normal()
+	await transition.transition_finished
+
+func _on_ui_layer_build_city() -> void:
+	user_interface.switch_ui_visibility()
+	user_interface.show_action_info("Double tap on empty tile to build new city")
+	map.process_mode = Node.PROCESS_MODE_DISABLED
+	adding_city = true
 
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:

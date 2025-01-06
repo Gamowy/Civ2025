@@ -20,7 +20,6 @@ var city_texture: CompressedTexture2D = load("res://img/city.png") as Compressed
 var town_texture: CompressedTexture2D = load("res://img/town.png") as CompressedTexture2D
 
 var city:City
-var selected_building:BuildingBaseClass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
