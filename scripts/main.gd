@@ -59,10 +59,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("clicked tile: " + str(pos_clicked) + " " + tile + ", resource: " + resource + ", fog: "+ fog)
 			
 			if adding_city and event.is_double_tap():
+				var cities_coords = get_coords_around_cities()
 				if (pos_clicked.x >= 0 and pos_clicked.x <= map_layer.width 
 				and pos_clicked.y >= 0 and pos_clicked.y <= map_layer.height 
-				and tile != "ocean" and resource == "empty" and fog == "empty"):
-					build_city(pos_clicked)
+				and tile != "ocean" and resource == "empty" and fog == "empty"
+				and !cities_coords.has(pos_clicked)):
+						build_city(pos_clicked)
+				else:
+					# Display info about incorrect city placment and wait for some time before reverting to old message
+					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.FIREBRICK, 3)
+
+func get_coords_around_cities() -> Array[Vector2i]:
+	var cities: Array[City] = city_layer.cities
+	var coords_array: Array[Vector2i]
+	for city in cities:
+		for x in range(-5, 5):
+			for y in range(-5, 5):
+				coords_array.append(Vector2i(city.city_coords.x + x, city.city_coords.y + y))
+	return coords_array
 
 func build_city(pos: Vector2i) -> void:
 	var prompt_window: CityBuildPrompt = load("res://scenes/ui/city_build_prompt.tscn").instantiate()
@@ -120,7 +134,6 @@ func save_game():
 		file.store_var(city, true)
 	file.close()
 	
-
 # When loading previous state, make sure the order of loading is same as in save_game() method
 func load_game():
 	if FileAccess.file_exists(save_path):
@@ -182,7 +195,7 @@ func _on_ui_layer_load_game() -> void:
 
 func _on_ui_layer_build_city() -> void:
 	user_interface.switch_ui_visibility()
-	user_interface.show_action_info("Double tap on tile to build new city")
+	user_interface.show_action_info("Double tap on empty tile to build new city")
 	map.process_mode = Node.PROCESS_MODE_DISABLED
 	adding_city = true
 

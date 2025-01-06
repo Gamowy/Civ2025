@@ -46,14 +46,25 @@ func update_turn_label(string: String, color: Color):
 	turn_label.text = str("   ", string, " turn   ")
 	turn_label.modulate = color
 	
-func show_action_info(action_text: String):
+func show_action_info(action_text: String, color: Color = Color.WHITE):
 	action_info_label.text = str("        ", action_text, "        ")
+	action_info_label.modulate = color
 	action_info.visible = true
 	
 func hide_action_info():
-	action_info_label.text = ""
 	action_info.visible = false
 	
+## Use this to display temporary messages
+func update_action_info(action_text: String, color: Color = Color.WHITE, time: int = 1):
+	var old_text = action_info_label.text
+	var old_color = action_info_label.modulate
+	action_info_label.text = str("        ", action_text, "        ")
+	action_info_label.modulate = color
+	await get_tree().create_timer(3).timeout
+	action_info_label.text = old_text
+	action_info_label.modulate = old_color
+
+## Turns off ui visibility except for action info
 func switch_ui_visibility():
 	top_left.visible = !top_left.visible
 	top_right.visible = !top_right.visible
