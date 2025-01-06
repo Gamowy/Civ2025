@@ -11,7 +11,18 @@ var ownerID: int = -1
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
 
-
+#Unit movement
+func move_to(target_position: Vector2, unit_layer: TileMapLayer) -> bool:
+	var hex_coords = unit_layer.local_to_map(position)
+	var distance = hex_coords.distance_to(target_position)
+	
+	#Checking if there is no obstacle and if unit can move there
+	if distance <= movementRange and unit_layer.is_cell_free(target_position):
+		position = unit_layer.map_to_local(target_position)
+		return true
+		
+	return false
+		
 
 func takeDamage(damage: int):
 	var damageTaken = max(damage - defense,0)

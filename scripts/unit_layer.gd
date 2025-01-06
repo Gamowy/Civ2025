@@ -3,9 +3,12 @@ class_name UnitLayer
 
 var global_clicked #= Vector2(0,0)
 var pos_clicked # = Vector2(0,0)
-
+@onready var selected_unit: BaseUnit = null
+@onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 
 func spawn_warrior():
+	pos_clicked.x += 1
+	pos_clicked.y -= 1
 	print("boom")
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
@@ -19,8 +22,52 @@ func _unhandled_input(event: InputEvent) -> void:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
 			pos_clicked = local_to_map(to_local(global_clicked))
-			pos_clicked.x += 1
-			pos_clicked.y -= 1
+
+			
+			if selected_unit:
+				if selected_unit.move_to(pos_clicked, self):
+					print("Unit mover succesfully.")
+					selected_unit = null
+					clear_highlight()
+				else:
+					print("Movement not possible.")
+			else:
+				clear_highlight()
+				selected_unit = get_unit_at_position(pos_clicked)
+				if selected_unit:
+					print("Unit selected!")
+					highlight_possible_moves(selected_unit, pos_clicked)
+				else:
+					print("No unit at clicked position.")
+
+
+func highlight_possible_moves(unit: BaseUnit, start_position: Vector2):
+	var range = unit.movementRange
+	
+	#all tiles in range
+	for tileX in range(-range, range + 1):
+		for tileY in range(-range, range + 1):
+			var target_position = start_position + Vector2(tileX,tileY)
+			
+			if target_position.distance_to(start_position) <= range and is_cell_free(target_position):
+				highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 1)
+				
+				#var tile = highlight_layer.get_cell_item(target_position)
+				#if tile:
+					#tile.modulate(0, 1, 0, 0.5)
+
+func clear_highlight():
+	highlight_layer.clear()
+
+func get_unit_at_position(map_position: Vector2) -> BaseUnit:
+	var world_position = map_to_local(map_position)
+	for unit in get_children():
+		if unit is BaseUnit and unit.position.distance_to(world_position) <1.0:
+			return unit
+	return null
+	
+func is_cell_free(map_position: Vector2) -> bool:
+	return get_unit_at_position(map_position) == null
 
 func spawn_spearman():
 	var spawn_point = pos_clicked

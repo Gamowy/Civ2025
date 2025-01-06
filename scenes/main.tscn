@@ -101,6 +101,9 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
+[node name="HighlightLayer" type="TileMapLayer" parent="Map"]
+tile_set = ExtResource("3_ns1bu")
+
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
 [node name="ENEMY_UNIT_TEST" type="Label" parent="."]
