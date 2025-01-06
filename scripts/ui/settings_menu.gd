@@ -9,6 +9,7 @@ var prompt_type = null
 @onready var sfx_volume_slider:Slider=$Center/PanelContainer/Content/VolumeContainer/SFXVolume/SFXVolumeSlider
 @onready var center = $Center
 @onready var prompt = $Prompt
+@onready var settings_menu: Control = $"."
 
 signal exit_settings
 signal save_game

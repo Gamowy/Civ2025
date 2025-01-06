@@ -6,6 +6,7 @@ extends CanvasLayer
 signal save_game
 signal load_game
 signal end_player_turn
+signal exit_to_menu
 
 func _ready() -> void:
 	user_interface.visible = true
@@ -50,9 +51,7 @@ func _on_settings_menu_load_game() -> void:
 	_on_settings_menu_exit_settings()
 	
 func _on_settings_menu_exit_to_menu() -> void:
-	# TODO: replace this when main menu is done
-	print("Exit to menu!")
-	_on_settings_menu_exit_settings()
+	exit_to_menu.emit()
 
 func _on_settings_menu_master_volume_changed(volume: float) -> void:
 	var index:int=AudioServer.get_bus_index("Master")

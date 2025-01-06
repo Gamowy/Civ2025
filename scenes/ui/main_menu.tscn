@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1bo5pltgt2ti"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
+[ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
+[ext_resource type="Texture2D" uid="uid://dridpjveyvaye" path="res://img/logo/logo.png" id="2_qboyk"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_gse2u"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
+[ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s5nxq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("1_uygr0")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_right = 192.0
+offset_bottom = 384.0
+grow_horizontal = 2
+texture = ExtResource("2_qboyk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.0
+offset_top = -311.0
+offset_right = 145.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="NewGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("5_ly7pc")
+theme_type_variation = &"FlatButton"
+text = "New Game"
+script = ExtResource("3_gse2u")
+
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("5_ly7pc")
+theme_type_variation = &"FlatButton"
+text = "Load Game"
+script = ExtResource("3_gse2u")
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("5_ly7pc")
+theme_type_variation = &"FlatButton"
+text = "Settings"
+script = ExtResource("3_gse2u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="PromptWindow" parent="." instance=ExtResource("5_hbqgk")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
+[connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

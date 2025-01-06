@@ -17,6 +17,7 @@ var save_path = "user://save.dat"
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
+var main_menu = "res://scenes/ui/main_menu.tscn"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -134,6 +135,10 @@ func switch_turns() -> void:
 	players_manager.switch_players()
 	setup_current_player()
 	
+func exit_to_menu() -> void:
+	var packed_scene = ResourceLoader.load(main_menu)
+	get_tree().change_scene_to_packed(packed_scene)
+	
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	switch_turns()
@@ -149,3 +154,7 @@ func _on_ui_layer_load_game() -> void:
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
 	user_interface.update_resources(resource, str(value))
+
+
+func _on_ui_layer_exit_to_menu() -> void:
+	exit_to_menu()
