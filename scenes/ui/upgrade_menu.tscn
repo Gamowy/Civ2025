@@ -370,5 +370,3 @@ text = "Destroy selected building?"
 
 [connection signal="pressed" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonUpgrade" to="." method="_on_button_upgrade_pressed"]
 [connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
-[connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

@@ -188,6 +188,7 @@ text = "enemy
 unit"
 
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
+[connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
 [connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
 [connection signal="load_game" from="UILayer" to="." method="_on_ui_layer_load_game"]
 [connection signal="save_game" from="UILayer" to="." method="_on_ui_layer_save_game"]
@@ -200,5 +201,6 @@ unit"
 [connection signal="master_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_master_volume_changed"]
 [connection signal="save_game" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_save_game"]
 [connection signal="sfx_volume_changed" from="UILayer/SettingsMenu" to="UILayer" method="_on_settings_menu_sfx_volume_changed"]
+[connection signal="action_bought" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_action_bought"]
 [connection signal="exit_actions_menu" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_exit_actions_menu"]
 [connection signal="animation_finished" from="UILayer/Transition" to="UILayer/Transition" method="_on_animation_finished"]

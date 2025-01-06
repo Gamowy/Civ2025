@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://ce43vxqbljdqo"]
+
+[ext_resource type="Script" path="res://scripts/ui/city_build_prompt.gd" id="1_gqrnv"]
+[ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/village.png" id="2_0o1eh"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="2_tsvun"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_8ear7"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="4_rctlr"]
+[ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="5_pghu5"]
+[ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="6_vp3gc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wswwn"]
+
+[node name="CityBuildPrompt" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gqrnv")
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.5
+offset_top = -260.0
+offset_right = 355.5
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Center"]
+layout_mode = 2
+offset_left = 9.0
+offset_top = 42.0
+offset_right = 702.0
+offset_bottom = 363.0
+size_flags_vertical = 3
+theme = ExtResource("2_tsvun")
+metadata/_edit_lock_ = true
+
+[node name="Content" type="VBoxContainer" parent="Center/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 45
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+
+[node name="CityNameLabel" type="Label" parent="Center/PanelContainer/Content/VBoxContainer"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Enter city name:"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 1
+max_lines_visible = 4
+
+[node name="CityNameEdit" type="LineEdit" parent="Center/PanelContainer/Content/VBoxContainer"]
+layout_mode = 2
+max_length = 20
+right_icon = ExtResource("2_0o1eh")
+
+[node name="BuildButton" type="Button" parent="Center/PanelContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Build"
+script = ExtResource("3_8ear7")
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 2
+offset_left = 233.5
+offset_top = 9.0
+offset_right = 477.5
+offset_bottom = 70.0
+grow_horizontal = 2
+size_flags_vertical = 4
+theme = ExtResource("2_tsvun")
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("4_rctlr")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "    New city    "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitButton" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -71.5
+offset_top = -10.0
+offset_right = 31.5
+offset_bottom = 98.0
+grow_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wswwn")
+icon = ExtResource("5_pghu5")
+flat = true
+expand_icon = true
+script = ExtResource("3_8ear7")
+press_sound = ExtResource("6_vp3gc")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Center/PanelContainer/Content/BuildButton" to="." method="_on_build_button_pressed"]
+[connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]

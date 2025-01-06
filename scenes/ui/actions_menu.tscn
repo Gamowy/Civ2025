@@ -292,4 +292,5 @@ layout_mode = 1
 
 [connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList" to="." method="_on_scroll_actions_list"]
 [connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList" to="." method="_on_actions_list_item_selected"]
+[connection signal="pressed" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ActionButton" to="." method="_on_action_button_pressed"]
 [connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]

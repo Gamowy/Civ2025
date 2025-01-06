@@ -7,6 +7,7 @@ extends CanvasLayer
 signal save_game
 signal load_game
 signal end_player_turn
+signal build_city
 
 func _ready() -> void:
 	user_interface.visible = true
@@ -68,3 +69,10 @@ func _on_settings_menu_sfx_volume_changed(volume: float) -> void:
 func _on_actions_menu_exit_actions_menu() -> void:
 	_resume_game()
 	actions_menu.visible = false
+
+func _on_actions_menu_action_bought(action_name: String) -> void:
+	match(action_name):
+		"Build city":
+			build_city.emit()
+		_:
+			printerr("No action found")

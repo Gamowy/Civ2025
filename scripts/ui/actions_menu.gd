@@ -1,4 +1,5 @@
 extends Control
+class_name ActionMenu
 
 @onready var actions_list = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList
 @onready var actions_list_scrollbar = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxActions/ActionsList.get_v_scroll_bar()
@@ -13,6 +14,7 @@ extends Control
 @onready var action_button : Button = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ActionButton
 
 signal exit_actions_menu
+signal action_bought(action_name: String)
 
 # Holds all possible actions
 var actions_array : Array[ActionBaseClass] = [
@@ -26,6 +28,10 @@ var player: Player
 func _ready() -> void:
 	for action in actions_array:
 		actions_list.add_item(action.action_name, load(action.action_picture))
+
+func _exit() -> void:
+	exit_actions_menu.emit()
+	_reset_action_info()
 	
 # Enables scrolling actions list by dragging 
 func _on_scroll_actions_list(event: InputEvent) -> void:
@@ -33,8 +39,7 @@ func _on_scroll_actions_list(event: InputEvent) -> void:
 		actions_list_scrollbar.value-=event.relative.y
 
 func _on_exit_button_pressed() -> void:
-	exit_actions_menu.emit()
-	_reset_action_info()
+	_exit()
 
 func _display_action_info()->void:
 	description_label.text = selected_action.action_description
@@ -69,3 +74,21 @@ func _on_actions_list_item_selected(index: int) -> void:
 	action_button.disabled=true
 	if can_player_use_action():
 		action_button.disabled=false
+
+func _on_action_button_pressed() -> void:
+	player = get_tree().get_first_node_in_group("players").current_player
+	player.gold -= selected_action.gold_cost
+	player.wood -= selected_action.wood_cost
+	player.stone -= selected_action.stone_cost
+	player.steel -= selected_action.steel_cost
+	player.food -= selected_action.food_cost
+	action_bought.emit(selected_action.action_name)
+	_exit()
+
+## Use this to revert action cost if player cancels
+func revert_last_action_cost() -> void:
+	player.gold += selected_action.gold_cost
+	player.wood += selected_action.wood_cost
+	player.stone += selected_action.stone_cost
+	player.steel += selected_action.steel_cost
+	player.food += selected_action.food_cost
