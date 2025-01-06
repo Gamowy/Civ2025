@@ -106,16 +106,14 @@ func _on_owned_list_empty_clicked(_at_position: Vector2, _mouse_button_index: in
 	_clear_building_info()
 	_building_mode="Destroy"
 	build_button.disabled=true
-	owned_item_list.hide() #to make sure no items are selected in the list
-	owned_item_list.show()
+	owned_item_list.deselect_all()
 
 
 func _on_building_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
 	_clear_building_info()
 	_building_mode="Build"
 	build_button.disabled=true
-	building_item_list.hide() #to make sure no items are selected in the list
-	building_item_list.show()
+	building_item_list.deselect_all()
 
 #check building mode, show destroy prompt or build building
 func _on_button_build_pressed() -> void:

@@ -60,7 +60,7 @@ func update_action_info(action_text: String, color: Color = Color.WHITE, time: i
 	var old_color = action_info_label.modulate
 	action_info_label.text = str("        ", action_text, "        ")
 	action_info_label.modulate = color
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(time).timeout
 	action_info_label.text = old_text
 	action_info_label.modulate = old_color
 
