@@ -17,8 +17,9 @@ var save_path = "user://save.dat"
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
-var main_menu = "res://scenes/ui/main_menu.tscn"
+var isLoading = false
 
+var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +28,10 @@ func _ready() -> void:
 	fog_thick_layer.generate_fog(map_layer)
 	#Set camera movement boundary
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
-	initGame()
+	if isLoading:
+		load_game()
+	else:
+		initGame()
 
 func initGame() -> void:
 	# TEST
@@ -126,6 +130,7 @@ func load_game():
 			var saved_city = file.get_var(true)
 			city_layer.reload_city(saved_city)
 		file.close()
+		setup_current_player()
 	else:
 		printerr("Save file not found!")
 	
@@ -136,8 +141,10 @@ func switch_turns() -> void:
 	setup_current_player()
 	
 func exit_to_menu() -> void:
-	var packed_scene = ResourceLoader.load(main_menu)
-	get_tree().change_scene_to_packed(packed_scene)
+	var main_menu = MAIN_MENU.instantiate()
+	get_tree().root.add_child(main_menu)
+	get_tree().root.remove_child(self)
+	self.queue_free()
 	
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
@@ -149,7 +156,6 @@ func _on_ui_layer_save_game() -> void:
 
 func _on_ui_layer_load_game() -> void:
 	load_game()
-	setup_current_player()
 
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
@@ -158,3 +164,4 @@ func _on_players_manager_current_player_resource_changed(resource: String, value
 
 func _on_ui_layer_exit_to_menu() -> void:
 	exit_to_menu()
+	

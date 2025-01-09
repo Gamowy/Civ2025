@@ -51,6 +51,7 @@ func _on_settings_menu_load_game() -> void:
 	_on_settings_menu_exit_settings()
 	
 func _on_settings_menu_exit_to_menu() -> void:
+	_resume_game()
 	exit_to_menu.emit()
 
 func _on_settings_menu_master_volume_changed(volume: float) -> void:
