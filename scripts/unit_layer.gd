@@ -5,10 +5,9 @@ var global_clicked #= Vector2(0,0)
 var pos_clicked # = Vector2(0,0)
 @onready var selected_unit: BaseUnit = null
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
+@onready var map_layer : TileMapLayer = $"../MapLayer"
 
 func spawn_warrior():
-	#pos_clicked.x += 1
-	#pos_clicked.y -= 1
 	print("boom")
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
@@ -17,7 +16,6 @@ func spawn_warrior():
 	warrior.position = world_position
 	
 func _unhandled_input(event: InputEvent) -> void:
-	#print("unit input")
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
@@ -27,10 +25,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			if selected_unit:
 				if selected_unit.move_to(pos_clicked, self):
 					print("Unit moved succesfully.")
-					selected_unit = null
-					clear_highlight()
 				else:
 					print("Movement not possible.")
+				selected_unit = null
+				clear_highlight()
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
@@ -41,16 +39,29 @@ func _unhandled_input(event: InputEvent) -> void:
 					print("No unit at clicked position.")
 
 
+func get_tile_cost(position: Vector2) -> int:
+	var cell_item = map_layer.get_cell_source_id(position)
+	var atlas_coords = map_layer.get_cell_atlas_coords(position)
+	var alternative = map_layer.get_cell_alternative_tile(position)
+	var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(pos_clicked))
+	if tmp == "mountain":
+		return 1
+	else:
+		return selected_unit.movementRange
+
 func highlight_possible_moves(unit: BaseUnit, start_position: Vector2):
+	var hex_coords = local_to_map(position)
 	var range = unit.movementRange
 	
 	#all tiles in range
 	for tileX in range(-range, range + 1):
 		for tileY in range(-range, range + 1):
 			var target_position = start_position + Vector2(tileX,tileY)
-			
+			var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 			if target_position.distance_to(start_position) <= range and is_cell_free(target_position):
 				highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 1)
+				if tmp == "mountain":
+					highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 2)
 				
 				#var tile = highlight_layer.get_cell_item(target_position)
 				#if tile:

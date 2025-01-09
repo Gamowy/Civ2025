@@ -10,12 +10,15 @@ var rangeOfView: int = 2
 var ownerID: int = -1
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
+@onready var map_layer: TileMapLayer = get_node("root/Main/Map/MapLayer")
+var fog_dispenser_scene = preload("res://scenes/unit_fog_disperser.tscn")
 
 
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
+	#var custom_range = unit_layer.get_tile_cost(hex_coords)
 	var distance = hex_coords.distance_to(target_hex)
 	var move_time = distance
 	#Checking if there is no obstacle and if unit can move there
@@ -34,7 +37,7 @@ func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 			)
 		return true
 		
-	return true
+	return false
 		
 
 func takeDamage(damage: int):

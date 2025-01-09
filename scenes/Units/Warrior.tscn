@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://bpj2np0vniipy"]
+[gd_scene load_steps=16 format=3 uid="uid://bpj2np0vniipy"]
 
 [ext_resource type="Script" path="res://scripts/Units/warrior.gd" id="1_061m6"]
 [ext_resource type="Texture2D" uid="uid://ig077oace0jl" path="res://resources/Units/SwordMan.png" id="2_y4xu3"]
+[ext_resource type="Script" path="res://scripts/unit_fog_disperser.gd" id="3_i4p8c"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gsogs"]
 light_mode = 2
@@ -98,3 +99,6 @@ position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
+
+[node name="UnitFogDisperser" type="Node2D" parent="."]
+script = ExtResource("3_i4p8c")
