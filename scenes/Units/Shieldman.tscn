@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://d28vngsou6ld"]
+[gd_scene load_steps=16 format=3 uid="uid://d28vngsou6ld"]
 
 [ext_resource type="Script" path="res://scripts/Units/shieldman.gd" id="1_81s3e"]
 [ext_resource type="Texture2D" uid="uid://binle7qqoofhq" path="res://resources/Units/ShieldMan.png" id="2_pt8l7"]
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_xmkw0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sblmf"]
 light_mode = 2
@@ -98,3 +99,5 @@ position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
+
+[node name="UnitFogDisperser" parent="." instance=ExtResource("3_xmkw0")]

@@ -9,3 +9,4 @@ func _ready():
 	defense = 3
 	movementRange = 3
 	rangeOfView = 3
+	#super._ready()

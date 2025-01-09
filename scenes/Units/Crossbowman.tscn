@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1o18kkh3ayxf"]
+[gd_scene load_steps=16 format=3 uid="uid://c1o18kkh3ayxf"]
 
 [ext_resource type="Script" path="res://scripts/Units/crossbowman.gd" id="1_a5tle"]
 [ext_resource type="Texture2D" uid="uid://devfkf6fyy5xh" path="res://resources/Units/CrossbowMan.png" id="2_8pufn"]
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_v7ow6"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eeeb1"]
 light_mode = 2
@@ -98,3 +99,5 @@ position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
+
+[node name="UnitFogDisperser" parent="." instance=ExtResource("3_v7ow6")]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cucaciw8btpl0"]
+[gd_scene load_steps=17 format=3 uid="uid://cucaciw8btpl0"]
 
 [ext_resource type="Script" path="res://scripts/Units/archer.gd" id="1_g2ghf"]
 [ext_resource type="Texture2D" uid="uid://q1wimt04swd0" path="res://resources/Units/Archer.png" id="2_fwosj"]
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_3koje"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t8a7u"]
 light_mode = 2
@@ -102,3 +103,5 @@ position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
+
+[node name="UnitFogDisperser" parent="." instance=ExtResource("3_3koje")]
