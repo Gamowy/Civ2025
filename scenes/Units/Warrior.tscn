@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Units/warrior.gd" id="1_061m6"]
 [ext_resource type="Texture2D" uid="uid://ig077oace0jl" path="res://resources/Units/SwordMan.png" id="2_y4xu3"]
-[ext_resource type="Script" path="res://scripts/unit_fog_disperser.gd" id="3_i4p8c"]
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_c6hfj"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gsogs"]
 light_mode = 2
@@ -90,8 +90,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("fog_dispenser_scene")]
 script = ExtResource("1_061m6")
+fog_dispenser_scene = NodePath("UnitFogDisperser")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_gsogs")
@@ -100,5 +101,4 @@ sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
 
-[node name="UnitFogDisperser" type="Node2D" parent="."]
-script = ExtResource("3_i4p8c")
+[node name="UnitFogDisperser" parent="." instance=ExtResource("3_c6hfj")]

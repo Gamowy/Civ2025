@@ -10,8 +10,10 @@ var rangeOfView: int = 2
 var ownerID: int = -1
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
-@onready var map_layer: TileMapLayer = get_node("root/Main/Map/MapLayer")
-var fog_dispenser_scene = preload("res://scenes/unit_fog_disperser.tscn")
+@onready var map_layer: TileMapLayer =get_tree().get_first_node_in_group("map_layer")
+
+## The unit's fog disperser
+@export var fog_dispenser_scene:UnitFogDisperser
 
 
 #Unit movement

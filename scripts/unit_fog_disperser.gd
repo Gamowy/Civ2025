@@ -14,7 +14,7 @@ class_name UnitFogDisperser
 #@onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D.shape
 
 @onready var unit_thick_fog_disperser_shape:CircleShape2D=$UnitArea2D/UnitCollisionShape2D.shape
-@onready var unit_thick_fog_disperser_area:Area2D=$Area2D
+@onready var unit_thick_fog_disperser_area:Area2D=$UnitArea2D
 @onready var unit_thin_fog_disperser:PointLight2D=$PointLight2D
 @onready var unit: BaseUnit = $".."
 

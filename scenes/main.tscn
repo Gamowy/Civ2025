@@ -72,7 +72,7 @@ position = Vector2(0, 1)
 color = Color(0.447059, 0.447059, 0.447059, 1)
 metadata/_edit_lock_ = true
 
-[node name="MapLayer" type="TileMapLayer" parent="Map"]
+[node name="MapLayer" type="TileMapLayer" parent="Map" groups=["map_layer"]]
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
