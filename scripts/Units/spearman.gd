@@ -9,6 +9,9 @@ func _ready():
 	defense = 7
 	movementRange = 3
 	rangeOfView = 3
+	
+	if has_node("UnitFogDisperser"):
+		$UnitFogDisperser.refresh_radius_from_owner()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

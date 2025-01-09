@@ -36,7 +36,7 @@ func _ready() -> void:
 	else:
 		fog_layer=get_tree().get_first_node_in_group("fog")
 	
-	set_radius(unit.rangeOfView)
+	refresh_radius_from_owner()
 	set_fog_disperser_enabled(fog_disperser_enabled)
 	
 #METHOD FOR SETTING RADIUS FROM CODE
@@ -44,6 +44,12 @@ func set_radius(new_radius:int):
 	radius=new_radius
 	unit_thick_fog_disperser_shape.radius=new_radius*MapInfo.CELL_SIZE
 	unit_thin_fog_disperser.texture_scale=new_radius*2*float(MapInfo.CELL_SIZE)/unit_thin_fog_disperser.texture.get_height()#scale light texure
+
+func refresh_radius_from_owner():
+	if owner is BaseUnit:
+		set_radius(owner.rangeOfView)
+	else:
+		printerr(name + ":Owner is not of type BaseUnit")
 
 #METHOD FOR SETTING DISPERSER ENABLED FROM CODE
 func set_fog_disperser_enabled(is_enabled:bool)->void:

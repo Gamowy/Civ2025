@@ -5,7 +5,7 @@ var health: int = 100
 var attack: int = 5
 var defense: int = 5
 var movementRange: int = 2
-var rangeOfView: int = 3
+var rangeOfView: int = 2
 
 var ownerID: int = -1
 

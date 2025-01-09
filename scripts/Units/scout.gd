@@ -10,3 +10,6 @@ func _ready():
 	defense = 5
 	movementRange = 5
 	rangeOfView = 4
+	
+	if has_node("UnitFogDisperser"):
+		$UnitFogDisperser.refresh_radius_from_owner()
