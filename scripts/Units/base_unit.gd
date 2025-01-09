@@ -16,6 +16,7 @@ var ownerID: int = -1
 @export var fog_dispenser_scene:UnitFogDisperser
 
 
+
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 	var target_position = unit_layer.map_to_local(target_hex)

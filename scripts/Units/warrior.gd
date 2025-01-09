@@ -8,5 +8,5 @@ func _ready():
 	attack = 10 * (health/120)
 	defense = 8
 	movementRange = 3
-	rangeOfView = 3
+	rangeOfView = 2
 	#super._ready()

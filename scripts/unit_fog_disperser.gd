@@ -16,7 +16,7 @@ class_name UnitFogDisperser
 @onready var unit_thick_fog_disperser_shape:CircleShape2D=$UnitArea2D/UnitCollisionShape2D.shape
 @onready var unit_thick_fog_disperser_area:Area2D=$UnitArea2D
 @onready var unit_thin_fog_disperser:PointLight2D=$PointLight2D
-@onready var unit: BaseUnit = $".."
+@onready var unit: BaseUnit =$".."
 
 var fog_layer:FogThickLayer
 
@@ -36,7 +36,7 @@ func _ready() -> void:
 	else:
 		fog_layer=get_tree().get_first_node_in_group("fog")
 	
-	set_radius(radius)
+	set_radius(unit.rangeOfView)
 	set_fog_disperser_enabled(fog_disperser_enabled)
 	
 #METHOD FOR SETTING RADIUS FROM CODE
