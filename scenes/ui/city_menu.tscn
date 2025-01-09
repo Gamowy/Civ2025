@@ -11,8 +11,17 @@
 layer = 2
 script = ExtResource("1_tgyn3")
 
-[node name="Center" type="Control" parent="."]
+[node name="Menu" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Center" type="Control" parent="Menu"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -22,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="PanelContainer" parent="Center"]
+[node name="Panel" type="PanelContainer" parent="Menu/Center"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,14 +48,14 @@ focus_mode = 1
 theme = ExtResource("2_v31im")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Center/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Center/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="info" type="MenuButton" parent="Center/Panel/VBoxContainer"]
+[node name="info" type="MenuButton" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Information"
 flat = false
@@ -66,7 +75,7 @@ popup/item_6/text = "Steel production: "
 popup/item_6/id = 6
 script = ExtResource("3_iuk05")
 
-[node name="recruit" type="MenuButton" parent="Center/Panel/VBoxContainer"]
+[node name="recruit" type="MenuButton" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Recruit"
 flat = false
@@ -78,19 +87,19 @@ popup/item_2/text = "Dragons"
 popup/item_2/id = 2
 script = ExtResource("3_iuk05")
 
-[node name="build" type="Button" parent="Center/Panel/VBoxContainer"]
+[node name="build" type="Button" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Build"
 script = ExtResource("3_15xnh")
 
-[node name="upgrade" type="Button" parent="Center/Panel/VBoxContainer"]
+[node name="upgrade" type="Button" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Upgrade"
 script = ExtResource("3_15xnh")
 
-[node name="MenuTitle" type="MarginContainer" parent="Center"]
+[node name="MenuTitle" type="MarginContainer" parent="Menu/Center"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,12 +117,12 @@ size_flags_vertical = 4
 theme = ExtResource("3_s64af")
 metadata/_edit_lock_ = true
 
-[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+[node name="TitleBox" type="TextureRect" parent="Menu/Center/MenuTitle"]
 layout_mode = 2
 texture = ExtResource("3_hp2g5")
 expand_mode = 5
 
-[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+[node name="TitleLabel" type="Label" parent="Menu/Center/MenuTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 10
@@ -122,6 +131,6 @@ text = "   City name   "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Center/Panel/VBoxContainer/recruit" to="." method="_on_recruit_pressed"]
-[connection signal="pressed" from="Center/Panel/VBoxContainer/build" to="." method="_on_build_pressed"]
-[connection signal="pressed" from="Center/Panel/VBoxContainer/upgrade" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="Menu/Center/Panel/VBoxContainer/recruit" to="." method="_on_recruit_pressed"]
+[connection signal="pressed" from="Menu/Center/Panel/VBoxContainer/build" to="." method="_on_build_pressed"]
+[connection signal="pressed" from="Menu/Center/Panel/VBoxContainer/upgrade" to="." method="_on_upgrade_pressed"]

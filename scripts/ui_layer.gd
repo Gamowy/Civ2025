@@ -2,14 +2,17 @@ extends CanvasLayer
 
 @onready var user_interface = $UserInterface
 @onready var settings_menu = $SettingsMenu
+@onready var actions_menu = $ActionsMenu
 
 signal save_game
 signal load_game
 signal end_player_turn
+signal build_city
 
 func _ready() -> void:
 	user_interface.visible = true
 	settings_menu.visible = false
+	actions_menu.visible = false
 
 func _pause_game() -> void:
 	get_tree().paused = true
@@ -20,7 +23,7 @@ func _resume_game() -> void:
 # User interface signal handlers
 func _on_user_interface_open_settings() -> void:
 	_pause_game()
-	#set slider values before showing menu
+	# Set slider values before showing menu
 	var index:int=AudioServer.get_bus_index("Master")
 	var volume_db=AudioServer.get_bus_volume_db(index)
 	settings_menu.set_master_volume_info(volume_db)
@@ -29,12 +32,12 @@ func _on_user_interface_open_settings() -> void:
 	settings_menu.set_sfx_volume_info(volume_db)
 	settings_menu.visible = true
 
-func _on_user_interface_open_civilization_menu() -> void:
-	print("Open civilization menu!")
+func _on_user_interface_open_actions_menu() -> void:
+	_pause_game()
+	actions_menu.visible = true
 
 func _on_user_interface_end_turn() -> void:
 	end_player_turn.emit()
-
 
 # Settings menu signal handlers
 func _on_settings_menu_exit_settings() -> void:
@@ -61,3 +64,15 @@ func _on_settings_menu_master_volume_changed(volume: float) -> void:
 func _on_settings_menu_sfx_volume_changed(volume: float) -> void:
 	var index:int=AudioServer.get_bus_index("SFX")
 	AudioServer.set_bus_volume_db(index,linear_to_db(volume))
+
+# Actions menu signal handlers
+func _on_actions_menu_exit_actions_menu() -> void:
+	_resume_game()
+	actions_menu.visible = false
+
+func _on_actions_menu_action_bought(action_name: String) -> void:
+	match(action_name):
+		"Build city":
+			build_city.emit()
+		_:
+			printerr("No action found")
