@@ -24,16 +24,17 @@ var mapWidth = 32
 var numberOfPlayers = 3
 var playerNames = ["Andrzej", "Adam", "Karol"]
 var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
+var selectedSeed = 0
 
 var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#map_layer.width = mapWidth
-	#map_layer.height = mapHeight
+	map_layer.width = mapWidth
+	map_layer.height = mapHeight
+	map_layer.map_seed = selectedSeed
 	map_layer.generate_map()
-	print(map_layer.width)
-	print(map_layer.height)
+	resource_layer.resource_seed = selectedSeed
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
 	#Set camera movement boundary

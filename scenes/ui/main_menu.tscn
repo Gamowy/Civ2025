@@ -95,36 +95,44 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("6_1wtww")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]Map Height:[/center]"
+text = "[center]Map Size:[/center]"
 fit_content = true
 
-[node name="Height" type="SpinBox" parent="NewGameSettings"]
-custom_minimum_size = Vector2(50, 75)
+[node name="HBoxContainer2" type="HBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MapSize" type="OptionButton" parent="NewGameSettings/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
 theme = ExtResource("5_ly7pc")
-min_value = 64.0
-max_value = 256.0
-step = 32.0
-value = 64.0
-rounded = true
 alignment = 1
+selected = 0
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "Small"
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Large"
+popup/item_2/id = 2
 
 [node name="labelWidth" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("6_1wtww")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]Map Width:[/center]"
+text = "[center]Map Seed:[/center]"
 fit_content = true
 
-[node name="Width" type="SpinBox" parent="NewGameSettings"]
+[node name="MapSeed" type="SpinBox" parent="NewGameSettings"]
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
 theme = ExtResource("5_ly7pc")
-min_value = 32.0
-max_value = 256.0
-step = 32.0
-value = 32.0
+max_value = 9999.0
 rounded = true
 alignment = 1
 
@@ -293,6 +301,7 @@ layout_mode = 1
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="item_selected" from="NewGameSettings/HBoxContainer2/MapSize" to="." method="_on_map_size_item_selected"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Next" to="." method="_on_next_pressed"]
 [connection signal="text_changed" from="PlayersSetup/Player1/Player1Name" to="." method="_on_text_changed"]

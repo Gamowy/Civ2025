@@ -9,8 +9,8 @@ class_name MainMenu
 @onready var players_setup: VBoxContainer = $PlayersSetup
 
 @onready var player: SpinBox = $NewGameSettings/Player
-@onready var height: SpinBox = $NewGameSettings/Height
-@onready var width: SpinBox = $NewGameSettings/Width
+@onready var map_size: OptionButton = $NewGameSettings/HBoxContainer2/MapSize
+@onready var map_seed: SpinBox = $NewGameSettings/MapSeed
 
 @onready var player_3: HBoxContainer = $PlayersSetup/Player3
 @onready var player_4: HBoxContainer = $PlayersSetup/Player4
@@ -58,8 +58,8 @@ func _on_back_pressed() -> void:
 	player_4.visible = false
 	
 	player.value = 2
-	height.value = 64
-	width.value = 64
+	map_size.selected = 0
+	map_seed.value = 0
 	player_1_name.text=""
 	player_2_name.text=""
 	player_3_name.text=""
@@ -105,6 +105,20 @@ func _on_load_game_pressed() -> void:
 	texture_rect.visible = false
 	prompt.visible = true
 
+func _on_text_changed(new_text: String) -> void:
+	if new_text.length() < 4:
+		start.disabled = true
+	else:
+		start.disabled = false
+
+
+func _on_map_size_item_selected(index: int) -> void:
+	if index == 0:
+		player.value = 2
+	elif index == 1:
+		player.value = 3
+	elif index == 2:
+		player.value = 4
 
 func _on_settings_pressed() -> void:
 	pass # Replace with function body.
@@ -127,18 +141,21 @@ func _on_prompt_window_yes() -> void:
 		Prompt_Type.NEW_GAME:
 			var main_scene = MAIN.instantiate()
 			main_scene.isLoading = false
-			main_scene.mapHeight = int(height.value)
-			main_scene.mapWidth = int(width.value)
+			
+			if map_size.get_selected_id() == 0:
+				main_scene.mapHeight = 64
+				main_scene.mapWidth = 64
+			elif map_size.get_selected_id() == 1:
+				main_scene.mapHeight = 128
+				main_scene.mapWidth = 128
+			elif map_size.get_selected_id() == 2:
+				main_scene.mapHeight = 256
+				main_scene.mapWidth = 256
+				
+			main_scene.selectedSeed = map_seed.value
 			main_scene.numberOfPlayers = int(player.value)
 			main_scene.playerNames = names
 			main_scene.playerColors = colors
 			get_tree().root.add_child(main_scene)
 			get_tree().root.remove_child(self)
 			
-
-
-func _on_text_changed(new_text: String) -> void:
-	if new_text.length() < 4:
-		start.disabled = true
-	else:
-		start.disabled = false

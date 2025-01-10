@@ -76,12 +76,14 @@ metadata/_edit_lock_ = true
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
+map_seed = 0
 
 [node name="ResourceLayer" type="TileMapLayer" parent="Map" groups=["resource_layer"]]
 z_index = 1
 texture_filter = 1
 tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
+resource_seed = 0
 
 [node name="CityLayer" type="TileMapLayer" parent="Map"]
 z_index = 2
