@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1bo5pltgt2ti"]
+[gd_scene load_steps=9 format=3 uid="uid://d1bo5pltgt2ti"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_gse2u"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
+[ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="6_1wtww"]
+[ext_resource type="Texture2D" uid="uid://d4hahhb0pabg4" path="res://img/ui/MenuButton.png" id="7_lqc67"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -22,7 +24,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("1_uygr0")
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+[node name="logo" type="TextureRect" parent="TextureRect"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -72,6 +74,216 @@ theme_type_variation = &"FlatButton"
 text = "Settings"
 script = ExtResource("3_gse2u")
 
+[node name="NewGameSettings" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -348.0
+offset_top = -316.0
+offset_right = 311.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Map Height:[/center]"
+fit_content = true
+
+[node name="Height" type="SpinBox" parent="NewGameSettings"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+min_value = 64.0
+max_value = 256.0
+step = 32.0
+value = 64.0
+rounded = true
+alignment = 1
+
+[node name="labelWidth" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Map Width:[/center]"
+fit_content = true
+
+[node name="Width" type="SpinBox" parent="NewGameSettings"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+min_value = 32.0
+max_value = 256.0
+step = 32.0
+value = 32.0
+rounded = true
+alignment = 1
+
+[node name="labelPlayer" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Number of Players:[/center]"
+fit_content = true
+
+[node name="Player" type="SpinBox" parent="NewGameSettings"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+min_value = 2.0
+max_value = 4.0
+value = 2.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(290, 75)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="NewGameSettings/HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("5_ly7pc")
+text = "Back"
+script = ExtResource("3_gse2u")
+
+[node name="Next" type="Button" parent="NewGameSettings/HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("5_ly7pc")
+text = "Next"
+script = ExtResource("3_gse2u")
+
+[node name="PlayersSetup" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -348.0
+offset_top = -316.0
+offset_right = 311.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Player1" type="HBoxContainer" parent="PlayersSetup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Player1Name" type="LineEdit" parent="PlayersSetup/Player1"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Player1"
+alignment = 1
+max_length = 16
+
+[node name="Player1Color" type="ColorPickerButton" parent="PlayersSetup/Player1"]
+layout_mode = 2
+icon = ExtResource("7_lqc67")
+color = Color(0.796078, 0, 0, 1)
+
+[node name="Player2" type="HBoxContainer" parent="PlayersSetup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Player2Name" type="LineEdit" parent="PlayersSetup/Player2"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Player2"
+alignment = 1
+max_length = 16
+
+[node name="Player2Color" type="ColorPickerButton" parent="PlayersSetup/Player2"]
+layout_mode = 2
+icon = ExtResource("7_lqc67")
+color = Color(0, 1, 0, 1)
+
+[node name="Player3" type="HBoxContainer" parent="PlayersSetup"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Player3Name" type="LineEdit" parent="PlayersSetup/Player3"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Player3"
+alignment = 1
+max_length = 16
+
+[node name="Player3Color" type="ColorPickerButton" parent="PlayersSetup/Player3"]
+layout_mode = 2
+icon = ExtResource("7_lqc67")
+color = Color(0, 0, 1, 1)
+
+[node name="Player4" type="HBoxContainer" parent="PlayersSetup"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Player4Name" type="LineEdit" parent="PlayersSetup/Player4"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Player4"
+alignment = 1
+max_length = 16
+
+[node name="Player4Color" type="ColorPickerButton" parent="PlayersSetup/Player4"]
+layout_mode = 2
+icon = ExtResource("7_lqc67")
+
+[node name="Buttons" type="HBoxContainer" parent="PlayersSetup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Back" type="Button" parent="PlayersSetup/Buttons"]
+custom_minimum_size = Vector2(220, 80)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme = ExtResource("5_ly7pc")
+text = "Back"
+script = ExtResource("3_gse2u")
+
+[node name="Start" type="Button" parent="PlayersSetup/Buttons"]
+custom_minimum_size = Vector2(220, 80)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = ExtResource("5_ly7pc")
+text = "Start"
+script = ExtResource("3_gse2u")
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="PromptWindow" parent="." instance=ExtResource("5_hbqgk")]
@@ -81,5 +293,13 @@ layout_mode = 1
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="NewGameSettings/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="text_changed" from="PlayersSetup/Player1/Player1Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/Player2/Player2Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/Player3/Player3Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/Player4/Player4Name" to="." method="_on_text_changed"]
+[connection signal="pressed" from="PlayersSetup/Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="PlayersSetup/Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
 [connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

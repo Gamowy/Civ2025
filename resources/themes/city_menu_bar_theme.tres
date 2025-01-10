@@ -100,6 +100,7 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
 [resource]
+default_font_size = 30
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)

@@ -19,11 +19,21 @@ var save_path = "user://save.dat"
 var previous_cell:Vector2=Vector2(0,0)
 var isLoading = false
 
+var mapHeight = 64
+var mapWidth = 32
+var numberOfPlayers = 3
+var playerNames = ["Andrzej", "Adam", "Karol"]
+var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
+
 var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#map_layer.width = mapWidth
+	#map_layer.height = mapHeight
 	map_layer.generate_map()
+	print(map_layer.width)
+	print(map_layer.height)
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
 	#Set camera movement boundary
@@ -35,9 +45,8 @@ func _ready() -> void:
 
 func initGame() -> void:
 	# TEST
-	players_manager.add_player(0, "Andrzej", Color.GREEN)
-	players_manager.add_player(1, "Adam", Color.RED)
-	players_manager.add_player(2, "Karol", Color.BLUE)
+	for x in range(0,numberOfPlayers):
+		players_manager.add_player(x, playerNames[x], playerColors[x])
 	city_layer.add_city(Vector2i(10, 10), players_manager.players[0])
 	city_layer.add_city(Vector2i(30, 15), players_manager.players[0])
 	city_layer.add_city(Vector2i(50, 20), players_manager.players[1])
