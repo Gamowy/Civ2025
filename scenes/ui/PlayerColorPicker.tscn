@@ -1,0 +1,123 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdh48pif3dmbn"]
+
+[sub_resource type="GDScript" id="GDScript_s0uy8"]
+script/source = "extends ColorRect
+
+
+@onready var color_picker_box: VBoxContainer = $ColorPickerBox
+@onready var player_color_picker: ColorRect = $\".\"
+
+@onready var red: ColorRect = $ColorPickerBox/Red
+@onready var green: ColorRect = $ColorPickerBox/Green
+@onready var blue: ColorRect = $ColorPickerBox/Blue
+@onready var yellow: ColorRect = $ColorPickerBox/Yellow
+@onready var pink: ColorRect = $ColorPickerBox/Pink
+@onready var black: ColorRect = $ColorPickerBox/Black
+@onready var purple: ColorRect = $ColorPickerBox/Purple
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+func set_color_of_player(picked_color: ColorRect) -> void:
+	var change_color: Color = player_color_picker.color
+	player_color_picker.color = picked_color.color
+	picked_color.color = change_color
+	color_picker_box.visible = false
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		if !color_picker_box.visible:
+			color_picker_box.visible = true
+		else:
+			color_picker_box.visible = false
+
+func _on_red_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(red)
+
+
+func _on_green_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(green)
+
+
+func _on_blue_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(blue)
+
+
+func _on_yellow_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(yellow)
+
+
+func _on_pink_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(pink)
+
+
+func _on_purple_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(purple)
+
+
+func _on_black_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(black)
+"
+
+[node name="PlayerColorPicker" type="ColorRect"]
+custom_minimum_size = Vector2(50, 50)
+script = SubResource("GDScript_s0uy8")
+
+[node name="ColorPickerBox" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 58.0
+offset_right = 50.0
+offset_bottom = 242.0
+
+[node name="Red" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Green" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0, 0.745098, 0, 1)
+
+[node name="Blue" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.0862745, 0, 1, 1)
+
+[node name="Yellow" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Pink" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(1, 0.410569, 0.989604, 1)
+
+[node name="Purple" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.61271, 0.000282046, 0.61445, 1)
+
+[node name="Black" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0, 0.0345775, 0.0313312, 1)
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Red" to="." method="_on_red_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Green" to="." method="_on_green_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Blue" to="." method="_on_blue_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Yellow" to="." method="_on_yellow_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Pink" to="." method="_on_pink_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Purple" to="." method="_on_purple_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/Black" to="." method="_on_black_gui_input"]

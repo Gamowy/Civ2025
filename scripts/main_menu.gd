@@ -12,18 +12,20 @@ class_name MainMenu
 @onready var map_size: OptionButton = $NewGameSettings/HBoxContainer2/MapSize
 @onready var map_seed: SpinBox = $NewGameSettings/MapSeed
 
-@onready var player_3: HBoxContainer = $PlayersSetup/Player3
-@onready var player_4: HBoxContainer = $PlayersSetup/Player4
+@onready var player_3: HBoxContainer = $PlayersSetup/VBoxContainer/Player3
+@onready var player_4: HBoxContainer = $PlayersSetup/VBoxContainer/Player4
 
-@onready var player_1_name: LineEdit = $PlayersSetup/Player1/Player1Name
-@onready var player_2_name: LineEdit = $PlayersSetup/Player2/Player2Name
-@onready var player_3_name: LineEdit = $PlayersSetup/Player3/Player3Name
-@onready var player_4_name: LineEdit = $PlayersSetup/Player4/Player4Name
 
-@onready var player_1_color: ColorPickerButton = $PlayersSetup/Player1/Player1Color
-@onready var player_2_color: ColorPickerButton = $PlayersSetup/Player2/Player2Color
-@onready var player_3_color: ColorPickerButton = $PlayersSetup/Player3/Player3Color
-@onready var player_4_color: ColorPickerButton = $PlayersSetup/Player4/Player4Color
+@onready var player_1_name: LineEdit = $PlayersSetup/VBoxContainer/Player1/Player1Name
+@onready var player_2_name: LineEdit = $PlayersSetup/VBoxContainer/Player2/Player2Name
+@onready var player_3_name: LineEdit = $PlayersSetup/VBoxContainer/Player3/Player3Name
+@onready var player_4_name: LineEdit = $PlayersSetup/VBoxContainer/Player4/Player4Name
+
+@onready var player_1_color_picker: ColorRect = $PlayersSetup/VBoxContainer/Player1/Player1ColorPicker
+@onready var player_2_color_picker: ColorRect = $PlayersSetup/VBoxContainer/Player2/Player2ColorPicker
+@onready var player_3_color_picker: ColorRect = $PlayersSetup/VBoxContainer/Player3/Player3ColorPicker
+@onready var player_4_color_picker: ColorRect = $PlayersSetup/VBoxContainer/Player4/Player4ColorPicker
+
 
 @onready var start: SoundButton = $PlayersSetup/Buttons/Start
 
@@ -65,25 +67,46 @@ func _on_back_pressed() -> void:
 	player_3_name.text=""
 	player_4_name.text=""
 	
+func check_validation_of_player(names: Array, colors: Array) -> bool:	
+	var unique_names = []
+	var unique_colors = []
+	
+	for name in names:
+		if not unique_names.has(name):
+			unique_names.append(name)
+			
+	for color in colors:
+		if not unique_colors.has(color):
+			unique_colors.append(color)
+			
+	if unique_colors.size() != colors.size() or unique_names.size() != names.size():
+		return false
+	else:
+		return true
+
 func _on_start_pressed() -> void:
 	prompt.setPrompt("Do you want to start a new game?")
 	prompt_type = Prompt_Type.NEW_GAME
 	
 	if player.value == 2:
 		names = [str(player_1_name.text), str(player_2_name.text)]
-		colors = [player_1_color.color, player_2_color.color]
+		colors = [player_1_color_picker.color, player_2_color_picker.color]
 	elif player.value == 3:
 		names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text)]
-		colors = [player_1_color.color, player_2_color.color, player_3_color.color]
+		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color]
 	elif player.value == 4:
 		names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text), str(player_4_name.text)]
-		colors = [player_1_color.color, player_2_color.color, player_3_color.color, player_4_color.color]
+		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color, player_4_color_picker.color]
 	
-	v_box_container.visible = false
-	texture_rect.visible = false
-	new_game_settings.visible = false
-	players_setup.visible = false
-	prompt.visible = true
+	if check_validation_of_player(names, colors):
+		prompt.setPrompt("Do you want to start a new game?")
+		prompt_type = Prompt_Type.NEW_GAME
+		v_box_container.visible = false
+		texture_rect.visible = false
+		new_game_settings.visible = false
+		players_setup.visible = false
+		prompt.visible = true
+		
 
 
 func _on_next_pressed() -> void:
@@ -144,13 +167,13 @@ func _on_prompt_window_yes() -> void:
 			
 			if map_size.get_selected_id() == 0:
 				main_scene.mapHeight = 64
-				main_scene.mapWidth = 64
+				main_scene.mapWidth = 32
 			elif map_size.get_selected_id() == 1:
-				main_scene.mapHeight = 128
-				main_scene.mapWidth = 128
+				main_scene.mapHeight = 96
+				main_scene.mapWidth = 64
 			elif map_size.get_selected_id() == 2:
-				main_scene.mapHeight = 256
-				main_scene.mapWidth = 256
+				main_scene.mapHeight = 96
+				main_scene.mapWidth = 96
 				
 			main_scene.selectedSeed = map_seed.value
 			main_scene.numberOfPlayers = int(player.value)

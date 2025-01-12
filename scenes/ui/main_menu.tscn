@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1bo5pltgt2ti"]
+[gd_scene load_steps=10 format=3 uid="uid://d1bo5pltgt2ti"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
 [ext_resource type="Texture2D" uid="uid://dridpjveyvaye" path="res://img/logo/logo.png" id="2_qboyk"]
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_gse2u"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="4_qsocg"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
 [ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="6_1wtww"]
-[ext_resource type="Texture2D" uid="uid://d4hahhb0pabg4" path="res://img/ui/MenuButton.png" id="7_lqc67"]
+[ext_resource type="PackedScene" uid="uid://bdh48pif3dmbn" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -19,9 +20,12 @@ grow_vertical = 2
 script = ExtResource("1_s5nxq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_uygr0")
 
 [node name="logo" type="TextureRect" parent="TextureRect"]
@@ -36,41 +40,29 @@ grow_horizontal = 2
 texture = ExtResource("2_qboyk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -144.0
-offset_top = -311.0
-offset_right = 145.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+offset_left = 495.0
+offset_top = 377.0
+offset_right = 784.0
+offset_bottom = 688.0
 size_flags_horizontal = 4
+theme = ExtResource("4_qsocg")
 
 [node name="NewGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme = ExtResource("5_ly7pc")
-theme_type_variation = &"FlatButton"
 text = "New Game"
 script = ExtResource("3_gse2u")
 
 [node name="LoadGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-theme = ExtResource("5_ly7pc")
-theme_type_variation = &"FlatButton"
 text = "Load Game"
 script = ExtResource("3_gse2u")
 
 [node name="Settings" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-theme = ExtResource("5_ly7pc")
-theme_type_variation = &"FlatButton"
 text = "Settings"
 script = ExtResource("3_gse2u")
 
@@ -89,6 +81,7 @@ offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_qsocg")
 
 [node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
@@ -187,21 +180,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -348.0
-offset_top = -316.0
-offset_right = 311.0
-offset_bottom = 220.0
+offset_left = -636.0
+offset_top = -360.0
+offset_right = 638.0
+offset_bottom = 323.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="Player1" type="HBoxContainer" parent="PlayersSetup"]
+[node name="VBoxContainer" type="HBoxContainer" parent="PlayersSetup"]
+custom_minimum_size = Vector2(320, 300)
+layout_direction = 1
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="Player1Name" type="LineEdit" parent="PlayersSetup/Player1"]
-custom_minimum_size = Vector2(350, 0)
+[node name="Player1" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player1Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player1"]
+custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_ly7pc")
@@ -209,70 +208,64 @@ placeholder_text = "Player1"
 alignment = 1
 max_length = 16
 
-[node name="Player1Color" type="ColorPickerButton" parent="PlayersSetup/Player1"]
+[node name="Player1ColorPicker" parent="PlayersSetup/VBoxContainer/Player1" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
-icon = ExtResource("7_lqc67")
-color = Color(0.796078, 0, 0, 1)
 
-[node name="Player2" type="HBoxContainer" parent="PlayersSetup"]
+[node name="Player2" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player2Name" type="LineEdit" parent="PlayersSetup/Player2"]
-custom_minimum_size = Vector2(350, 0)
+[node name="Player2Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player2"]
+custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 theme = ExtResource("5_ly7pc")
 placeholder_text = "Player2"
 alignment = 1
 max_length = 16
 
-[node name="Player2Color" type="ColorPickerButton" parent="PlayersSetup/Player2"]
+[node name="Player2ColorPicker" parent="PlayersSetup/VBoxContainer/Player2" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
-icon = ExtResource("7_lqc67")
-color = Color(0, 1, 0, 1)
 
-[node name="Player3" type="HBoxContainer" parent="PlayersSetup"]
+[node name="Player3" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player3Name" type="LineEdit" parent="PlayersSetup/Player3"]
-custom_minimum_size = Vector2(350, 0)
+[node name="Player3Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player3"]
+custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("5_ly7pc")
 placeholder_text = "Player3"
 alignment = 1
 max_length = 16
 
-[node name="Player3Color" type="ColorPickerButton" parent="PlayersSetup/Player3"]
+[node name="Player3ColorPicker" parent="PlayersSetup/VBoxContainer/Player3" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
-icon = ExtResource("7_lqc67")
-color = Color(0, 0, 1, 1)
 
-[node name="Player4" type="HBoxContainer" parent="PlayersSetup"]
+[node name="Player4" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player4Name" type="LineEdit" parent="PlayersSetup/Player4"]
-custom_minimum_size = Vector2(350, 0)
+[node name="Player4Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player4"]
+custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 theme = ExtResource("5_ly7pc")
 placeholder_text = "Player4"
 alignment = 1
 max_length = 16
 
-[node name="Player4Color" type="ColorPickerButton" parent="PlayersSetup/Player4"]
+[node name="Player4ColorPicker" parent="PlayersSetup/VBoxContainer/Player4" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
-icon = ExtResource("7_lqc67")
 
 [node name="Buttons" type="HBoxContainer" parent="PlayersSetup"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 10
 
 [node name="Back" type="Button" parent="PlayersSetup/Buttons"]
 custom_minimum_size = Vector2(220, 80)
@@ -304,10 +297,10 @@ layout_mode = 1
 [connection signal="item_selected" from="NewGameSettings/HBoxContainer2/MapSize" to="." method="_on_map_size_item_selected"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Next" to="." method="_on_next_pressed"]
-[connection signal="text_changed" from="PlayersSetup/Player1/Player1Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/Player2/Player2Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/Player3/Player3Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/Player4/Player4Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player1/Player1Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player2/Player2Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player3/Player3Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player4/Player4Name" to="." method="_on_text_changed"]
 [connection signal="pressed" from="PlayersSetup/Buttons/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="PlayersSetup/Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
