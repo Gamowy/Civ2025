@@ -6,6 +6,7 @@ var pos_clicked # = Vector2(0,0)
 @onready var selected_unit: BaseUnit = null
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 @onready var map_layer : TileMapLayer = $"../MapLayer"
+#@onready var citylayer: City = get_node("root/Main/Map/CityLayer")
 
 func spawn_warrior():
 	print("boom")
@@ -58,7 +59,7 @@ func highlight_possible_moves(unit: BaseUnit, start_position: Vector2):
 		for tileY in range(-range, range + 1):
 			var target_position = start_position + Vector2(tileX,tileY)
 			var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
-			if target_position.distance_to(start_position) <= range and is_cell_free(target_position):
+			if target_position.distance_to(start_position) <= range and is_cell_free(target_position) and is_cell_not_city(target_position):
 				highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 1)
 				if tmp == "mountain":
 					highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 2)
@@ -79,6 +80,16 @@ func get_unit_at_position(map_position: Vector2) -> BaseUnit:
 	
 func is_cell_free(map_position: Vector2) -> bool:
 	return get_unit_at_position(map_position) == null
+
+func get_city_at_position(map_position: Vector2) -> City:
+	var world_position = map_to_local(map_position)
+	for city in $"../CityLayer".get_children():
+		if city is City and city.position.distance_to(world_position) <1.0:
+			return city
+	return null
+
+func is_cell_not_city(map_position: Vector2) -> bool:
+	return get_city_at_position(map_position) == null
 
 func spawn_spearman():
 	var spawn_point = pos_clicked

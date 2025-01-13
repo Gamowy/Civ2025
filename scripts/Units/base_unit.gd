@@ -25,7 +25,7 @@ func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 	var distance = hex_coords.distance_to(target_hex)
 	var move_time = distance
 	#Checking if there is no obstacle and if unit can move there
-	if distance <= movementRange and unit_layer.is_cell_free(target_hex):
+	if distance <= movementRange and unit_layer.is_cell_free(target_hex) and unit_layer.is_cell_not_city(target_hex):
 		var tween = create_tween()
 		#position = unit_layer.map_to_local(target_position)
 		if target_position.x < position.x:
