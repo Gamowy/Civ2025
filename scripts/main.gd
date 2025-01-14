@@ -19,6 +19,28 @@ var save_path = "user://save.dat"
 @onready var transition = $UILayer/Transition
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+
+var soundtrack_list = [
+	preload("res://audio/soundtrack/Game_1.mp3"),
+	preload("res://audio/soundtrack/Game_2.mp3"),
+	preload("res://audio/soundtrack/Game_3.mp3"),
+	preload("res://audio/soundtrack/Game_4.mp3"),
+	preload("res://audio/soundtrack/Game_5.mp3"),
+	preload("res://audio/soundtrack/Game_6.mp3"),
+	preload("res://audio/soundtrack/Game_7.mp3"),
+	preload("res://audio/soundtrack/Game_8.mp3"),
+	preload("res://audio/soundtrack/Game_9.mp3"),
+	preload("res://audio/soundtrack/Game_10.mp3"),
+	preload("res://audio/soundtrack/Game_11.mp3"),
+	preload("res://audio/soundtrack/Game_12.mp3"),
+	preload("res://audio/soundtrack/Game_13.mp3"),
+	preload("res://audio/soundtrack/Game_14.mp3"),
+	preload("res://audio/soundtrack/Game_15.mp3"),
+	preload("res://audio/soundtrack/Game_16.mp3"),
+	preload("res://audio/soundtrack/Game_17.mp3"),
+	preload("res://audio/soundtrack/Game_18.mp3")
+]
 var previous_cell:Vector2=Vector2(0,0)
 var adding_city = false
 
@@ -30,6 +52,9 @@ func _ready() -> void:
 	#Set camera movement boundary
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	initGame()
+	music_player.set("spatial", false)
+	play_next_track()
+	
 
 func initGame() -> void:
 	# TEST
@@ -177,6 +202,20 @@ func switch_turns() -> void:
 	transition.fade_to_normal()
 	await transition.transition_finished
 	
+
+func play_next_track():
+	if soundtrack_list.size() > 0:
+		var random_track = soundtrack_list[randi() % soundtrack_list.size()]
+		
+		music_player.stream = random_track
+		music_player.play()
+		
+		music_player.disconnect("finished", Callable(self, "_on_music_finished"))
+		music_player.connect("finished", Callable(self, "_on_music_finished"))
+
+func _on_music_finished():
+	play_next_track()
+
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	switch_turns()
