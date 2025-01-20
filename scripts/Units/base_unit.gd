@@ -1,11 +1,15 @@
 extends Node2D
 class_name BaseUnit
 
+var unit_name:String = "Base Unit"
 var health: int = 100
 var attack: int = 5
 var defense: int = 5
 var movementRange: int = 2
 var rangeOfView: int = 2
+var cost_gold:int = 1
+var cost_food:int = 1
+var description:String = "lorem ipsum"
 
 var ownerID: int = -1
 

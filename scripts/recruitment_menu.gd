@@ -7,13 +7,14 @@ extends Control
 @onready var build_button:Button=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonBuild
 @onready var description_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/Description
 @onready var gold_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold/GoldCost
-@onready var wood_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood/WoodCost
-@onready var stone_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone/StoneCost
-@onready var steel_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer/SteelCost
+#@onready var wood_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood/WoodCost
+#@onready var stone_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone/StoneCost
+#@onready var steel_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer/SteelCost
 @onready var food_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2/FoodCost
 @onready var owned_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var prompt_window=$PromptWindow
 @onready var building_manager=$BuildingManager
+@onready var unit_manager = $UnitManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 @onready var buildings_limit_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 
@@ -35,16 +36,20 @@ var _building_mode:String="Build":
 #city about which to display information
 var city:City
 var selected_building:BuildingBaseClass
+var selected_unit:BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	building_manager.city=city
 	build_button.disabled=true
 	get_tree().paused=true
-	for building in building_manager.buildings:
-		building_item_list.add_item(building.building_name,load(building.building_picture))
-		print(building.building_name)
-	_update_owned_buildings()
+	for unit in unit_manager.units:
+	#	building_item_list.add_item(building.building_name,load(building.building_picture))
+		
+		building_item_list.add_child(unit)
+		building_item_list.add_item(unit.unit_name)
+		print(unit.unit_name)
+#	_update_owned_buildings()
 	
 #enables scrolling owned buildings list by dragging
 func _on_scroll_owned_list(event:InputEvent)->void:
@@ -57,42 +62,42 @@ func _on_scroll_building_list(event:InputEvent)->void:
 		building_list_scrollbar.value-=event.relative.y
 
 
-func _update_owned_buildings()->void:
-	owned_item_list.clear()# for some reason this method causes issues with the itemlist theme
-		
-	var how_many:int=0
-	if city!=null:
-		for building in city.buildings:
-			how_many+=1
-			owned_item_list.add_item(building.building_name,load(building.building_picture))
-	owned_label.text="Owned ("+str(how_many)+"/"+str(city.building_limit)+")"
+#func _update_owned_buildings()->void:
+#	owned_item_list.clear()# for some reason this method causes issues with the itemlist theme
+#		
+#	var how_many:int=0
+#	if city!=null:
+#		for building in city.buildings:
+#			how_many+=1
+#			owned_item_list.add_item(building.building_name,load(building.building_picture))
+	#owned_label.text="Owned ("+str(how_many)+"/"+str(city.building_limit)+")"
 
 #updates displayed info
-func _display_building_info(building:BuildingBaseClass)->void:
-	description_label.text=building.building_description
-	gold_cost_label.text=str(building.gold_cost)
-	wood_cost_label.text=str(building.wood_cost)
-	stone_cost_label.text=str(building.stone_cost)
-	steel_cost_label.text=str(building.steel_cost)
-	food_cost_label.text=str(building.food_cost)
+func _display_unit_info(unit:BaseUnit)->void:
+	description_label.text=unit.description
+	gold_cost_label.text=str(unit.cost_gold)
+#	wood_cost_label.text=str(building.wood_cost)
+#	stone_cost_label.text=str(building.stone_cost)
+#	steel_cost_label.text=str(building.steel_cost)
+	food_cost_label.text=str(unit.cost_food)
 
 func _clear_building_info()->void:
 	description_label.text=""
 	gold_cost_label.text="0"
-	wood_cost_label.text="0"
-	stone_cost_label.text="0"
-	steel_cost_label.text="0"
+#	wood_cost_label.text="0"
+#	stone_cost_label.text="0"
+#	steel_cost_label.text="0"
 	food_cost_label.text="0"
 
 #display info about a building and switch to build mode
 func _on_building_list_item_selected(index: int) -> void:
 	owned_item_list.deselect_all()
-	selected_building=building_manager.buildings[index]
+	selected_unit=unit_manager.units[index]
 	build_button.disabled=true
-	if building_manager.can_player_build_building(selected_building):
+	if unit_manager.can_player_recruit_unit(selected_unit):
 		build_button.disabled=false
 	_building_mode="Build"
-	_display_building_info(selected_building)
+	_display_unit_info(selected_unit)
 
 #display info about an owned building and switch to destroy mode
 func _on_owned_list_item_selected(index: int) -> void:
@@ -100,7 +105,7 @@ func _on_owned_list_item_selected(index: int) -> void:
 	selected_building=city.buildings[index]
 	build_button.disabled=false
 	_building_mode="Destroy"
-	_display_building_info(selected_building)
+	#_display_building_info(selected_building)
 
 
 func _on_owned_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
@@ -124,7 +129,7 @@ func _on_button_build_pressed() -> void:
 		building_manager.build_building(selected_building)
 		sfx_player.stream=build_sound
 		sfx_player.play()
-		_update_owned_buildings()
+#		_update_owned_buildings()
 		if building_manager.can_player_build_building(selected_building)==false:
 			build_button.disabled=true
 
@@ -133,7 +138,7 @@ func _on_prompt_window_yes() -> void:
 	building_manager.destroy_building(selected_building)
 	sfx_player.stream=destroy_sound
 	sfx_player.play()
-	_update_owned_buildings()
+#	_update_owned_buildings()
 	prompt_window.visible=false
 	owned_item_list.deselect_all()
 	build_button.disabled=true

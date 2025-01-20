@@ -109,8 +109,10 @@ func spawn_archmage():
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var archmage = preload("res://scenes/Units/ArchMage.tscn").instantiate()
+	print(archmage.unit_name)
 	add_child(archmage)
 	archmage.position = world_position
+	
 	
 func spawn_cavalry():
 	var spawn_point = pos_clicked
