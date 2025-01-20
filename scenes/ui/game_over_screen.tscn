@@ -1,0 +1,131 @@
+[gd_scene load_steps=8 format=3 uid="uid://ejvm2op46e06"]
+
+[ext_resource type="Script" path="res://scripts/ui/game_over_screen.gd" id="1_34hlt"]
+[ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="1_tgmrt"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="2_ieitm"]
+[ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="3_dsmac"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="5_he2hm"]
+[ext_resource type="AudioStream" uid="uid://cvrqxe0t4t7uq" path="res://audio/fanfarehappy.ogg" id="7_lscvp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhvkt"]
+shader = ExtResource("1_tgmrt")
+shader_parameter/lod = 2.0
+
+[node name="GameOverScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_34hlt")
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vhvkt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.5
+offset_top = -291.5
+offset_right = 436.5
+offset_bottom = 291.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -310.0
+offset_right = 404.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Center/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_ieitm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Center/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Congratulations,  [color=#ff0000]Name[/color],
+you've won!
+[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HSeparator" type="HSeparator" parent="Center/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlayButton" type="Button" parent="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Play again"
+script = ExtResource("5_he2hm")
+
+[node name="MenuButton" type="Button" parent="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Main menu"
+script = ExtResource("5_he2hm")
+
+[node name="MenuTitle" type="MarginContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = 95.0
+offset_right = 136.0
+offset_bottom = 163.0
+grow_horizontal = 2
+size_flags_vertical = 4
+theme = ExtResource("2_ieitm")
+metadata/_edit_lock_ = true
+
+[node name="TitleBox" type="TextureRect" parent="Center/MenuTitle"]
+layout_mode = 2
+texture = ExtResource("3_dsmac")
+expand_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Center/MenuTitle"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 42
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_lscvp")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="pressed" from="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
