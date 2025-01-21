@@ -15,6 +15,8 @@ script/source = "extends ColorRect
 @onready var black: ColorRect = $ColorPickerBox/Black
 @onready var purple: ColorRect = $ColorPickerBox/Purple
 
+signal color_changed
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -24,6 +26,7 @@ func set_color_of_player(picked_color: ColorRect) -> void:
 	player_color_picker.color = picked_color.color
 	picked_color.color = change_color
 	color_picker_box.visible = false
+	color_changed.emit()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():

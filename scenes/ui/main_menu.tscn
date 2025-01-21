@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1bo5pltgt2ti"]
+[gd_scene load_steps=13 format=3 uid="uid://d1bo5pltgt2ti"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bdh48pif3dmbn" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_slmn2"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -44,11 +46,18 @@ grow_horizontal = 2
 texture = ExtResource("2_qboyk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-offset_left = 495.0
-offset_top = 377.0
-offset_right = 784.0
-offset_bottom = 688.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.5
+offset_top = -365.0
+offset_right = 144.5
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_horizontal = 4
 theme = ExtResource("4_qsocg")
 
@@ -66,11 +75,11 @@ focus_mode = 0
 text = "Load Game"
 script = ExtResource("3_gse2u")
 
-[node name="Settings" type="Button" parent="VBoxContainer"]
+[node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 focus_mode = 0
-text = "Settings"
+text = "Exit game"
 script = ExtResource("3_gse2u")
 
 [node name="NewGameSettings" type="VBoxContainer" parent="."]
@@ -81,10 +90,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -348.0
-offset_top = -316.0
-offset_right = 311.0
-offset_bottom = 220.0
+offset_left = -329.5
+offset_top = -304.0
+offset_right = 329.5
+offset_bottom = 232.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -92,8 +101,9 @@ theme = ExtResource("4_qsocg")
 
 [node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("6_1wtww")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]Map Size:[/center]"
 fit_content = true
@@ -108,7 +118,7 @@ size_flags_vertical = 6
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
-theme = ExtResource("5_ly7pc")
+theme = ExtResource("8_08xtd")
 theme_override_icons/arrow = SubResource("CompressedTexture2D_atkl6")
 alignment = 1
 selected = 0
@@ -121,24 +131,26 @@ popup/item_2/id = 2
 
 [node name="labelWidth" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("6_1wtww")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]Map Seed:[/center]"
 fit_content = true
 
-[node name="MapSeed" type="SpinBox" parent="NewGameSettings"]
+[node name="MapSeed" type="LineEdit" parent="NewGameSettings"]
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
 theme = ExtResource("8_08xtd")
-max_value = 9999.0
-rounded = true
+placeholder_text = "Seed"
 alignment = 1
+max_length = 15
 
 [node name="labelPlayer" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("6_1wtww")
-theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]Number of Players:[/center]"
 fit_content = true
@@ -147,6 +159,7 @@ fit_content = true
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
 theme = ExtResource("8_08xtd")
+theme_override_icons/updown = SubResource("MeshTexture_slmn2")
 min_value = 2.0
 max_value = 4.0
 value = 2.0
@@ -159,6 +172,7 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="NewGameSettings"]
 custom_minimum_size = Vector2(290, 75)
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Back" type="Button" parent="NewGameSettings/HBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -188,92 +202,143 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -636.0
+offset_left = -640.0
 offset_top = -360.0
-offset_right = 638.0
-offset_bottom = 323.0
+offset_right = 640.0
+offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 300
+alignment = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="PlayersSetup"]
 custom_minimum_size = Vector2(320, 300)
 layout_direction = 1
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_constants/separation = -20
+alignment = 1
 
-[node name="Player1" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
+[node name="Hbox1" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="Player1" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox1"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+alignment = 1
 
-[node name="Player1Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player1"]
+[node name="Player1Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox1/Player1"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("8_08xtd")
-placeholder_text = "Player1"
+placeholder_text = "Name"
 alignment = 1
 max_length = 16
 
-[node name="Player1ColorPicker" parent="PlayersSetup/VBoxContainer/Player1" instance=ExtResource("9_mnbmo")]
+[node name="Player1ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox1/Player1" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
 
-[node name="Player2" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
+[node name="Hbox2" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="Player2" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox2"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player2Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player2"]
+[node name="Player2Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox2/Player2"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 theme = ExtResource("8_08xtd")
-placeholder_text = "Player2"
+placeholder_text = "Name"
 alignment = 1
 max_length = 16
 
-[node name="Player2ColorPicker" parent="PlayersSetup/VBoxContainer/Player2" instance=ExtResource("9_mnbmo")]
+[node name="Player2ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox2/Player2" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
 
-[node name="Player3" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
+[node name="Hbox3" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
 visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 3"
+horizontal_alignment = 1
+
+[node name="Player3" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox3"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player3Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player3"]
+[node name="Player3Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox3/Player3"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("5_ly7pc")
-placeholder_text = "Player3"
+placeholder_text = "Name"
 alignment = 1
 max_length = 16
 
-[node name="Player3ColorPicker" parent="PlayersSetup/VBoxContainer/Player3" instance=ExtResource("9_mnbmo")]
+[node name="Player3ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox3/Player3" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
 
-[node name="Player4" type="HBoxContainer" parent="PlayersSetup/VBoxContainer"]
+[node name="Hbox4" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
 visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 4"
+horizontal_alignment = 1
+
+[node name="Player4" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox4"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player4Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player4"]
+[node name="Player4Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox4/Player4"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 theme = ExtResource("5_ly7pc")
-placeholder_text = "Player4"
+placeholder_text = "Name"
 alignment = 1
 max_length = 16
 
-[node name="Player4ColorPicker" parent="PlayersSetup/VBoxContainer/Player4" instance=ExtResource("9_mnbmo")]
+[node name="Player4ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox4/Player4" instance=ExtResource("9_mnbmo")]
 layout_mode = 2
 
 [node name="Buttons" type="HBoxContainer" parent="PlayersSetup"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_constants/separation = 30
 
 [node name="Back" type="Button" parent="PlayersSetup/Buttons"]
 custom_minimum_size = Vector2(220, 80)
@@ -303,14 +368,18 @@ layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
-[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="item_selected" from="NewGameSettings/HBoxContainer2/MapSize" to="." method="_on_map_size_item_selected"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Next" to="." method="_on_next_pressed"]
-[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player1/Player1Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player2/Player2Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player3/Player3Name" to="." method="_on_text_changed"]
-[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Player4/Player4Name" to="." method="_on_text_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox1/Player1/Player1Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox1/Player1/Player1ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox2/Player2/Player2Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox2/Player2/Player2ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox3/Player3/Player3Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox3/Player3/Player3ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox4/Player4/Player4Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox4/Player4/Player4ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="PlayersSetup/Buttons/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="PlayersSetup/Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]

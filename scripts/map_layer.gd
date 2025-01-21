@@ -26,6 +26,10 @@ func _ready() -> void:
 	noise.seed=map_seed
 	noise.fractal_octaves=5
 
+func set_seed(new_seed: String) -> void:
+	map_seed = hash(new_seed)
+	noise.seed= map_seed
+
 func generate_map()->void:
 	for x in width:
 		for y in height:

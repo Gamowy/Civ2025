@@ -19,12 +19,13 @@ var save_path = "user://save.dat"
 var previous_cell:Vector2=Vector2(0,0)
 var isLoading = false
 
+# Game parameters
 var mapHeight = 64
 var mapWidth = 32
 var numberOfPlayers = 3
 var playerNames = ["Andrzej", "Adam", "Karol"]
 var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
-var selectedSeed = 0
+var selectedSeed : String
 
 var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
 
@@ -32,9 +33,9 @@ var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
 func _ready() -> void:
 	map_layer.width = mapWidth
 	map_layer.height = mapHeight
-	map_layer.map_seed = selectedSeed
+	map_layer.set_seed(selectedSeed)
 	map_layer.generate_map()
-	resource_layer.resource_seed = selectedSeed
+	resource_layer.set_seed(selectedSeed)
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
 	#Set camera movement boundary
@@ -45,14 +46,10 @@ func _ready() -> void:
 		initGame()
 
 func initGame() -> void:
-	# TEST
-	for x in range(0,numberOfPlayers):
+	var rng = RandomNumberGenerator.new()
+	for x in range(0, numberOfPlayers):
 		players_manager.add_player(x, playerNames[x], playerColors[x])
-	city_layer.add_city(Vector2i(10, 10), players_manager.players[0])
-	city_layer.add_city(Vector2i(30, 15), players_manager.players[0])
-	city_layer.add_city(Vector2i(50, 20), players_manager.players[1])
-	city_layer.add_city(Vector2i(10, 25), players_manager.players[1])
-	city_layer.add_city(Vector2i(30, 25), players_manager.players[2])
+		city_layer.add_city(Vector2i(rng.randi_range(0, mapWidth-1), rng.randi_range(0, mapHeight-1)), players_manager.players[x])
 	setup_current_player()
 	
 # Mouse input on map
