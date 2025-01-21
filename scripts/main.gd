@@ -1,7 +1,7 @@
 extends Node2D
 class_name Main
 
-var save_path = "user://save.dat"
+var save_path = SavePath.path1
 # Everything below needs to be saved in save_game() func
 # ---------------------------------------------------------------------
 # Contains data about players
@@ -20,8 +20,8 @@ var previous_cell:Vector2=Vector2(0,0)
 var isLoading = false
 
 # Game parameters
-var mapHeight = 64
-var mapWidth = 32
+var mapHeight = 48
+var mapWidth = 48
 var numberOfPlayers = 3
 var playerNames = ["Andrzej", "Adam", "Karol"]
 var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
@@ -38,8 +38,6 @@ func _ready() -> void:
 	resource_layer.set_seed(selectedSeed)
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
-	#Set camera movement boundary
-	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	if isLoading:
 		load_game()
 	else:
@@ -51,6 +49,7 @@ func initGame() -> void:
 		players_manager.add_player(x, playerNames[x], playerColors[x])
 		city_layer.add_city(Vector2i(rng.randi_range(0, mapWidth-1), rng.randi_range(0, mapHeight-1)), players_manager.players[x])
 	setup_current_player()
+	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	
 # Mouse input on map
 func _unhandled_input(event: InputEvent) -> void:
@@ -138,6 +137,7 @@ func load_game():
 			city_layer.reload_city(saved_city)
 		file.close()
 		setup_current_player()
+		camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
 	else:
 		printerr("Save file not found!")
 	

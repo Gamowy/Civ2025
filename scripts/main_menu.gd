@@ -29,6 +29,7 @@ class_name MainMenu
 @onready var start: SoundButton = $PlayersSetup/Buttons/Start
 
 var MAIN = load("res://scenes/main.tscn")
+var save_path = SavePath.path1
 
 enum Prompt_Type {NEW_GAME, LOAD_GAME}
 var prompt_type = null
@@ -42,6 +43,7 @@ func _ready() -> void:
 	texture_rect.visible = true
 	v_box_container.visible = true
 	prompt.visible = false
+	player.get_line_edit().virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
 
 func _on_new_game_pressed() -> void:
 	v_box_container.visible = false
@@ -121,12 +123,15 @@ func _on_next_pressed() -> void:
 	players_setup.visible = true
 	
 func _on_load_game_pressed() -> void:
-	prompt.setPrompt("Do you want to load previous save?")
+	if FileAccess.file_exists(save_path):
+		prompt.setPrompt("Do you want to load previous save?")
+	else:
+		prompt.setPrompt("Game save not found.", true)
 	prompt_type = Prompt_Type.LOAD_GAME
 	v_box_container.visible = false
 	texture_rect.visible = false
 	prompt.visible = true
-
+		
 func _on_text_changed(_new_text: String) -> void:
 	check_validation_of_players()
 	
@@ -177,14 +182,14 @@ func _on_prompt_window_yes() -> void:
 			main_scene.isLoading = false
 			
 			if map_size.get_selected_id() == 0:
-				main_scene.mapHeight = 64
-				main_scene.mapWidth = 32
+				main_scene.mapHeight = 48
+				main_scene.mapWidth = 48
 			elif map_size.get_selected_id() == 1:
-				main_scene.mapHeight = 96
+				main_scene.mapHeight = 64
 				main_scene.mapWidth = 64
 			elif map_size.get_selected_id() == 2:
-				main_scene.mapHeight = 96
-				main_scene.mapWidth = 96
+				main_scene.mapHeight = 84
+				main_scene.mapWidth = 84
 				
 			var new_seed = map_seed.text
 			if (new_seed == ""):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdh48pif3dmbn"]
+[gd_scene load_steps=2 format=3 uid="uid://b5hteuwaxv3ou"]
 
 [sub_resource type="GDScript" id="GDScript_s0uy8"]
 script/source = "extends ColorRect
@@ -68,6 +68,9 @@ func _on_purple_gui_input(event: InputEvent) -> void:
 func _on_black_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		set_color_of_player(black)
+
+func _on_visibility_changed() -> void:
+	color_picker_box.visible = false
 "
 
 [node name="PlayerColorPicker" type="ColorRect"]
@@ -117,6 +120,7 @@ layout_mode = 2
 color = Color(0, 0.0345775, 0.0313312, 1)
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="gui_input" from="ColorPickerBox/Red" to="." method="_on_red_gui_input"]
 [connection signal="gui_input" from="ColorPickerBox/Green" to="." method="_on_green_gui_input"]
 [connection signal="gui_input" from="ColorPickerBox/Blue" to="." method="_on_blue_gui_input"]

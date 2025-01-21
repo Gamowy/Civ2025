@@ -19,6 +19,7 @@ signal master_volume_changed(volume:float)
 signal sfx_volume_changed(volume:float)
 
 var config_path = "user://config.cfg"
+var save_path = SavePath.path1
 var config = ConfigFile.new()
 
 func _ready() -> void:
@@ -45,7 +46,10 @@ func _on_save_game_button_pressed() -> void:
 	prompt.visible = true
 
 func _on_load_game_button_pressed() -> void:
-	prompt.setPrompt("Do you want to load previous save?\nAll unsaved progress will be lost.")
+	if FileAccess.file_exists(save_path):
+		prompt.setPrompt("Do you want to load previous save?\nAll unsaved progress will be lost.")
+	else:
+		prompt.setPrompt("Game save not found.", true)
 	prompt_type = Prompt_Type.LOAD_GAME
 	center.visible = false
 	prompt.visible = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1bo5pltgt2ti"]
+[gd_scene load_steps=13 format=3 uid="uid://bebutuhclaa82"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
 [ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="6_1wtww"]
-[ext_resource type="Theme" uid="uid://il8c4l3rsgb4" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
-[ext_resource type="PackedScene" uid="uid://bdh48pif3dmbn" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
+[ext_resource type="Theme" uid="uid://00jjg1a0fcax" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
+[ext_resource type="PackedScene" uid="uid://b5hteuwaxv3ou" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
 
@@ -243,6 +243,7 @@ custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("8_08xtd")
+theme_override_font_sizes/font_size = 30
 placeholder_text = "Name"
 alignment = 1
 max_length = 16

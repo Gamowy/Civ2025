@@ -4,6 +4,8 @@ extends Control
 @export var text := "Prompt text"
 
 @onready var prompt_content = $Center/PanelContainer/Content/PromptText
+@onready var yes_button = $Center/PanelContainer/Content/Buttons/YesButton
+@onready var no_button = $Center/PanelContainer/Content/Buttons/NoButton
 
 signal no
 signal yes
@@ -11,7 +13,13 @@ signal yes
 func _ready() -> void:
 	prompt_content.text = text
 
-func setPrompt(content: String) -> void:
+func setPrompt(content: String, infoPrompt=false) -> void:
+	if (infoPrompt):
+		yes_button.visible = false
+		no_button.text = "OK"
+	else:
+		yes_button.visible = true
+		no_button.text = "No"
 	prompt_content.text = content
 
 func _on_yes_button_pressed() -> void:

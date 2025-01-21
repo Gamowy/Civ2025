@@ -29,6 +29,7 @@ buses/default_bus_layout="res://audio/default_bus_layout.tres"
 
 MapInfo="*res://scripts/map_info.gd"
 UISoundPlayer="*res://scenes/ui/ui_sound_player.tscn"
+SavePath="*res://scripts/save_path.gd"
 
 [display]
 
