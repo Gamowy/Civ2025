@@ -46,17 +46,8 @@ func _on_upgrade_pressed() -> void:
 		upgrade_menu.city=get_parent()
 	add_child(upgrade_menu)
 
-func _on_recruit_pressed():
+func _on_recruit_pressed() -> void:
 	var recruitment_menu = load("res://scenes/ui/recruitment_menu.tscn").instantiate()
 	if get_parent() is City:
 		recruitment_menu.city = get_parent()
 	add_child(recruitment_menu)
-	#var target_position = unitlayer.pos_clicked + Vector2i(1,-1)
-	#if unitlayer.is_cell_free(unitlayer.pos_clicked):
-	#	unitlayer.pos_clicked = target_position
-	#	unitlayer.spawn_archmage()
-	#	print("Jednostka zrekrutowana!")
-	#else:
-	#	print("Pole jest zajete!")
-
-	
