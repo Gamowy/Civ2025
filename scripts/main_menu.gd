@@ -34,7 +34,7 @@ var MAIN = load("res://scenes/main.tscn")
 enum Prompt_Type {NEW_GAME, LOAD_GAME}
 var prompt_type = null
 var load_scene = "res://scenes/ui/loading_screen.tscn"
-var names = []
+var player_names = []
 var colors = []
 
 
@@ -67,19 +67,19 @@ func _on_back_pressed() -> void:
 	player_3_name.text=""
 	player_4_name.text=""
 	
-func check_validation_of_player(names: Array, colors: Array) -> bool:	
-	var unique_names = []
+func check_validation_of_player(namesArray: Array, colorsArray: Array) -> bool:	
+	var unique_player_names = []
 	var unique_colors = []
 	
-	for name in names:
-		if not unique_names.has(name):
-			unique_names.append(name)
+	for player_name in namesArray:
+		if not unique_player_names.has(player_name):
+			unique_player_names.append(player_name)
 			
-	for color in colors:
-		if not unique_colors.has(color):
-			unique_colors.append(color)
+	for player_color in colorsArray:
+		if not unique_colors.has(player_color):
+			unique_colors.append(player_color)
 			
-	if unique_colors.size() != colors.size() or unique_names.size() != names.size():
+	if unique_colors.size() != colorsArray.size() or unique_player_names.size() != namesArray.size():
 		return false
 	else:
 		return true
@@ -89,16 +89,16 @@ func _on_start_pressed() -> void:
 	prompt_type = Prompt_Type.NEW_GAME
 	
 	if player.value == 2:
-		names = [str(player_1_name.text), str(player_2_name.text)]
+		player_names = [str(player_1_name.text), str(player_2_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color]
 	elif player.value == 3:
-		names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text)]
+		player_names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color]
 	elif player.value == 4:
-		names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text), str(player_4_name.text)]
+		player_names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text), str(player_4_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color, player_4_color_picker.color]
 	
-	if check_validation_of_player(names, colors):
+	if check_validation_of_player(player_names, colors):
 		prompt.setPrompt("Do you want to start a new game?")
 		prompt_type = Prompt_Type.NEW_GAME
 		v_box_container.visible = false
@@ -151,6 +151,7 @@ func _on_prompt_window_no() -> void:
 	texture_rect.visible = true
 	v_box_container.visible = true
 	prompt.visible = false
+	logo.visible = true
 
 
 func _on_prompt_window_yes() -> void:
@@ -177,7 +178,7 @@ func _on_prompt_window_yes() -> void:
 				
 			main_scene.selectedSeed = map_seed.value
 			main_scene.numberOfPlayers = int(player.value)
-			main_scene.playerNames = names
+			main_scene.playerplayer_names = player_names
 			main_scene.playerColors = colors
 			get_tree().root.add_child(main_scene)
 			get_tree().root.remove_child(self)

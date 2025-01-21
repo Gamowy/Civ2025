@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1bo5pltgt2ti"]
+[gd_scene load_steps=12 format=3 uid="uid://d1bo5pltgt2ti"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
 [ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
@@ -8,7 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
 [ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
 [ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="6_1wtww"]
+[ext_resource type="Theme" uid="uid://il8c4l3rsgb4" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
 [ext_resource type="PackedScene" uid="uid://bdh48pif3dmbn" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -17,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_08xtd")
 script = ExtResource("1_s5nxq")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -51,18 +55,21 @@ theme = ExtResource("4_qsocg")
 [node name="NewGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+focus_mode = 0
 text = "New Game"
 script = ExtResource("3_gse2u")
 
 [node name="LoadGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+focus_mode = 0
 text = "Load Game"
 script = ExtResource("3_gse2u")
 
 [node name="Settings" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+focus_mode = 0
 text = "Settings"
 script = ExtResource("3_gse2u")
 
@@ -98,14 +105,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 
 [node name="MapSize" type="OptionButton" parent="NewGameSettings/HBoxContainer2"]
-custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 theme = ExtResource("5_ly7pc")
+theme_override_icons/arrow = SubResource("CompressedTexture2D_atkl6")
 alignment = 1
 selected = 0
-fit_to_longest_item = false
 item_count = 3
 popup/item_0/text = "Small"
 popup/item_1/text = "Medium"
@@ -124,7 +130,7 @@ fit_content = true
 [node name="MapSeed" type="SpinBox" parent="NewGameSettings"]
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
-theme = ExtResource("5_ly7pc")
+theme = ExtResource("8_08xtd")
 max_value = 9999.0
 rounded = true
 alignment = 1
@@ -140,7 +146,7 @@ fit_content = true
 [node name="Player" type="SpinBox" parent="NewGameSettings"]
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
-theme = ExtResource("5_ly7pc")
+theme = ExtResource("8_08xtd")
 min_value = 2.0
 max_value = 4.0
 value = 2.0
@@ -159,6 +165,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("5_ly7pc")
 text = "Back"
 script = ExtResource("3_gse2u")
@@ -168,6 +175,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
 theme = ExtResource("5_ly7pc")
 text = "Next"
 script = ExtResource("3_gse2u")
@@ -203,7 +211,7 @@ size_flags_vertical = 6
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("5_ly7pc")
+theme = ExtResource("8_08xtd")
 placeholder_text = "Player1"
 alignment = 1
 max_length = 16
@@ -219,7 +227,7 @@ size_flags_vertical = 6
 [node name="Player2Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Player2"]
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
-theme = ExtResource("5_ly7pc")
+theme = ExtResource("8_08xtd")
 placeholder_text = "Player2"
 alignment = 1
 max_length = 16
@@ -272,7 +280,8 @@ custom_minimum_size = Vector2(220, 80)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
-theme = ExtResource("5_ly7pc")
+focus_mode = 0
+theme = ExtResource("8_08xtd")
 text = "Back"
 script = ExtResource("3_gse2u")
 
@@ -281,7 +290,8 @@ custom_minimum_size = Vector2(220, 80)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
-theme = ExtResource("5_ly7pc")
+focus_mode = 0
+theme = ExtResource("8_08xtd")
 text = "Start"
 script = ExtResource("3_gse2u")
 
