@@ -13,5 +13,6 @@ func _ready():
 	cost_gold = 5
 	cost_food = 4
 	sprite = $AnimatedSprite2D
+	description = "Dedicated his whole life to creating handheld atomic bombs (failed, but got fireballs instead)."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()

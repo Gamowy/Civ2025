@@ -17,6 +17,8 @@ extends Control
 @onready var unit_manager = $UnitManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 @onready var buildings_limit_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
+@onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
+
 
 var build_sound:AudioStream=preload("res://audio/build.ogg")
 var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
@@ -40,7 +42,7 @@ var selected_unit:BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	building_manager.city=city
+	unit_manager.city=city
 	build_button.disabled=true
 	get_tree().paused=true
 	for unit in unit_manager.units:
@@ -98,6 +100,7 @@ func _on_building_list_item_selected(index: int) -> void:
 		build_button.disabled=false
 	_building_mode="Build"
 	_display_unit_info(selected_unit)
+	print(selected_unit.unit_name)
 
 #display info about an owned building and switch to destroy mode
 func _on_owned_list_item_selected(index: int) -> void:
@@ -123,15 +126,26 @@ func _on_building_list_empty_clicked(_at_position: Vector2, _mouse_button_index:
 
 #check building mode, show destroy prompt or build building
 func _on_button_build_pressed() -> void:
-	if _building_mode=="Destroy":
-		prompt_window.visible=true
-	if _building_mode=="Build":
-		building_manager.build_building(selected_building)
-		sfx_player.stream=build_sound
-		sfx_player.play()
-#		_update_owned_buildings()
-		if building_manager.can_player_build_building(selected_building)==false:
-			build_button.disabled=true
+	print(selected_unit.description)
+	if(selected_unit.unit_name == "Archer"):
+		print("Penis")
+	else:
+		print("Bobra")
+	
+	unit_manager.recruit_unit(selected_unit)
+	city.update_city_info()
+	get_tree().paused=false
+	queue_free()
+		
+	#if _building_mode=="Destroy":
+	#	prompt_window.visible=true
+	#if _building_mode=="Build":
+	#	building_manager.build_building(selected_building)
+	#	sfx_player.stream=build_sound
+	#	sfx_player.play()
+#	#	_update_owned_buildings()
+	#	if building_manager.can_player_build_building(selected_building)==false:
+	#		build_button.disabled=true
 
 # make sure player wants to destroy building
 func _on_prompt_window_yes() -> void:

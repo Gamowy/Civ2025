@@ -51,12 +51,12 @@ func _on_recruit_pressed():
 	if get_parent() is City:
 		recruitment_menu.city = get_parent()
 	add_child(recruitment_menu)
-	var target_position = unitlayer.pos_clicked + Vector2i(1,-1)
-	if unitlayer.is_cell_free(unitlayer.pos_clicked):
-		unitlayer.pos_clicked = target_position
-		unitlayer.spawn_archmage()
-		print("Jednostka zrekrutowana!")
-	else:
-		print("Pole jest zajete!")
+	#var target_position = unitlayer.pos_clicked + Vector2i(1,-1)
+	#if unitlayer.is_cell_free(unitlayer.pos_clicked):
+	#	unitlayer.pos_clicked = target_position
+	#	unitlayer.spawn_archmage()
+	#	print("Jednostka zrekrutowana!")
+	#else:
+	#	print("Pole jest zajete!")
 
 	

@@ -13,5 +13,6 @@ func _ready():
 	cost_gold = 4
 	cost_food = 4
 	sprite = $AnimatedSprite2D
+	description = "Puts Sonic the Hedgehog in his place when at full speed."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
