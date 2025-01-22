@@ -29,7 +29,7 @@ class_name MainMenu
 @onready var start: SoundButton = $PlayersSetup/Buttons/Start
 
 var MAIN = load("res://scenes/main.tscn")
-var save_path = SavePath.path1
+var save_path = FilePaths.save_path
 
 enum Prompt_Type {NEW_GAME, LOAD_GAME}
 var prompt_type = null

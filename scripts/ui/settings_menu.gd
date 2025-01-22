@@ -18,17 +18,11 @@ signal exit_to_menu
 signal master_volume_changed(volume:float)
 signal sfx_volume_changed(volume:float)
 
-var config_path = "user://config.cfg"
-var save_path = SavePath.path1
+var config_path = FilePaths.config_path
+var save_path = FilePaths.save_path
 var config = ConfigFile.new()
 
 func _ready() -> void:
-	var config_file = config.load(config_path)
-	if config_file == OK:
-		for settings in config.get_sections():
-			master_volume_slider.value = config.get_value(settings, "master_volume", 100)
-			sfx_volume_slider.value = config.get_value(settings, "sfx_volume", 100)
-	
 	center.visible = true
 	prompt.visible = false
 

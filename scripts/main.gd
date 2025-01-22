@@ -1,7 +1,7 @@
 extends Node2D
 class_name Main
 
-var save_path = SavePath.path1
+var save_path = FilePaths.save_path
 # Everything below needs to be saved in save_game() func
 # ---------------------------------------------------------------------
 # Contains data about players
