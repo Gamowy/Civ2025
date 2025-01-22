@@ -75,13 +75,15 @@ func _on_prompt_no() -> void:
 	center.visible = true
 
 func _on_prompt_yes() -> void:
-	prompt.visible = false
-	center.visible = true
 	save_config()
 	match prompt_type:
 		Prompt_Type.SAVE_GAME:
+			prompt.visible = false
+			center.visible = true
 			save_game.emit()
 		Prompt_Type.LOAD_GAME:
+			prompt.visible = false
+			center.visible = true
 			load_game.emit()
 		Prompt_Type.EXIT_TO_MAIN_MENU:
 			exit_to_menu.emit()

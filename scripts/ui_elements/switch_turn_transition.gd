@@ -14,6 +14,10 @@ func fade_to_black():
 func fade_to_normal():
 	play("fade_to_normal")
 	
+func set_black_screen():
+	black_screen.visible = true
+	black_screen.color = Color.BLACK
+	
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "fade_to_black":
 		transition_finished.emit()

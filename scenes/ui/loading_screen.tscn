@@ -39,7 +39,7 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 84
-text = "Loading scene..."
+text = "Loading game..."
 horizontal_alignment = 1
 vertical_alignment = 1
 

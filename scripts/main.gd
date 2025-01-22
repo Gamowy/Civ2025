@@ -30,12 +30,13 @@ var playerNames = ["Andrzej", "Adam", "Karol"]
 var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
 var selectedSeed : String
 
-var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
+var LOADING_SCREEN = "res://scenes/ui/loading_screen.tscn"
 
 var adding_city = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	transition.set_black_screen()
 	map_layer.width = mapWidth
 	map_layer.height = mapHeight
 	map_layer.set_seed(selectedSeed)
@@ -43,10 +44,13 @@ func _ready() -> void:
 	resource_layer.set_seed(selectedSeed)
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
+	
 	if isLoading:
 		load_game()
 	else:
 		initGame()
+	transition.fade_to_normal()
+	await transition.transition_finished
 
 func initGame() -> void:
 	var rng = RandomNumberGenerator.new()
@@ -193,8 +197,7 @@ func switch_turns() -> void:
 	await transition.transition_finished
 	
 func exit_to_menu() -> void:
-	var main_menu = MAIN_MENU.instantiate()
-	get_tree().root.add_child(main_menu)
+	get_tree().change_scene_to_file(LOADING_SCREEN);
 	get_tree().root.remove_child(self)
 	self.queue_free()
 	
@@ -224,7 +227,5 @@ func _on_ui_layer_build_city() -> void:
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
 	user_interface.update_resources(resource, str(value))
 
-
 func _on_ui_layer_exit_to_menu() -> void:
 	exit_to_menu()
-	
