@@ -150,12 +150,14 @@ metadata/_edit_lock_ = true
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
+map_seed = 0
 
 [node name="ResourceLayer" type="TileMapLayer" parent="Map" groups=["resource_layer"]]
 z_index = 1
 texture_filter = 1
 tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
+resource_seed = 0
 
 [node name="CityLayer" type="TileMapLayer" parent="Map"]
 z_index = 2
@@ -190,6 +192,7 @@ unit"
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
 [connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
+[connection signal="exit_to_menu" from="UILayer" to="." method="_on_ui_layer_exit_to_menu"]
 [connection signal="load_game" from="UILayer" to="." method="_on_ui_layer_load_game"]
 [connection signal="save_game" from="UILayer" to="." method="_on_ui_layer_save_game"]
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]

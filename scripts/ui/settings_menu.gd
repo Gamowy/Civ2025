@@ -9,6 +9,7 @@ var prompt_type = null
 @onready var sfx_volume_slider:Slider=$Center/PanelContainer/Content/VolumeContainer/SFXVolume/SFXVolumeSlider
 @onready var center = $Center
 @onready var prompt = $Prompt
+@onready var settings_menu: Control = $"."
 
 signal exit_settings
 signal save_game
@@ -17,16 +18,11 @@ signal exit_to_menu
 signal master_volume_changed(volume:float)
 signal sfx_volume_changed(volume:float)
 
-var config_path = "user://config.cfg"
+var config_path = FilePaths.config_path
+var save_path = FilePaths.save_path
 var config = ConfigFile.new()
 
 func _ready() -> void:
-	var config_file = config.load(config_path)
-	if config_file == OK:
-		for settings in config.get_sections():
-			master_volume_slider.value = config.get_value(settings, "master_volume", 100)
-			sfx_volume_slider.value = config.get_value(settings, "sfx_volume", 100)
-	
 	center.visible = true
 	prompt.visible = false
 
@@ -44,7 +40,10 @@ func _on_save_game_button_pressed() -> void:
 	prompt.visible = true
 
 func _on_load_game_button_pressed() -> void:
-	prompt.setPrompt("Do you want to load previous save?\nAll unsaved progress will be lost.")
+	if FileAccess.file_exists(save_path):
+		prompt.setPrompt("Do you want to load previous save?\nAll unsaved progress will be lost.")
+	else:
+		prompt.setPrompt("Game save not found.", true)
 	prompt_type = Prompt_Type.LOAD_GAME
 	center.visible = false
 	prompt.visible = true
@@ -70,13 +69,15 @@ func _on_prompt_no() -> void:
 	center.visible = true
 
 func _on_prompt_yes() -> void:
-	prompt.visible = false
-	center.visible = true
 	save_config()
 	match prompt_type:
 		Prompt_Type.SAVE_GAME:
+			prompt.visible = false
+			center.visible = true
 			save_game.emit()
 		Prompt_Type.LOAD_GAME:
+			prompt.visible = false
+			center.visible = true
 			load_game.emit()
 		Prompt_Type.EXIT_TO_MAIN_MENU:
 			exit_to_menu.emit()

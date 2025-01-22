@@ -7,8 +7,11 @@ extends CanvasLayer
 signal save_game
 signal load_game
 signal end_player_turn
+<<<<<<< HEAD
 signal exit_to_menu
+=======
 signal build_city
+>>>>>>> main
 
 func _ready() -> void:
 	user_interface.visible = true

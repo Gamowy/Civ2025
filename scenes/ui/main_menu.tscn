@@ -1,0 +1,396 @@
+[gd_scene load_steps=13 format=3 uid="uid://bebutuhclaa82"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_s5nxq"]
+[ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="1_uygr0"]
+[ext_resource type="Texture2D" uid="uid://dridpjveyvaye" path="res://img/logo/logo.png" id="2_qboyk"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_gse2u"]
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="4_qsocg"]
+[ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="5_hbqgk"]
+[ext_resource type="Theme" uid="uid://5qu464eye42a" path="res://resources/themes/city_menu_bar_theme.tres" id="5_ly7pc"]
+[ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="6_1wtww"]
+[ext_resource type="Theme" uid="uid://00jjg1a0fcax" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
+[ext_resource type="PackedScene" uid="uid://b5hteuwaxv3ou" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_slmn2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_08xtd")
+script = ExtResource("1_s5nxq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uygr0")
+
+[node name="logo" type="TextureRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_right = 192.0
+offset_bottom = 384.0
+grow_horizontal = 2
+texture = ExtResource("2_qboyk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -144.5
+offset_top = -365.0
+offset_right = 144.5
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme = ExtResource("4_qsocg")
+
+[node name="NewGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 0
+text = "New Game"
+script = ExtResource("3_gse2u")
+
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+focus_mode = 0
+text = "Load Game"
+script = ExtResource("3_gse2u")
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+focus_mode = 0
+text = "Exit game"
+script = ExtResource("3_gse2u")
+
+[node name="NewGameSettings" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -308.0
+offset_right = 330.0
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_qsocg")
+
+[node name="labelWidth" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Map Seed:[/center]"
+fit_content = true
+
+[node name="MapSeed" type="LineEdit" parent="NewGameSettings"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+theme = ExtResource("8_08xtd")
+placeholder_text = "Seed"
+alignment = 1
+max_length = 15
+
+[node name="labelPlayer" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Number of Players:[/center]"
+fit_content = true
+
+[node name="Player" type="SpinBox" parent="NewGameSettings"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+theme = ExtResource("8_08xtd")
+theme_override_icons/updown = SubResource("MeshTexture_slmn2")
+min_value = 2.0
+max_value = 4.0
+value = 2.0
+allow_greater = true
+allow_lesser = true
+alignment = 1
+update_on_text_changed = true
+select_all_on_focus = true
+
+[node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Map Size:[/center]"
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="MapSize" type="OptionButton" parent="NewGameSettings/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("8_08xtd")
+theme_override_icons/arrow = SubResource("CompressedTexture2D_atkl6")
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Small"
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Large"
+popup/item_2/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(290, 75)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Back" type="Button" parent="NewGameSettings/HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("5_ly7pc")
+text = "Back"
+script = ExtResource("3_gse2u")
+
+[node name="Next" type="Button" parent="NewGameSettings/HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("5_ly7pc")
+text = "Next"
+script = ExtResource("3_gse2u")
+
+[node name="PlayersSetup" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -327.0
+offset_right = 640.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = -160
+alignment = 1
+
+[node name="PlayerSetupLabel" type="Label" parent="PlayersSetup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Player names and colors must be unique!"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="PlayersSetup"]
+custom_minimum_size = Vector2(320, 300)
+layout_direction = 1
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = -20
+alignment = 1
+
+[node name="Hbox1" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="Player1" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox1"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Player1Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox1/Player1"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("8_08xtd")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Name"
+alignment = 1
+max_length = 16
+
+[node name="Player1ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox1/Player1" instance=ExtResource("9_mnbmo")]
+layout_mode = 2
+
+[node name="Hbox2" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="Player2" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox2"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player2Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox2/Player2"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme = ExtResource("8_08xtd")
+placeholder_text = "Name"
+alignment = 1
+max_length = 16
+
+[node name="Player2ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox2/Player2" instance=ExtResource("9_mnbmo")]
+layout_mode = 2
+
+[node name="Hbox3" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 3"
+horizontal_alignment = 1
+
+[node name="Player3" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox3"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player3Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox3/Player3"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Name"
+alignment = 1
+max_length = 16
+
+[node name="Player3ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox3/Player3" instance=ExtResource("9_mnbmo")]
+layout_mode = 2
+
+[node name="Hbox4" type="VBoxContainer" parent="PlayersSetup/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="PlayersSetup/VBoxContainer/Hbox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player 4"
+horizontal_alignment = 1
+
+[node name="Player4" type="HBoxContainer" parent="PlayersSetup/VBoxContainer/Hbox4"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player4Name" type="LineEdit" parent="PlayersSetup/VBoxContainer/Hbox4/Player4"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+theme = ExtResource("5_ly7pc")
+placeholder_text = "Name"
+alignment = 1
+max_length = 16
+
+[node name="Player4ColorPicker" parent="PlayersSetup/VBoxContainer/Hbox4/Player4" instance=ExtResource("9_mnbmo")]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PlayersSetup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 30
+
+[node name="Back" type="Button" parent="PlayersSetup/Buttons"]
+custom_minimum_size = Vector2(220, 80)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("8_08xtd")
+text = "Back"
+script = ExtResource("3_gse2u")
+
+[node name="Start" type="Button" parent="PlayersSetup/Buttons"]
+custom_minimum_size = Vector2(220, 80)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("8_08xtd")
+text = "Start"
+script = ExtResource("3_gse2u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="PromptWindow" parent="." instance=ExtResource("5_hbqgk")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="item_selected" from="NewGameSettings/HBoxContainer2/MapSize" to="." method="_on_map_size_item_selected"]
+[connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="NewGameSettings/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox1/Player1/Player1Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox1/Player1/Player1ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox2/Player2/Player2Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox2/Player2/Player2ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox3/Player3/Player3Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox3/Player3/Player3ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="text_changed" from="PlayersSetup/VBoxContainer/Hbox4/Player4/Player4Name" to="." method="_on_text_changed"]
+[connection signal="color_changed" from="PlayersSetup/VBoxContainer/Hbox4/Player4/Player4ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="PlayersSetup/Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="PlayersSetup/Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="no" from="PromptWindow" to="." method="_on_prompt_window_no"]
+[connection signal="yes" from="PromptWindow" to="." method="_on_prompt_window_yes"]

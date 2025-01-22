@@ -55,13 +55,6 @@ max_lines_visible = 4
 layout_mode = 2
 alignment = 1
 
-[node name="YesButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-text = "Yes"
-script = ExtResource("3_cdxp3")
-
 [node name="NoButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -71,5 +64,12 @@ text = "No
 script = ExtResource("3_cdxp3")
 press_sound = ExtResource("4_ijd4b")
 
-[connection signal="pressed" from="Center/PanelContainer/Content/Buttons/YesButton" to="." method="_on_yes_button_pressed"]
+[node name="YesButton" type="Button" parent="Center/PanelContainer/Content/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Yes"
+script = ExtResource("3_cdxp3")
+
 [connection signal="pressed" from="Center/PanelContainer/Content/Buttons/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="Center/PanelContainer/Content/Buttons/YesButton" to="." method="_on_yes_button_pressed"]
