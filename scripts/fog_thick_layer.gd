@@ -31,3 +31,7 @@ func restore_uncovered_cells(uncovered_cells:Array[Vector2i])->void:
 	generate_fog()
 	for cell in uncovered_cells:
 		erase_cell(cell)
+		
+func append_uncovered_cells(uncovered_cells:Array[Vector2i])->void:
+	for cell in uncovered_cells:
+		erase_cell(cell)

@@ -20,6 +20,7 @@ var save_path = SavePath.path1
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
 var previous_cell:Vector2=Vector2(0,0)
+<<<<<<< HEAD
 var isLoading = false
 
 # Game parameters
@@ -31,8 +32,9 @@ var playerColors = [Color.RED, Color.GREEN, Color.BLUE]
 var selectedSeed : String
 
 var MAIN_MENU = load("res://scenes/ui/main_menu.tscn")
-
+=======
 var adding_city = false
+>>>>>>> main
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -210,6 +212,8 @@ func _on_ui_layer_load_game() -> void:
 	transition.fade_to_black()
 	await transition.transition_finished
 	load_game()
+<<<<<<< HEAD
+=======
 	setup_current_player()
 	transition.fade_to_normal()
 	await transition.transition_finished
@@ -219,6 +223,7 @@ func _on_ui_layer_build_city() -> void:
 	user_interface.show_action_info("Double tap on empty tile to build new city")
 	map.process_mode = Node.PROCESS_MODE_DISABLED
 	adding_city = true
+>>>>>>> main
 
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:

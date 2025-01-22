@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://6cylumxm28n"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_nkm4f"]
+
+[node name="BuildCityAction" type="Node"]
+script = ExtResource("1_nkm4f")
+action_name = "Build city"
+action_description = "Builds a city on selected tile. New cities can't be placed close to existing cities."
+action_picture = "res://img/ui/build_icon.png"
+gold_cost = 50
+wood_cost = 10
+stone_cost = 10
+steel_cost = 10
+food_cost = 10

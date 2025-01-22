@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://b248el6m62dcx"]
+
+[ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_drlrf"]
+[ext_resource type="Texture2D" uid="uid://64e48kswdfg2" path="res://img/parchment_bg.png" id="2_fheyl"]
+[ext_resource type="Script" path="res://scripts/ui/credits_screen.gd" id="2_nkyhs"]
+[ext_resource type="Script" path="res://scripts/ui_elements/sound_button.gd" id="3_60y47"]
+[ext_resource type="FontFile" uid="uid://jtoje7jcsxjn" path="res://resources/fonts/PixelifySans-Regular.otf" id="4_jcatn"]
+
+[node name="CreditsScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_drlrf")
+script = ExtResource("2_nkyhs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fheyl")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -310.0
+offset_right = 404.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("1_drlrf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(750, 400)
+layout_mode = 2
+theme_override_fonts/bold_font = ExtResource("4_jcatn")
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[center][b]Assets used in this game[/b]:
+
+[b]2D art:[/b]
+[url=https://vinkgames.itch.io/essentials-4x-strategy-tiles]Essentials : 4X Strategy Hex Tileset[/url] by ViNk Games
+[url=https://cuddlyclover.itch.io/fantasy-hex-tiles]Fantasy Hex Tiles[/url] by CuddlyClover
+[url=https://pixabay.com/pl/photos/fantazja-budynki-architektura-7555146/]Fantasy AI Structure[/url] by AlanFrijns
+[url=https://shikashipx.itch.io/shikashis-fantasy-icons-pack]Shikashi's Fantasy Icons[/url] by shikashipx
+[url=https://etahoshi.itch.io/minimal-fantasy-gui-by-eta]Fantasy Minimal Pixel Art GUI[/url] by ETA
+[url=https://opengameart.org/content/basic-hex-tile-set-16x16]Basic Hex Tile Set - 16x16[/url] by Dr. Jamgo
+[url=https://opengameart.org/content/basic-hex-tile-set-plus-16x16]Basic Hex Tile Set Plus - 16x16[/url] by pistachio
+[url=https://opengameart.org/content/parchment-background]Parchment background[/url] by Felis Chaus
+[url=https://lyaseek.itch.io/minifhumans]MiniFolks Humans[/url] by lyaseek
+
+[b]Fonts:[/b]
+[url=https://fonts.google.com/specimen/Pixelify+Sans]PixelifySans[/url] by Stefie Justprince
+[url=https://opengameart.org/content/pixel-fonts-by-pix3m]Alagard[/url] by Pix3M
+
+[b]Sound effects:[/b]
+[url=https://olexmazur.itch.io/fantasy-card-game]Fantasy Card Game SFX Pack[/url] by Olex Mazur
+[url=https://cyrex-studios.itch.io/universal-ui-soundpack]Universal UI/Menu Soundpack[/url] by Cyrex Studios
+[url=https://opengameart.org/content/happy-and-sad-tuba-fanfare]Happy and Sad Tuba Fanfare[/url] by Trex0n
+[/center]"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="MenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return"
+script = ExtResource("3_60y47")
+
+[connection signal="meta_clicked" from="CenterContainer/PanelContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
