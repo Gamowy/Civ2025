@@ -114,6 +114,11 @@ func _on_start_pressed() -> void:
 func _on_next_pressed() -> void:
 	check_validation_of_players()
 	new_game_settings.visible = false
+	if (player.value < 2):
+		player.value = 2
+	if (player.value > 4):
+		player.value = 4
+		
 	if player.value == 3:
 		player_3.visible = true
 	if player.value == 4:

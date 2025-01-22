@@ -3,7 +3,6 @@
 [sub_resource type="GDScript" id="GDScript_s0uy8"]
 script/source = "extends ColorRect
 
-
 @onready var color_picker_box: VBoxContainer = $ColorPickerBox
 @onready var player_color_picker: ColorRect = $\".\"
 
@@ -13,6 +12,7 @@ script/source = "extends ColorRect
 @onready var yellow: ColorRect = $ColorPickerBox/Yellow
 @onready var pink: ColorRect = $ColorPickerBox/Pink
 @onready var purple: ColorRect = $ColorPickerBox/Purple
+@onready var white: ColorRect = $ColorPickerBox/White
 
 signal color_changed
 
@@ -21,9 +21,7 @@ func _ready() -> void:
 	pass
 
 func set_color_of_player(picked_color: ColorRect) -> void:
-	var change_color: Color = player_color_picker.color
 	player_color_picker.color = picked_color.color
-	picked_color.color = change_color
 	color_picker_box.visible = false
 	color_changed.emit()
 
@@ -48,8 +46,6 @@ func _on_blue_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		set_color_of_player(blue)
 
-
-
 func _on_yellow_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		set_color_of_player(yellow)
@@ -63,6 +59,10 @@ func _on_pink_gui_input(event: InputEvent) -> void:
 func _on_purple_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		set_color_of_player(purple)
+
+func _on_white_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		set_color_of_player(white)
 
 func _on_visibility_changed() -> void:
 	color_picker_box.visible = false
@@ -109,6 +109,10 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 color = Color(0.61271, 0.000282046, 0.61445, 1)
 
+[node name="White" type="ColorRect" parent="ColorPickerBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="gui_input" from="ColorPickerBox/Red" to="." method="_on_red_gui_input"]
@@ -117,3 +121,4 @@ color = Color(0.61271, 0.000282046, 0.61445, 1)
 [connection signal="gui_input" from="ColorPickerBox/Yellow" to="." method="_on_yellow_gui_input"]
 [connection signal="gui_input" from="ColorPickerBox/Pink" to="." method="_on_pink_gui_input"]
 [connection signal="gui_input" from="ColorPickerBox/Purple" to="." method="_on_purple_gui_input"]
+[connection signal="gui_input" from="ColorPickerBox/White" to="." method="_on_white_gui_input"]

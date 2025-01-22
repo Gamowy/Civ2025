@@ -11,9 +11,9 @@
 [ext_resource type="Theme" uid="uid://00jjg1a0fcax" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
 [ext_resource type="PackedScene" uid="uid://b5hteuwaxv3ou" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
-
 [sub_resource type="MeshTexture" id="MeshTexture_slmn2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -90,44 +90,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -329.5
-offset_top = -304.0
-offset_right = 329.5
-offset_bottom = 232.0
+offset_left = -329.0
+offset_top = -308.0
+offset_right = 330.0
+offset_bottom = 319.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = ExtResource("4_qsocg")
-
-[node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
-layout_mode = 2
-theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("6_1wtww")
-theme_override_font_sizes/normal_font_size = 40
-bbcode_enabled = true
-text = "[center]Map Size:[/center]"
-fit_content = true
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="NewGameSettings"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="MapSize" type="OptionButton" parent="NewGameSettings/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-theme = ExtResource("8_08xtd")
-theme_override_icons/arrow = SubResource("CompressedTexture2D_atkl6")
-alignment = 1
-selected = 0
-item_count = 3
-popup/item_0/text = "Small"
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "Large"
-popup/item_2/id = 2
 
 [node name="labelWidth" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
@@ -163,7 +133,40 @@ theme_override_icons/updown = SubResource("MeshTexture_slmn2")
 min_value = 2.0
 max_value = 4.0
 value = 2.0
+allow_greater = true
+allow_lesser = true
 alignment = 1
+update_on_text_changed = true
+select_all_on_focus = true
+
+[node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("6_1wtww")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Map Size:[/center]"
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NewGameSettings"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="MapSize" type="OptionButton" parent="NewGameSettings/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("8_08xtd")
+theme_override_icons/arrow = SubResource("CompressedTexture2D_atkl6")
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Small"
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Large"
+popup/item_2/id = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NewGameSettings"]
 custom_minimum_size = Vector2(0, 20)
@@ -203,14 +206,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -640.0
-offset_top = -360.0
+offset_top = -327.0
 offset_right = 640.0
-offset_bottom = 290.0
+offset_bottom = 322.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 300
+theme_override_constants/separation = -160
 alignment = 1
+
+[node name="PlayerSetupLabel" type="Label" parent="PlayersSetup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Player names and colors must be unique!"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="PlayersSetup"]
 custom_minimum_size = Vector2(320, 300)
