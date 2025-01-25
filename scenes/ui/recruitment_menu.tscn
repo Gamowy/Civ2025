@@ -95,7 +95,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
 layout_mode = 2
-text = "Units"
+text = "Recruit"
 horizontal_alignment = 1
 
 [node name="BuildingList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
