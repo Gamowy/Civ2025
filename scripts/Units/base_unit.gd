@@ -23,13 +23,17 @@ var ownerID: int = -1
 
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
+	var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_hex))
+	var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
+	print(tile)
+	print(empty)
 	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
 	#var custom_range = unit_layer.get_tile_cost(hex_coords)
 	var distance = hex_coords.distance_to(target_hex)
 	var move_time = distance
 	#Checking if there is no obstacle and if unit can move there
-	if distance <= movementRange and unit_layer.is_cell_free(target_hex) and unit_layer.is_cell_not_city(target_hex):
+	if distance <= movementRange and unit_layer.is_cell_free(target_hex) and unit_layer.is_cell_not_city(target_hex) and tile != empty:
 		var tween = create_tween()
 		#position = unit_layer.map_to_local(target_position)
 		if target_position.x < position.x:

@@ -58,8 +58,10 @@ func highlight_possible_moves(unit: BaseUnit, start_position: Vector2):
 	for tileX in range(-range, range + 1):
 		for tileY in range(-range, range + 1):
 			var target_position = start_position + Vector2(tileX,tileY)
+			var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+			var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
 			var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
-			if target_position.distance_to(start_position) <= range and is_cell_free(target_position) and is_cell_not_city(target_position):
+			if target_position.distance_to(start_position) <= range and is_cell_free(target_position) and is_cell_not_city(target_position) and tile != empty:
 				highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 1)
 				if tmp == "mountain":
 					highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 2)
