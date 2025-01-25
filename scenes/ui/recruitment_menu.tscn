@@ -88,27 +88,6 @@ theme = ExtResource("3_a08da")
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="VBoxOwned" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 400)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
-layout_mode = 2
-text = "Units"
-horizontal_alignment = 1
-
-[node name="OwnedList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned"]
-layout_mode = 2
-size_flags_vertical = 3
-focus_mode = 1
-theme = ExtResource("4_i74qs")
-allow_search = false
-max_columns = 0
-same_column_width = true
-fixed_column_width = 250
-fixed_icon_size = Vector2i(64, 64)
-script = ExtResource("5_pfkpg")
-
 [node name="VBoxBuildings" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 400)
 layout_mode = 2
@@ -116,7 +95,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
 layout_mode = 2
-text = "Selected Unit"
+text = "Units"
 horizontal_alignment = 1
 
 [node name="BuildingList" type="ItemList" parent="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings"]
@@ -237,10 +216,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -23.0
-offset_top = -25.0
-offset_right = 80.0
-offset_bottom = 83.0
+offset_left = -149.5
+offset_top = -13.5
+offset_right = -46.5
+offset_bottom = 94.5
 grow_horizontal = 0
 theme_override_colors/icon_pressed_color = Color(0.701961, 0.701961, 0.552941, 1)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3pjb1")
@@ -263,9 +242,6 @@ script = ExtResource("12_j1idg")
 [node name="UnitManager" type="Node" parent="."]
 script = ExtResource("13_jhemu")
 
-[connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_empty_clicked"]
-[connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_scroll_owned_list"]
-[connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList" to="." method="_on_owned_list_item_selected"]
 [connection signal="empty_clicked" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_building_list_empty_clicked"]
 [connection signal="gui_input" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_scroll_building_list"]
 [connection signal="item_selected" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList" to="." method="_on_building_list_item_selected"]

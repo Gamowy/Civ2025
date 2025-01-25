@@ -1,22 +1,14 @@
 extends Control
 
-@onready var owned_list_scrollbar:VScrollBar=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList.get_v_scroll_bar()
-@onready var building_list_scrollbar:VScrollBar=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList.get_v_scroll_bar()
-@onready var owned_item_list:ItemList=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/OwnedList
-@onready var building_item_list:ItemList=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList
-@onready var build_button:Button=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonBuild
+@onready var recruit_list_scrollbar:VScrollBar=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList.get_v_scroll_bar()
+@onready var recruit_item_list:ItemList=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxBuildings/BuildingList
+@onready var recruit_button:Button=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonBuild
 @onready var description_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/Description
 @onready var gold_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxGold/GoldCost
-#@onready var wood_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxWood/WoodCost
-#@onready var stone_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer/HBoxStone/StoneCost
-#@onready var steel_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer/SteelCost
 @onready var food_cost_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2/FoodCost
-@onready var owned_label:Label=$Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var prompt_window=$PromptWindow
-@onready var building_manager=$BuildingManager
 @onready var unit_manager = $UnitManager
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
-@onready var buildings_limit_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxOwned/Label
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
 
 
@@ -24,14 +16,14 @@ var build_sound:AudioStream=preload("res://audio/build.ogg")
 var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
 
 #determines current building mode
-var _building_mode:String="Build":
+var _recruit_mode:String="Recruit":
 	set(value):
-		if(value=="Build"):
-			_building_mode=value
-			build_button.text=_building_mode
+		if(value=="Recruit"):
+			_recruit_mode=value
+			recruit_button.text=_recruit_mode
 		elif(value=="Destroy"):
-			_building_mode=value
-			build_button.text=_building_mode
+			_recruit_mode=value
+			recruit_button.text=_recruit_mode
 		else:
 			printerr(name+": invalid _building_mode value")
 
@@ -43,25 +35,25 @@ var selected_unit:BaseUnit
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	unit_manager.city=city
-	build_button.disabled=true
+	recruit_button.disabled=true
 	get_tree().paused=true
 	for unit in unit_manager.units:
 	#	building_item_list.add_item(building.building_name,load(building.building_picture))
 		
-		building_item_list.add_child(unit)
-		building_item_list.add_item(unit.unit_name)
+		recruit_item_list.add_child(unit)
+		recruit_item_list.add_item(unit.unit_name)
 		print(unit.unit_name)
 #	_update_owned_buildings()
 	
 #enables scrolling owned buildings list by dragging
-func _on_scroll_owned_list(event:InputEvent)->void:
-	if event is InputEventScreenDrag:
-		owned_list_scrollbar.value-=event.relative.y
+#func _on_scroll_owned_list(event:InputEvent)->void:
+#	if event is InputEventScreenDrag:
+#		owned_list_scrollbar.value-=event.relative.y
 		
 #enables scrolling buildings list by dragging
 func _on_scroll_building_list(event:InputEvent)->void:
 	if event is InputEventScreenDrag:
-		building_list_scrollbar.value-=event.relative.y
+		recruit_list_scrollbar.value-=event.relative.y
 
 
 #func _update_owned_buildings()->void:
@@ -93,36 +85,37 @@ func _clear_building_info()->void:
 
 #display info about a building and switch to build mode
 func _on_building_list_item_selected(index: int) -> void:
-	owned_item_list.deselect_all()
+#	owned_item_list.deselect_all()
 	selected_unit=unit_manager.units[index]
-	build_button.disabled=true
+	recruit_button.disabled=true
 	if unit_manager.can_player_recruit_unit(selected_unit):
-		build_button.disabled=false
-	_building_mode="Build"
+		recruit_button.disabled=false
+	_recruit_mode="Recruit"
 	_display_unit_info(selected_unit)
 	print(selected_unit.unit_name)
+	
 
 #display info about an owned building and switch to destroy mode
-func _on_owned_list_item_selected(index: int) -> void:
-	building_item_list.deselect_all()
-	selected_building=city.buildings[index]
-	build_button.disabled=false
-	_building_mode="Destroy"
+#func _on_owned_list_item_selected(index: int) -> void:
+#	building_item_list.deselect_all()
+#	selected_building=city.buildings[index]
+#	build_button.disabled=false
+#	_building_mode="Destroy"
 	#_display_building_info(selected_building)
 
 
-func _on_owned_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
-	_clear_building_info()
-	_building_mode="Destroy"
-	build_button.disabled=true
-	owned_item_list.deselect_all()
+#func _on_owned_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
+#	_clear_building_info()
+#	_building_mode="Destroy"
+#	build_button.disabled=true
+#	owned_item_list.deselect_all()
 
 
 func _on_building_list_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
 	_clear_building_info()
-	_building_mode="Build"
-	build_button.disabled=true
-	building_item_list.deselect_all()
+	_recruit_mode="Recruit"
+	recruit_button.disabled=true
+	recruit_item_list.deselect_all()
 
 #check building mode, show destroy prompt or build building
 func _on_button_build_pressed() -> void:
@@ -139,7 +132,7 @@ func _on_button_build_pressed() -> void:
 		
 	#if _building_mode=="Destroy":
 	#	prompt_window.visible=true
-	#if _building_mode=="Build":
+	#if _building_mode=="Recruit":
 	#	building_manager.build_building(selected_building)
 	#	sfx_player.stream=build_sound
 	#	sfx_player.play()
@@ -148,14 +141,14 @@ func _on_button_build_pressed() -> void:
 	#		build_button.disabled=true
 
 # make sure player wants to destroy building
-func _on_prompt_window_yes() -> void:
-	building_manager.destroy_building(selected_building)
-	sfx_player.stream=destroy_sound
-	sfx_player.play()
+#func _on_prompt_window_yes() -> void:
+#	building_manager.destroy_building(selected_building)
+#	sfx_player.stream=destroy_sound
+#	sfx_player.play()
 #	_update_owned_buildings()
-	prompt_window.visible=false
-	owned_item_list.deselect_all()
-	build_button.disabled=true
+#	prompt_window.visible=false
+#	#owned_item_list.deselect_all()
+#	recruit_button.disabled=true
 
 # cancel destroying building
 func _on_prompt_window_no() -> void:
