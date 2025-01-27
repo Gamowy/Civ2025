@@ -37,6 +37,10 @@ func set_camera_boundary(camera_boundary:Vector2):
 	boundary.x=camera_boundary.x/2*MapInfo.CELL_SIZE+camera_boundary.x/2*MapInfo.CELL_BOTTOM
 	boundary.y=camera_boundary.y*MapInfo.CELL_HEIGHT
 
+func set_camera_position(new_pos:Vector2):
+	global_position=new_pos
+	clamp_camera_position()
+
 func _input(event: InputEvent) -> void:
 	scroll_zoom()
 	if event is InputEventScreenTouch:

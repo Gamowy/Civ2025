@@ -75,6 +75,10 @@ text = "[center][b]Assets used in this game[/b]:
 [url=https://olexmazur.itch.io/fantasy-card-game]Fantasy Card Game SFX Pack[/url] by Olex Mazur
 [url=https://cyrex-studios.itch.io/universal-ui-soundpack]Universal UI/Menu Soundpack[/url] by Cyrex Studios
 [url=https://opengameart.org/content/happy-and-sad-tuba-fanfare]Happy and Sad Tuba Fanfare[/url] by Trex0n
+
+[b]Music:[/b]
+Stronghold 2 Soundtrack by Firefly Studios
+
 [/center]"
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]

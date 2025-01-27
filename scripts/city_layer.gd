@@ -27,6 +27,30 @@ func add_city(coords: Vector2i, city_owner: Player, city_name = "") -> void:
 	new_city.city_coords = coords
 	new_city.position = map_to_local(coords)
 
+## Creates the first city for given player
+func create_initial_city(map_layer:MapLayer, resource_layer:ResourceLayer, city_owner:Player,max_attempts:int=100):
+	var attempt=max_attempts
+	var city_coords=get_coords_around_cities()
+	var random_pos:Vector2i=Vector2i(randi_range(0, map_layer.width-1), randi_range(0, map_layer.height-1))
+	if random_pos not in city_coords:
+		var map_tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(random_pos))
+		if map_tile != "ocean" and map_tile != "empty":
+			var resource=resource_layer.resource_dict.find_key(resource_layer.get_cell_atlas_coords(random_pos))
+			if resource=="empty":
+				add_city(random_pos,city_owner)
+				return
+	if attempt>0:
+		create_initial_city(map_layer,resource_layer,city_owner,attempt-1)
+
+## Returns an array of coordinates close to existing cities
+func get_coords_around_cities() -> Array[Vector2i]:
+	var coords_array: Array[Vector2i]
+	for city in cities:
+		for x in range(-5, 5):
+			for y in range(-5, 5):
+				coords_array.append(Vector2i(city.city_coords.x + x, city.city_coords.y + y))
+	return coords_array
+
 ## Use this to add already created city from within code
 func add_existing_city(new_city: City) -> void:
 	add_child(new_city)

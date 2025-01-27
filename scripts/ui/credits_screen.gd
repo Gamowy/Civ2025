@@ -14,4 +14,4 @@ func _on_rich_text_label_meta_clicked(meta: Variant) -> void:
 	
 func _on_menu_button_pressed() -> void:
 	## this button should change the scene to main menu
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
