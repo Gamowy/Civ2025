@@ -12,7 +12,7 @@ class_name BaseUnit
 @export var cost_food:int = 1
 @export var description:String = "lorem ipsum"
 
-@export_storage var unit_owner: Player
+@export_storage var unit_owner_id: int
 @export_storage var unit_coords : Vector2i
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
@@ -20,7 +20,7 @@ class_name BaseUnit
 @onready var fog_disperser_point_light = $UnitFogDisperser/PointLight2D
 
 ## The unit's fog disperser
-@export var fog_dispenser_scene:UnitFogDisperser
+@onready var fog_dispenser_scene:UnitFogDisperser
 
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
@@ -48,7 +48,6 @@ func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 			sprite.play("Idle")
 			)
 		return true
-		
 	return false
 		
 func takeDamage(damage: int):

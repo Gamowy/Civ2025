@@ -9,6 +9,9 @@ var pos_clicked # = Vector2(0,0)
 
 var units : Array[BaseUnit] = []
 
+## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
+var unit_moving = false
+
 func _ready() -> void:
 	child_entered_tree.connect(_unit_added)
 	child_exiting_tree.connect(_unit_removed)
@@ -27,7 +30,7 @@ func add_existing_unit(new_unit: BaseUnit) -> void:
 	add_child(new_unit)
 	
 ## Use this to remove all units (used when loading save)
-func clear_cities() -> void:
+func clear_units() -> void:
 	for unit in self.get_children():
 		remove_child(unit)
 		unit.queue_free()
@@ -35,13 +38,13 @@ func clear_cities() -> void:
 ## Called when switching turns to switch for units
 func switch_unit_fog(currentPlayer: Player) -> void:
 	for unit in units:
-		if unit.unit_owner == currentPlayer:
+		if unit.unit_owner_id == currentPlayer.player_id:
 			unit.fog_disperser_point_light.visible = true
 		else:
 			unit.fog_disperser_point_light.visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	var current_player = get_tree().get_first_node_in_group("players").current_player
+	var current_player_id: int= get_tree().get_first_node_in_group("players").current_player_id
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
@@ -49,14 +52,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 			if selected_unit:
 				if selected_unit.move_to(pos_clicked, self):
-					print("Unit moved succesfully.")
-				selected_unit = null
-				clear_highlight()
+					selected_unit = null
+					clear_highlight()
+					unit_moving = false
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
-				if selected_unit and selected_unit.unit_owner == current_player:
-					print("Unit selected!")
+				if selected_unit and selected_unit.unit_owner_id == current_player_id:
 					highlight_possible_moves(selected_unit, pos_clicked)
 
 
@@ -109,113 +111,169 @@ func get_city_at_position(map_position: Vector2) -> City:
 func is_cell_not_city(map_position: Vector2) -> bool:
 	return get_city_at_position(map_position) == null
 
-func spawn_spearman():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_spearman(restore: bool = false):
 	var spearman = preload("res://scenes/Units/Spearman.tscn").instantiate()
 	add_child(spearman)
-	spearman.position = world_position
-	spearman.unit_owner = current_player
-	spearman.unit_coords = spawn_point
-	spearman.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		spearman.position = world_position
+		spearman.unit_owner_id = current_player.player_id
+		spearman.unit_coords = spawn_point
+		spearman.set_color(current_player.flag_color)
 	
-func spawn_archer():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_archer(restore: bool = false):
 	var archer = preload("res://scenes/Units/Archer.tscn").instantiate()
 	add_child(archer)
-	archer.position = world_position
-	archer.unit_owner = current_player
-	archer.unit_coords = spawn_point
-	archer.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		archer.position = world_position
+		archer.unit_owner_id = current_player.player_id
+		archer.unit_coords = spawn_point
+		archer.set_color(current_player.flag_color)
 	
-func spawn_archmage():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_archmage(restore: bool = false):
 	var archmage = preload("res://scenes/Units/ArchMage.tscn").instantiate()
-	print(archmage.unit_name)
 	add_child(archmage)
-	archmage.position = world_position
-	archmage.unit_owner = current_player
-	archmage.unit_coords = spawn_point
-	archmage.set_color(current_player.flag_color)
-	
-func spawn_cavalry():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		archmage.position = world_position
+		archmage.unit_owner_id = current_player.player_id
+		archmage.unit_coords = spawn_point
+		archmage.set_color(current_player.flag_color)
+		
+func spawn_cavalry(restore: bool = false):
 	var cavalry = preload("res://scenes/Units/Cavalry.tscn").instantiate()
 	add_child(cavalry)
-	cavalry.position = world_position
-	cavalry.unit_owner = current_player
-	cavalry.unit_coords = spawn_point
-	cavalry.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		cavalry.position = world_position
+		cavalry.unit_owner_id = current_player.player_id
+		cavalry.unit_coords = spawn_point
+		cavalry.set_color(current_player.flag_color)
 	
-func spawn_crossbowman():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_crossbowman(restore: bool = false):
 	var crossbowman = preload("res://scenes/Units/Crossbowman.tscn").instantiate()
 	add_child(crossbowman)
-	crossbowman.position = world_position
-	crossbowman.unit_owner = current_player
-	crossbowman.unit_coords = spawn_point
-	crossbowman.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		add_child(crossbowman)
+		crossbowman.position = world_position
+		crossbowman.unit_owner_id = current_player.player_id
+		crossbowman.unit_coords = spawn_point
+		crossbowman.set_color(current_player.flag_color)
 	
-func spawn_halberdman():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_halberdman(restore: bool = false):
 	var halberdman = preload("res://scenes/Units/Halberdman.tscn").instantiate()
 	add_child(halberdman)
-	halberdman.position = world_position
-	halberdman.unit_owner = current_player
-	halberdman.unit_coords = spawn_point
-	halberdman.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		
+		halberdman.position = world_position
+		halberdman.unit_owner_id = current_player.player_id
+		halberdman.unit_coords = spawn_point
+		halberdman.set_color(current_player.flag_color)
 	
-func spawn_mage():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_mage(restore: bool = false):
 	var mage = preload("res://scenes/Units/Mage.tscn").instantiate()
 	add_child(mage)
-	mage.position = world_position
-	mage.unit_owner = current_player
-	mage.unit_coords = spawn_point
-	mage.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		mage.position = world_position
+		mage.unit_owner_id = current_player.player_id
+		mage.unit_coords = spawn_point
+		mage.set_color(current_player.flag_color)
 	
-func spawn_scout():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_scout(restore: bool = false):
 	var scout = preload("res://scenes/Units/Scout.tscn").instantiate()
 	add_child(scout)
-	scout.position = world_position
-	scout.unit_owner = current_player
-	scout.unit_coords = spawn_point
-	scout.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		scout.position = world_position
+		scout.unit_owner_id = current_player.player_id
+		scout.unit_coords = spawn_point
+		scout.set_color(current_player.flag_color)
 	
-func spawn_shieldman():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_shieldman(restore: bool = false):
 	var shieldman = preload("res://scenes/Units/Shieldman.tscn").instantiate()
 	add_child(shieldman)
-	shieldman.position = world_position
-	shieldman.unit_owner = current_player
-	shieldman.unit_coords = spawn_point
-	shieldman.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		shieldman.position = world_position
+		shieldman.unit_owner_id = current_player.player_id
+		shieldman.unit_coords = spawn_point
+		shieldman.set_color(current_player.flag_color)
 	
-func spawn_warrior():
-	var current_player: Player = get_tree().get_first_node_in_group("players").current_player
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
+func spawn_warrior(restore: bool = false):
 	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
 	add_child(warrior)
-	warrior.position = world_position
-	warrior.unit_owner = current_player
-	warrior.unit_coords = spawn_point
-	warrior.set_color(current_player.flag_color)
+	if(!restore):
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		var spawn_point = pos_clicked
+		var world_position = map_to_local(spawn_point)
+		warrior.position = world_position
+		warrior.unit_owner_id = current_player.player_id
+		warrior.unit_coords = spawn_point
+		warrior.set_color(current_player.flag_color)
+
+func reload_unit(saved_unit: BaseUnit) -> void:
+	var unit_reloaded: bool = false
+	match saved_unit.unit_name:
+		"Archer":
+			spawn_archer(true)
+			unit_reloaded = true
+		"Arch Mage":
+			spawn_archmage(true)
+			unit_reloaded = true
+		"Cavalry":
+			spawn_cavalry(true)
+			unit_reloaded = true
+		"Crossbowman":
+			spawn_crossbowman(true)
+			unit_reloaded = true
+		"Halberdman":
+			spawn_halberdman(true)
+			unit_reloaded = true
+		"Mage":
+			spawn_mage(true)
+			unit_reloaded = true
+		"Scout":
+			spawn_scout(true)
+			unit_reloaded = true
+		"Shieldman":
+			spawn_shieldman(true)
+			unit_reloaded = true
+		"Spearman":
+			spawn_spearman(true)
+			unit_reloaded = true
+		"Warrior":
+			spawn_warrior(true)
+			unit_reloaded = true
+	if unit_reloaded:
+		var player_manager: PlayersManager = get_tree().get_first_node_in_group("players")
+		units[units.size() -1].health = saved_unit.health
+		units[units.size() -1].attack = saved_unit.attack
+		units[units.size() -1].defense = saved_unit.defense
+		units[units.size() -1].movementRange = saved_unit.movementRange
+		units[units.size() -1].rangeOfView = saved_unit.rangeOfView
+		units[units.size() -1].unit_owner_id = saved_unit.unit_owner_id
+		units[units.size() -1].unit_coords = saved_unit.unit_coords
+		units[units.size() -1].position = saved_unit.position
+		units[units.size() -1].set_color(player_manager.players[saved_unit.unit_owner_id].flag_color)

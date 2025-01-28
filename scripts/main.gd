@@ -176,6 +176,11 @@ func save_game():
 	file.store_var(city_layer.cities.size(), true)
 	for city in city_layer.cities:
 		file.store_var(city, true)
+		
+	# Save unit layer
+	file.store_var(unit_layer.units.size(), true)
+	for unit in unit_layer.units:
+		file.store_var(unit, true)	
 	file.close()
 	
 # When loading previous state, make sure the order of loading is same as in save_game() method
@@ -207,6 +212,14 @@ func load_game():
 		for i in range(saved_number_of_cities):
 			var saved_city = file.get_var(true)
 			city_layer.reload_city(saved_city)
+			
+		# Restore unit layer data
+		var saved_number_of_units = file.get_var(true)
+		unit_layer.clear_units()
+		for i in range(saved_number_of_units):
+			var saved_unit = file.get_var(true)
+			unit_layer.reload_unit(saved_unit)
+		
 		file.close()
 		setup_current_player()
 		camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
