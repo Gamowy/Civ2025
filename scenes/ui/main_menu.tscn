@@ -11,7 +11,7 @@
 [ext_resource type="Theme" uid="uid://00jjg1a0fcax" path="res://resources/themes/main_menu_theme.tres" id="8_08xtd"]
 [ext_resource type="PackedScene" uid="uid://b5hteuwaxv3ou" path="res://scenes/ui/PlayerColorPicker.tscn" id="9_mnbmo"]
 
-[sub_resource type="MeshTexture" id="MeshTexture_slmn2"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bww4i"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atkl6"]
 
@@ -129,12 +129,10 @@ fit_content = true
 custom_minimum_size = Vector2(50, 75)
 layout_mode = 2
 theme = ExtResource("8_08xtd")
-theme_override_icons/updown = SubResource("MeshTexture_slmn2")
+theme_override_icons/updown = SubResource("CompressedTexture2D_bww4i")
 min_value = 2.0
 max_value = 4.0
 value = 2.0
-allow_greater = true
-allow_lesser = true
 alignment = 1
 
 [node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]

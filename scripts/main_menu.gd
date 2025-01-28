@@ -46,7 +46,6 @@ func _ready() -> void:
 	texture_rect.visible = true
 	v_box_container.visible = true
 	prompt.visible = false
-	player.get_line_edit().virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
 	music_player.set("spatial", false)
 	music_player.stream = main_menu_music
 	music_player.play()
@@ -118,6 +117,9 @@ func _on_start_pressed() -> void:
 	prompt.visible = true	
 
 func _on_next_pressed() -> void:
+	var ui_input_event = InputEventAction.new()
+	ui_input_event.action = "ui_text_submit"
+	ui_input_event.pressed = true
 	check_validation_of_players()
 	new_game_settings.visible = false
 	if (player.value < 2):
