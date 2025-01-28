@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bqholacd3h85e"]
+
+[ext_resource type="Shader" path="res://resources/shaders/unit_colorize_shader.gdshader" id="1_mw534"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_mw534")
+shader_parameter/original_0 = Color(0.376471, 0.596078, 0.909804, 1)
+shader_parameter/original_1 = Color(0.25098, 0.345098, 0.752941, 1)
+shader_parameter/original_2 = null
+shader_parameter/original_3 = null
+shader_parameter/original_4 = Color(0, 0, 0, 1)
+shader_parameter/replace_0 = null
+shader_parameter/replace_1 = Color(0, 0, 0, 1)
+shader_parameter/replace_2 = null
+shader_parameter/replace_3 = null
+shader_parameter/replace_4 = null

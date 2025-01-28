@@ -11,6 +11,7 @@ var save_path = FilePaths.save_path
 @onready var map_layer:MapLayer=$Map/MapLayer
 @onready var resource_layer:ResourceLayer = $"Map/ResourceLayer"
 @onready var city_layer = $"Map/CityLayer"
+@onready var unit_layer = $"Map/UnitLayer"
 # ---------------------------------------------------------------------
 @onready var map = $Map
 @onready var ui_layer = $UILayer
@@ -140,6 +141,7 @@ func setup_current_player() -> void:
 	var player: Player = players_manager.current_player
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
 	city_layer.switch_city_fog(player)
+	unit_layer.switch_unit_fog(player)
 	user_interface.update_turn_label(player.player_name, player.flag_color)
 	user_interface.update_resources("gold", str(player.gold))
 	user_interface.update_resources("wood", str(player.wood))

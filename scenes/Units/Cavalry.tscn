@@ -1,11 +1,9 @@
 [gd_scene load_steps=20 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
+[ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_i7nb3"]
 [ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_i774j"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_06idc"]
-light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -122,7 +120,7 @@ animations = [{
 script = ExtResource("1_l7x35")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_06idc")
+material = ExtResource("2_i7nb3")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"

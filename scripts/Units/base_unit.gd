@@ -1,20 +1,23 @@
 extends Node2D
 class_name BaseUnit
 
-var unit_name:String = "Base Unit"
-var health: int = 100
-var attack: int = 5
-var defense: int = 5
-var movementRange: int = 2
-var rangeOfView: int = 2
-var cost_gold:int = 1
-var cost_food:int = 1
-var description:String = "lorem ipsum"
+@export_category("Unit")
+@export var unit_name:String = "Base Unit"
+@export var health: int = 100
+@export var attack: int = 5
+@export var defense: int = 5
+@export var movementRange: int = 2
+@export var rangeOfView: int = 2
+@export var cost_gold:int = 1
+@export var cost_food:int = 1
+@export var description:String = "lorem ipsum"
 
-var unit_owner: Player
+@export_storage var unit_owner: Player
+@export_storage var unit_coords : Vector2i
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
 @onready var map_layer: TileMapLayer =get_tree().get_first_node_in_group("map_layer")
+@onready var fog_disperser_point_light = $UnitFogDisperser/PointLight2D
 
 ## The unit's fog disperser
 @export var fog_dispenser_scene:UnitFogDisperser
@@ -48,12 +51,15 @@ func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 		
 	return false
 		
-
 func takeDamage(damage: int):
 	var damageTaken = max(damage - defense,0)
 	health -= damageTaken
 	if health <= 0:
 		die()
+		
+func set_color(color: Color):
+	sprite.material.set("shader_parameter/replace_0", color)
+	sprite.material.set("shader_parameter/replace_1", color.darkened(0.5))
 
 func die():
 	queue_free()

@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
 [ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
+[ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_vr6dp"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_agbtu"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_se3sf"]
-light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijqil"]
 atlas = ExtResource("2_h1o32")
@@ -94,7 +92,7 @@ animations = [{
 script = ExtResource("1_fvn48")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_se3sf")
+material = ExtResource("2_vr6dp")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"

@@ -1,11 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://dc8hkj8bnhye8"]
+[gd_scene load_steps=21 format=3 uid="uid://dc8hkj8bnhye8"]
 
 [ext_resource type="Script" path="res://scripts/Units/scout.gd" id="1_et4t3"]
+[ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_02ym7"]
 [ext_resource type="Texture2D" uid="uid://1ig8fc3mr0xj" path="res://resources/Units/Scout.png" id="2_qt6wc"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_n1xde"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rv20s"]
-light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x7to8"]
 atlas = ExtResource("2_qt6wc")
@@ -118,14 +116,18 @@ animations = [{
 "speed": 13.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ardub"]
+light_mode = 2
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_et4t3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_rv20s")
+material = ExtResource("2_02ym7")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_n1xde")]
+material = SubResource("CanvasItemMaterial_ardub")

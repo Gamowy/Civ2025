@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Units/crossbowman.gd" id="1_a5tle"]
 [ext_resource type="Texture2D" uid="uid://devfkf6fyy5xh" path="res://resources/Units/CrossbowMan.png" id="2_8pufn"]
+[ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_oho47"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_v7ow6"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eeeb1"]
-light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mb54h"]
 atlas = ExtResource("2_8pufn")
@@ -94,7 +92,7 @@ animations = [{
 script = ExtResource("1_a5tle")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_eeeb1")
+material = ExtResource("2_oho47")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
 animation = &"Walk"
