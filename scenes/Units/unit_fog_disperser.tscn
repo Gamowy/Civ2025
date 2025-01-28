@@ -17,6 +17,7 @@ monitoring = false
 shape = SubResource("CircleShape2D_uudte")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 blend_mode = 2
 range_item_cull_mask = 3
 texture = ExtResource("2_opf0p")

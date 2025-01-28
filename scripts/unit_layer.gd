@@ -35,13 +35,15 @@ func clear_units() -> void:
 		remove_child(unit)
 		unit.queue_free()
 		
-## Called when switching turns to switch for units
+## Called when switching turns to switch fog for units
 func switch_unit_fog(currentPlayer: Player) -> void:
 	for unit in units:
 		if unit.unit_owner_id == currentPlayer.player_id:
 			unit.fog_disperser_point_light.visible = true
+			unit.fog_dispenser_scene.set_fog_disperser_enabled(true)
 		else:
 			unit.fog_disperser_point_light.visible = false
+			unit.fog_dispenser_scene.set_fog_disperser_enabled(false)
 
 func _unhandled_input(event: InputEvent) -> void:
 	var current_player_id: int= get_tree().get_first_node_in_group("players").current_player_id

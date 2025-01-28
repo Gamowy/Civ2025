@@ -24,7 +24,7 @@ var fog_layer:FogThickLayer
 ## Radius of the visibility region around object
 @export var radius:int=5
 ## Whether fog disperser is enabled or not
-@export var fog_disperser_enabled:bool=true
+@export var fog_disperser_enabled:bool=false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
