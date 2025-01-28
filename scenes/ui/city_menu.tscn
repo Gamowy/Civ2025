@@ -75,17 +75,10 @@ popup/item_6/text = "Steel production: "
 popup/item_6/id = 6
 script = ExtResource("3_iuk05")
 
-[node name="recruit" type="MenuButton" parent="Menu/Center/Panel/VBoxContainer"]
+[node name="recruit" type="Button" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Recruit"
-flat = false
-item_count = 3
-popup/item_0/text = "Infantry"
-popup/item_1/text = "Knights"
-popup/item_1/id = 1
-popup/item_2/text = "Dragons"
-popup/item_2/id = 2
-script = ExtResource("3_iuk05")
+script = ExtResource("3_15xnh")
 
 [node name="build" type="Button" parent="Menu/Center/Panel/VBoxContainer"]
 layout_mode = 2

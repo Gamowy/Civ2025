@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/fog_disperser.gd" id="1_kg8le"]
 [ext_resource type="Texture2D" uid="uid://bynenuciv7q1b" path="res://img/light.png" id="2_jap2b"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g5iue"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dbmk"]
 resource_local_to_scene = true
 
 [node name="FogDisperser" type="Node2D"]
@@ -14,7 +14,7 @@ collision_layer = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_g5iue")
+shape = SubResource("CircleShape2D_7dbmk")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 blend_mode = 2

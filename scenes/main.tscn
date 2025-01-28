@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://jbtltnr7ag8c"]
+[gd_scene load_steps=25 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -14,7 +14,7 @@
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
 [ext_resource type="Script" path="res://scripts/ui_elements/switch_turn_transition.gd" id="8_yokiu"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
-[ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://fog_disperserDEMO.tscn" id="10_hm7w7"]
+[ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://scenes/fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 [ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
@@ -78,9 +78,6 @@ _data = {
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(32, 28)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nxf7f"]
-light_mode = 2
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5huqx")
@@ -146,7 +143,7 @@ position = Vector2(0, 1)
 color = Color(0.447059, 0.447059, 0.447059, 1)
 metadata/_edit_lock_ = true
 
-[node name="MapLayer" type="TileMapLayer" parent="Map"]
+[node name="MapLayer" type="TileMapLayer" parent="Map" groups=["map_layer"]]
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
@@ -177,17 +174,15 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
+[node name="HighlightLayer" type="TileMapLayer" parent="Map"]
+modulate = Color(1, 1, 1, 0.392157)
+tile_set = ExtResource("3_ns1bu")
+
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
-[node name="ENEMY_UNIT_TEST" type="Label" parent="."]
-z_index = 2
-material = SubResource("CanvasItemMaterial_nxf7f")
-offset_left = 477.0
-offset_top = 206.0
-offset_right = 530.0
-offset_bottom = 255.0
-text = "enemy
-unit"
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+volume_db = -15.0
 
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]

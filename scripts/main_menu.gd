@@ -27,6 +27,9 @@ class_name MainMenu
 
 
 @onready var start: SoundButton = $PlayersSetup/Buttons/Start
+@onready var music_player = $MusicPlayer
+
+var main_menu_music = preload("res://audio/main_menu/Main_Menu.mp3")
 
 var MAIN = load("res://scenes/main.tscn")
 var save_path = FilePaths.save_path
@@ -43,7 +46,9 @@ func _ready() -> void:
 	texture_rect.visible = true
 	v_box_container.visible = true
 	prompt.visible = false
-	player.get_line_edit().virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
+	music_player.set("spatial", false)
+	music_player.stream = main_menu_music
+	music_player.play()
 
 func _on_new_game_pressed() -> void:
 	v_box_container.visible = false
@@ -76,13 +81,13 @@ func check_validation_of_players():
 	var unique_player_names = []
 	var unique_colors = []
 
-	if player.value == 2:
+	if player.value <= 2:
 		player_names = [str(player_1_name.text), str(player_2_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color]
 	elif player.value == 3:
 		player_names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color]
-	elif player.value == 4:
+	elif player.value >= 4:
 		player_names = [str(player_1_name.text), str(player_2_name.text), str(player_3_name.text), str(player_4_name.text)]
 		colors = [player_1_color_picker.color, player_2_color_picker.color, player_3_color_picker.color, player_4_color_picker.color]
 	
@@ -112,6 +117,9 @@ func _on_start_pressed() -> void:
 	prompt.visible = true	
 
 func _on_next_pressed() -> void:
+	var ui_input_event = InputEventAction.new()
+	ui_input_event.action = "ui_text_submit"
+	ui_input_event.pressed = true
 	check_validation_of_players()
 	new_game_settings.visible = false
 	if (player.value < 2):
