@@ -79,13 +79,13 @@ func _ready() -> void:
 	
 
 func initGame() -> void:
-	var rng = RandomNumberGenerator.new()
 	for x in range(0, numberOfPlayers):
 		players_manager.add_player(x, playerNames[x], playerColors[x])
-		city_layer.add_city(Vector2i(rng.randi_range(0, mapWidth-1), rng.randi_range(0, mapHeight-1)), players_manager.players[x])
+		city_layer.create_initial_city(map_layer,resource_layer,players_manager.players[x])
 	setup_current_player()
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
-	
+
+
 # Mouse input on map
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -102,7 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("clicked tile: " + str(pos_clicked) + " " + tile + ", resource: " + resource + ", fog: "+ fog)
 			
 			if adding_city and event.is_double_tap():
-				var cities_coords = get_coords_around_cities()
+				var cities_coords = city_layer.get_coords_around_cities()
 				if (pos_clicked.x >= 0 and pos_clicked.x <= map_layer.width 
 				and pos_clicked.y >= 0 and pos_clicked.y <= map_layer.height 
 				and tile != "ocean" and resource == "empty" and fog == "empty"
@@ -111,15 +111,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				else:
 					# Display info about incorrect city placment and wait for some time before reverting to old message
 					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.RED, 3)
-
-func get_coords_around_cities() -> Array[Vector2i]:
-	var cities: Array[City] = city_layer.cities
-	var coords_array: Array[Vector2i]
-	for city in cities:
-		for x in range(-5, 5):
-			for y in range(-5, 5):
-				coords_array.append(Vector2i(city.city_coords.x + x, city.city_coords.y + y))
-	return coords_array
 
 func build_city(pos: Vector2i) -> void:
 	var prompt_window: CityBuildPrompt = load("res://scenes/ui/city_build_prompt.tscn").instantiate()
@@ -249,6 +240,13 @@ func play_next_track():
 
 func _on_music_finished():
 	play_next_track()
+
+func camera_transition():
+	for city in city_layer.cities:
+		if city.city_owner==players_manager.players[players_manager.current_player_id]:
+			var new_camera_pos:Vector2=city.global_position
+			camera.set_camera_position(new_camera_pos)
+			return
 
 func exit_to_menu() -> void:
 	get_tree().change_scene_to_file(LOADING_SCREEN);

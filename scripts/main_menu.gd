@@ -214,3 +214,7 @@ func _on_prompt_window_yes() -> void:
 			main_scene.playerColors = colors
 			get_tree().root.add_child(main_scene)
 			get_tree().root.remove_child(self)
+
+
+func _on_credits_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/credits_screen.tscn")

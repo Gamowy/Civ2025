@@ -75,6 +75,13 @@ focus_mode = 0
 text = "Load Game"
 script = ExtResource("3_gse2u")
 
+[node name="Credits" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+focus_mode = 0
+text = "Credits"
+script = ExtResource("3_gse2u")
+
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
@@ -378,6 +385,7 @@ layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="item_selected" from="NewGameSettings/HBoxContainer2/MapSize" to="." method="_on_map_size_item_selected"]
 [connection signal="pressed" from="NewGameSettings/HBoxContainer/Back" to="." method="_on_back_pressed"]
