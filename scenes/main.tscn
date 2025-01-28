@@ -192,6 +192,7 @@ text = "enemy
 unit"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 volume_db = -25.0
 
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]

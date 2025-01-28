@@ -40,10 +40,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					print("No unit at clicked position.")
 
 
-func get_tile_cost(position: Vector2) -> int:
-	var cell_item = map_layer.get_cell_source_id(position)
-	var atlas_coords = map_layer.get_cell_atlas_coords(position)
-	var alternative = map_layer.get_cell_alternative_tile(position)
+func get_tile_cost(_tile_position: Vector2) -> int:
 	var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(pos_clicked))
 	if tmp == "mountain":
 		return 1
@@ -51,17 +48,16 @@ func get_tile_cost(position: Vector2) -> int:
 		return selected_unit.movementRange
 
 func highlight_possible_moves(unit: BaseUnit, start_position: Vector2):
-	var hex_coords = local_to_map(position)
-	var range = unit.movementRange
+	var unit_range = unit.movementRange
 	
 	#all tiles in range
-	for tileX in range(-range, range + 1):
-		for tileY in range(-range, range + 1):
+	for tileX in range(-unit_range, unit_range + 1):
+		for tileY in range(-unit_range, unit_range + 1):
 			var target_position = start_position + Vector2(tileX,tileY)
 			var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 			var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
 			var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
-			if target_position.distance_to(start_position) <= range and is_cell_free(target_position) and is_cell_not_city(target_position) and tile != empty:
+			if target_position.distance_to(start_position) <= unit_range and is_cell_free(target_position) and is_cell_not_city(target_position) and tile != empty:
 				highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 1)
 				if tmp == "mountain":
 					highlight_layer.set_cell(target_position, 0, Vector2i(0,0), 2)

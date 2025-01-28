@@ -201,8 +201,7 @@ func switch_turns() -> void:
 	setup_current_player()
 	transition.fade_to_normal()
 	await transition.transition_finished
-	
-
+			
 func play_next_track():
 	if soundtrack_list.size() > 0:
 		var random_track = soundtrack_list[randi() % soundtrack_list.size()]
@@ -210,7 +209,8 @@ func play_next_track():
 		music_player.stream = random_track
 		music_player.play()
 		
-		music_player.disconnect("finished", Callable(self, "_on_music_finished"))
+		if music_player.is_connected("finished", Callable(self, "_on_music_finished")):
+			music_player.disconnect("finished", Callable(self, "_on_music_finished"))
 		music_player.connect("finished", Callable(self, "_on_music_finished"))
 
 func _on_music_finished():
