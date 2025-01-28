@@ -10,7 +10,12 @@ var save_path = FilePaths.save_path
 # Contains data for map layers
 @onready var map_layer:MapLayer=$Map/MapLayer
 @onready var resource_layer:ResourceLayer = $"Map/ResourceLayer"
+<<<<<<< HEAD
+@onready var city_layer:CityLayer = $"Map/CityLayer"
+=======
 @onready var city_layer = $"Map/CityLayer"
+@onready var unit_layer = $"Map/UnitLayer"
+>>>>>>> main
 # ---------------------------------------------------------------------
 @onready var map = $Map
 @onready var ui_layer = $UILayer
@@ -66,14 +71,6 @@ func _ready() -> void:
 	resource_layer.set_seed(selectedSeed)
 	resource_layer.generate_resources(map_layer)
 	fog_thick_layer.generate_fog(map_layer)
-<<<<<<< HEAD
-	#Set camera movement boundary
-	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
-	initGame()
-	music_player.set("spatial", false)
-	play_next_track()
-	
-=======
 	
 	if isLoading:
 		load_game()
@@ -81,16 +78,18 @@ func _ready() -> void:
 		initGame()
 	transition.fade_to_normal()
 	await transition.transition_finished
->>>>>>> main
+	music_player.set("spatial", false)
+	play_next_track()
+	
 
 func initGame() -> void:
-	var rng = RandomNumberGenerator.new()
 	for x in range(0, numberOfPlayers):
 		players_manager.add_player(x, playerNames[x], playerColors[x])
-		city_layer.add_city(Vector2i(rng.randi_range(0, mapWidth-1), rng.randi_range(0, mapHeight-1)), players_manager.players[x])
+		city_layer.create_initial_city(map_layer,resource_layer,players_manager.players[x])
 	setup_current_player()
 	camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
-	
+
+
 # Mouse input on map
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -107,7 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("clicked tile: " + str(pos_clicked) + " " + tile + ", resource: " + resource + ", fog: "+ fog)
 			
 			if adding_city and event.is_double_tap():
-				var cities_coords = get_coords_around_cities()
+				var cities_coords = city_layer.get_coords_around_cities()
 				if (pos_clicked.x >= 0 and pos_clicked.x <= map_layer.width 
 				and pos_clicked.y >= 0 and pos_clicked.y <= map_layer.height 
 				and tile != "ocean" and resource == "empty" and fog == "empty"
@@ -117,14 +116,6 @@ func _unhandled_input(event: InputEvent) -> void:
 					# Display info about incorrect city placment and wait for some time before reverting to old message
 					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.RED, 3)
 
-func get_coords_around_cities() -> Array[Vector2i]:
-	var cities: Array[City] = city_layer.cities
-	var coords_array: Array[Vector2i]
-	for city in cities:
-		for x in range(-5, 5):
-			for y in range(-5, 5):
-				coords_array.append(Vector2i(city.city_coords.x + x, city.city_coords.y + y))
-	return coords_array
 
 func build_city(pos: Vector2i) -> void:
 	var prompt_window: CityBuildPrompt = load("res://scenes/ui/city_build_prompt.tscn").instantiate()
@@ -146,6 +137,7 @@ func setup_current_player() -> void:
 	var player: Player = players_manager.current_player
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
 	city_layer.switch_city_fog(player)
+	unit_layer.switch_unit_fog(player)
 	user_interface.update_turn_label(player.player_name, player.flag_color)
 	user_interface.update_resources("gold", str(player.gold))
 	user_interface.update_resources("wood", str(player.wood))
@@ -180,6 +172,11 @@ func save_game():
 	file.store_var(city_layer.cities.size(), true)
 	for city in city_layer.cities:
 		file.store_var(city, true)
+		
+	# Save unit layer
+	file.store_var(unit_layer.units.size(), true)
+	for unit in unit_layer.units:
+		file.store_var(unit, true)	
 	file.close()
 	
 # When loading previous state, make sure the order of loading is same as in save_game() method
@@ -211,6 +208,14 @@ func load_game():
 		for i in range(saved_number_of_cities):
 			var saved_city = file.get_var(true)
 			city_layer.reload_city(saved_city)
+			
+		# Restore unit layer data
+		var saved_number_of_units = file.get_var(true)
+		unit_layer.clear_units()
+		for i in range(saved_number_of_units):
+			var saved_unit = file.get_var(true)
+			unit_layer.reload_unit(saved_unit)
+		
 		file.close()
 		setup_current_player()
 		camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
@@ -227,6 +232,14 @@ func switch_turns() -> void:
 	transition.fade_to_normal()
 	await transition.transition_finished
 <<<<<<< HEAD
+
+func camera_transition():
+	for city in city_layer.cities:
+		if city.city_owner==players_manager.players[players_manager.current_player_id]:
+			var new_camera_pos:Vector2=city.global_position
+			camera.set_camera_position(new_camera_pos)
+			return
+=======
 			
 func play_next_track():
 	if soundtrack_list.size() > 0:
@@ -241,15 +254,13 @@ func play_next_track():
 
 func _on_music_finished():
 	play_next_track()
+>>>>>>> main
 
-=======
-	
 func exit_to_menu() -> void:
 	get_tree().change_scene_to_file(LOADING_SCREEN);
 	get_tree().root.remove_child(self)
 	self.queue_free()
 	
->>>>>>> main
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	switch_turns()

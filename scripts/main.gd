@@ -112,7 +112,6 @@ func _unhandled_input(event: InputEvent) -> void:
 					# Display info about incorrect city placment and wait for some time before reverting to old message
 					user_interface.update_action_info("Selected tile is occupied or not allowed!", Color.RED, 3)
 
-
 func build_city(pos: Vector2i) -> void:
 	var prompt_window: CityBuildPrompt = load("res://scenes/ui/city_build_prompt.tscn").instantiate()
 	user_interface.hide_action_info()

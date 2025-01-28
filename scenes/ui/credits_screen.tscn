@@ -92,6 +92,7 @@ theme_override_constants/separation = 10
 [node name="MenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 text = "Return"
 script = ExtResource("3_60y47")
 
