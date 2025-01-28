@@ -26,6 +26,10 @@ var resource_dict:Dictionary={
 func _ready() -> void:
 	rng.seed=resource_seed
 	
+func set_seed(new_seed: String) -> void:
+	resource_seed = hash(new_seed)
+	rng.seed = resource_seed
+	
 #try to place given number of resources on each chunk
 func generate_resources(map_layer:MapLayer)->void:
 	var resources_to_place:int=resources_per_chunk
