@@ -136,8 +136,6 @@ value = 2.0
 allow_greater = true
 allow_lesser = true
 alignment = 1
-update_on_text_changed = true
-select_all_on_focus = true
 
 [node name="labelHeight" type="RichTextLabel" parent="NewGameSettings"]
 layout_mode = 2
@@ -371,6 +369,10 @@ text = "Start"
 script = ExtResource("3_gse2u")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+volume_db = -10.0
 
 [node name="PromptWindow" parent="." instance=ExtResource("5_hbqgk")]
 visible = false

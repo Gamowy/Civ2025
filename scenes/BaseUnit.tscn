@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bng8abemo71e7"]
+
+[ext_resource type="Script" path="res://scripts/Units/base_unit.gd" id="1_xysbi"]
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="2_wqfoe"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_xysbi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="UnitFogDisperser" parent="." instance=ExtResource("2_wqfoe")]

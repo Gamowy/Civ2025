@@ -19,8 +19,6 @@ var ownerID: int = -1
 ## The unit's fog disperser
 @export var fog_dispenser_scene:UnitFogDisperser
 
-
-
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 	var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_hex))

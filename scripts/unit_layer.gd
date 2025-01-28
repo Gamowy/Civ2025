@@ -7,14 +7,6 @@ var pos_clicked # = Vector2(0,0)
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 @onready var map_layer : TileMapLayer = $"../MapLayer"
 #@onready var citylayer: City = get_node("root/Main/Map/CityLayer")
-
-func spawn_warrior():
-	print("boom")
-	var spawn_point = pos_clicked
-	var world_position = map_to_local(spawn_point)
-	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
-	add_child(warrior)
-	warrior.position = world_position
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -153,3 +145,10 @@ func spawn_shieldman():
 	var shieldman = preload("res://scenes/Units/Shieldman.tscn").instantiate()
 	add_child(shieldman)
 	shieldman.position = world_position
+	
+func spawn_warrior():
+	var spawn_point = pos_clicked
+	var world_position = map_to_local(spawn_point)
+	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
+	add_child(warrior)
+	warrior.position = world_position
