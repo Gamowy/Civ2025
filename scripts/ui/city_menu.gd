@@ -46,6 +46,8 @@ func _on_upgrade_pressed() -> void:
 		upgrade_menu.city=get_parent()
 	add_child(upgrade_menu)
 
-func _on_recruit_pressed():
-	unitlayer.spawn_warrior()
-	
+func _on_recruit_pressed() -> void:
+	var recruitment_menu = load("res://scenes/ui/recruitment_menu.tscn").instantiate()
+	if get_parent() is City:
+		recruitment_menu.city = get_parent()
+	add_child(recruitment_menu)

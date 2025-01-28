@@ -10,7 +10,8 @@ var save_path = FilePaths.save_path
 # Contains data for map layers
 @onready var map_layer:MapLayer=$Map/MapLayer
 @onready var resource_layer:ResourceLayer = $"Map/ResourceLayer"
-@onready var city_layer:CityLayer = $"Map/CityLayer"
+@onready var city_layer = $"Map/CityLayer"
+@onready var unit_layer = $"Map/UnitLayer"
 # ---------------------------------------------------------------------
 @onready var map = $Map
 @onready var ui_layer = $UILayer
@@ -19,6 +20,28 @@ var save_path = FilePaths.save_path
 @onready var transition = $UILayer/Transition
 @onready var fog_thick_layer:FogThickLayer = $"Map/FogThickLayer"
 @onready var camera=$Camera
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+
+var soundtrack_list = [
+	preload("res://audio/soundtrack/Game_1.mp3"),
+	preload("res://audio/soundtrack/Game_2.mp3"),
+	preload("res://audio/soundtrack/Game_3.mp3"),
+	preload("res://audio/soundtrack/Game_4.mp3"),
+	preload("res://audio/soundtrack/Game_5.mp3"),
+	preload("res://audio/soundtrack/Game_6.mp3"),
+	preload("res://audio/soundtrack/Game_7.mp3"),
+	preload("res://audio/soundtrack/Game_8.mp3"),
+	preload("res://audio/soundtrack/Game_9.mp3"),
+	preload("res://audio/soundtrack/Game_10.mp3"),
+	preload("res://audio/soundtrack/Game_11.mp3"),
+	preload("res://audio/soundtrack/Game_12.mp3"),
+	preload("res://audio/soundtrack/Game_13.mp3"),
+	preload("res://audio/soundtrack/Game_14.mp3"),
+	preload("res://audio/soundtrack/Game_15.mp3"),
+	preload("res://audio/soundtrack/Game_16.mp3"),
+	preload("res://audio/soundtrack/Game_17.mp3"),
+	preload("res://audio/soundtrack/Game_18.mp3")
+]
 var previous_cell:Vector2=Vector2(0,0)
 var isLoading = false
 
@@ -51,6 +74,9 @@ func _ready() -> void:
 		initGame()
 	transition.fade_to_normal()
 	await transition.transition_finished
+	music_player.set("spatial", false)
+	play_next_track()
+	
 
 func initGame() -> void:
 	for x in range(0, numberOfPlayers):
@@ -107,6 +133,7 @@ func setup_current_player() -> void:
 	var player: Player = players_manager.current_player
 	fog_thick_layer.restore_uncovered_cells(player.uncovered_cells)
 	city_layer.switch_city_fog(player)
+	unit_layer.switch_unit_fog(player)
 	user_interface.update_turn_label(player.player_name, player.flag_color)
 	user_interface.update_resources("gold", str(player.gold))
 	user_interface.update_resources("wood", str(player.wood))
@@ -141,6 +168,11 @@ func save_game():
 	file.store_var(city_layer.cities.size(), true)
 	for city in city_layer.cities:
 		file.store_var(city, true)
+		
+	# Save unit layer
+	file.store_var(unit_layer.units.size(), true)
+	for unit in unit_layer.units:
+		file.store_var(unit, true)	
 	file.close()
 	
 # When loading previous state, make sure the order of loading is same as in save_game() method
@@ -172,6 +204,14 @@ func load_game():
 		for i in range(saved_number_of_cities):
 			var saved_city = file.get_var(true)
 			city_layer.reload_city(saved_city)
+			
+		# Restore unit layer data
+		var saved_number_of_units = file.get_var(true)
+		unit_layer.clear_units()
+		for i in range(saved_number_of_units):
+			var saved_unit = file.get_var(true)
+			unit_layer.reload_unit(saved_unit)
+		
 		file.close()
 		setup_current_player()
 		camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
@@ -187,6 +227,20 @@ func switch_turns() -> void:
 	setup_current_player()
 	transition.fade_to_normal()
 	await transition.transition_finished
+			
+func play_next_track():
+	if soundtrack_list.size() > 0:
+		var random_track = soundtrack_list[randi() % soundtrack_list.size()]
+		
+		music_player.stream = random_track
+		music_player.play()
+		
+		if music_player.is_connected("finished", Callable(self, "_on_music_finished")):
+			music_player.disconnect("finished", Callable(self, "_on_music_finished"))
+		music_player.connect("finished", Callable(self, "_on_music_finished"))
+
+func _on_music_finished():
+	play_next_track()
 
 func camera_transition():
 	for city in city_layer.cities:

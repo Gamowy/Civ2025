@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bo2anmodnfvwi"]
+[gd_scene load_steps=16 format=3 uid="uid://bo2anmodnfvwi"]
 
 [ext_resource type="Script" path="res://scripts/Units/arch_mage.gd" id="1_cbkqs"]
+[ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_exeh1"]
 [ext_resource type="Texture2D" uid="uid://dvv0522xixsr3" path="res://resources/Units/ArchMage.png" id="2_x7qhk"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nvuwd"]
-light_mode = 2
+[ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_kngkb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qivm4"]
 atlas = ExtResource("2_x7qhk")
@@ -21,6 +20,30 @@ region = Rect2(128, 12, 64, 52)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uflct"]
 atlas = ExtResource("2_x7qhk")
 region = Rect2(192, 12, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7786k"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(0, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l43gv"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(64, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbpqy"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(128, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk0sf"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(192, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m5l1"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(256, 76, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x40j"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
@@ -40,13 +63,39 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7786k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l43gv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbpqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk0sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m5l1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x40j")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 4.0
 }]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_cbkqs")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_nvuwd")
+material = ExtResource("2_exeh1")
+position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Idle"
+animation = &"Walk"
 autoplay = "Idle"
+
+[node name="UnitFogDisperser" parent="." instance=ExtResource("3_kngkb")]
