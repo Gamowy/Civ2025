@@ -43,6 +43,7 @@ func _ready() -> void:
 	get_tree().paused=true
 	for building in building_manager.buildings:
 		building_item_list.add_item(building.building_name,load(building.building_picture))
+		print(building.building_name)
 	_update_owned_buildings()
 	
 #enables scrolling owned buildings list by dragging

@@ -146,7 +146,7 @@ position = Vector2(0, 1)
 color = Color(0.447059, 0.447059, 0.447059, 1)
 metadata/_edit_lock_ = true
 
-[node name="MapLayer" type="TileMapLayer" parent="Map"]
+[node name="MapLayer" type="TileMapLayer" parent="Map" groups=["map_layer"]]
 texture_filter = 1
 tile_set = ExtResource("3_ns1bu")
 script = ExtResource("4_m111d")
@@ -177,6 +177,10 @@ tile_set = ExtResource("8_twwi0")
 script = ExtResource("9_dmyyu")
 metadata/_edit_lock_ = true
 
+[node name="HighlightLayer" type="TileMapLayer" parent="Map"]
+modulate = Color(1, 1, 1, 0.392157)
+tile_set = ExtResource("3_ns1bu")
+
 [node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
 
 [node name="ENEMY_UNIT_TEST" type="Label" parent="."]
@@ -188,6 +192,10 @@ offset_right = 530.0
 offset_bottom = 255.0
 text = "enemy
 unit"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+volume_db = -25.0
 
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
