@@ -9,27 +9,23 @@ var pos_clicked # = Vector2(0,0)
 #@onready var citylayer: City = get_node("root/Main/Map/CityLayer")
 	
 func _unhandled_input(event: InputEvent) -> void:
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
 			pos_clicked = local_to_map(to_local(global_clicked))
-
-			
+				
 			if selected_unit:
 				if selected_unit.move_to(pos_clicked, self):
 					print("Unit moved succesfully.")
-				else:
-					print("Movement not possible.")
 				selected_unit = null
 				clear_highlight()
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
-				if selected_unit:
+				if selected_unit and selected_unit.unit_owner == current_player:
 					print("Unit selected!")
 					highlight_possible_moves(selected_unit, pos_clicked)
-				else:
-					print("No unit at clicked position.")
 
 
 func get_tile_cost(_tile_position: Vector2) -> int:
@@ -82,73 +78,92 @@ func is_cell_not_city(map_position: Vector2) -> bool:
 	return get_city_at_position(map_position) == null
 
 func spawn_spearman():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var spearman = preload("res://scenes/Units/Spearman.tscn").instantiate()
 	add_child(spearman)
 	spearman.position = world_position
+	spearman.unit_owner = current_player
 	
 func spawn_archer():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var archer = preload("res://scenes/Units/Archer.tscn").instantiate()
 	add_child(archer)
 	archer.position = world_position
+	archer.unit_owner = current_player
 	
 func spawn_archmage():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var archmage = preload("res://scenes/Units/ArchMage.tscn").instantiate()
 	print(archmage.unit_name)
 	add_child(archmage)
 	archmage.position = world_position
-	
+	archmage.unit_owner = current_player
 	
 func spawn_cavalry():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var cavalry = preload("res://scenes/Units/Cavalry.tscn").instantiate()
 	add_child(cavalry)
 	cavalry.position = world_position
+	cavalry.unit_owner = current_player
 	
 func spawn_crossbowman():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var crossbowman = preload("res://scenes/Units/Crossbowman.tscn").instantiate()
 	add_child(crossbowman)
 	crossbowman.position = world_position
+	crossbowman.unit_owner = current_player
 	
 func spawn_halberdman():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var halberdman = preload("res://scenes/Units/Halberdman.tscn").instantiate()
 	add_child(halberdman)
 	halberdman.position = world_position
+	halberdman.unit_owner = current_player
 	
 func spawn_mage():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var mage = preload("res://scenes/Units/Mage.tscn").instantiate()
 	add_child(mage)
 	mage.position = world_position
+	mage.unit_owner = current_player
 	
 func spawn_scout():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var scout = preload("res://scenes/Units/Scout.tscn").instantiate()
 	add_child(scout)
 	scout.position = world_position
+	scout.unit_owner = current_player
 	
 func spawn_shieldman():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var shieldman = preload("res://scenes/Units/Shieldman.tscn").instantiate()
 	add_child(shieldman)
 	shieldman.position = world_position
+	shieldman.unit_owner = current_player
 	
 func spawn_warrior():
+	var current_player = get_tree().get_first_node_in_group("players").current_player
 	var spawn_point = pos_clicked
 	var world_position = map_to_local(spawn_point)
 	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
 	add_child(warrior)
 	warrior.position = world_position
+	warrior.unit_owner = current_player

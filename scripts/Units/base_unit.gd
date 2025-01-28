@@ -11,7 +11,7 @@ var cost_gold:int = 1
 var cost_food:int = 1
 var description:String = "lorem ipsum"
 
-var ownerID: int = -1
+var unit_owner: Player
 
 @onready var sprite: AnimatedSprite2D=$AnimatedSprite2D
 @onready var map_layer: TileMapLayer =get_tree().get_first_node_in_group("map_layer")
