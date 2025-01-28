@@ -20,7 +20,7 @@ class_name BaseUnit
 @onready var fog_disperser_point_light = $UnitFogDisperser/PointLight2D
 
 ## The unit's fog disperser
-@onready var fog_dispenser_scene:UnitFogDisperser
+@onready var fog_dispenser_scene:UnitFogDisperser = $UnitFogDisperser
 
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:

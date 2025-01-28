@@ -35,13 +35,15 @@ func clear_units() -> void:
 		remove_child(unit)
 		unit.queue_free()
 		
-## Called when switching turns to switch for units
+## Called when switching turns to switch fog for units
 func switch_unit_fog(currentPlayer: Player) -> void:
 	for unit in units:
 		if unit.unit_owner_id == currentPlayer.player_id:
 			unit.fog_disperser_point_light.visible = true
+			unit.fog_dispenser_scene.set_fog_disperser_enabled(true)
 		else:
 			unit.fog_disperser_point_light.visible = false
+			unit.fog_dispenser_scene.set_fog_disperser_enabled(false)
 
 func _unhandled_input(event: InputEvent) -> void:
 	var current_player_id: int= get_tree().get_first_node_in_group("players").current_player_id
@@ -122,6 +124,8 @@ func spawn_spearman(restore: bool = false):
 		spearman.unit_owner_id = current_player.player_id
 		spearman.unit_coords = spawn_point
 		spearman.set_color(current_player.flag_color)
+		spearman.fog_disperser_point_light.visible = true
+		spearman.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_archer(restore: bool = false):
 	var archer = preload("res://scenes/Units/Archer.tscn").instantiate()
@@ -134,6 +138,8 @@ func spawn_archer(restore: bool = false):
 		archer.unit_owner_id = current_player.player_id
 		archer.unit_coords = spawn_point
 		archer.set_color(current_player.flag_color)
+		archer.fog_disperser_point_light.visible = true
+		archer.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_archmage(restore: bool = false):
 	var archmage = preload("res://scenes/Units/ArchMage.tscn").instantiate()
@@ -146,6 +152,8 @@ func spawn_archmage(restore: bool = false):
 		archmage.unit_owner_id = current_player.player_id
 		archmage.unit_coords = spawn_point
 		archmage.set_color(current_player.flag_color)
+		archmage.fog_disperser_point_light.visible = true
+		archmage.fog_dispenser_scene.set_fog_disperser_enabled(true)
 		
 func spawn_cavalry(restore: bool = false):
 	var cavalry = preload("res://scenes/Units/Cavalry.tscn").instantiate()
@@ -158,6 +166,8 @@ func spawn_cavalry(restore: bool = false):
 		cavalry.unit_owner_id = current_player.player_id
 		cavalry.unit_coords = spawn_point
 		cavalry.set_color(current_player.flag_color)
+		cavalry.fog_disperser_point_light.visible = true
+		cavalry.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_crossbowman(restore: bool = false):
 	var crossbowman = preload("res://scenes/Units/Crossbowman.tscn").instantiate()
@@ -170,6 +180,8 @@ func spawn_crossbowman(restore: bool = false):
 		crossbowman.unit_owner_id = current_player.player_id
 		crossbowman.unit_coords = spawn_point
 		crossbowman.set_color(current_player.flag_color)
+		crossbowman.fog_disperser_point_light.visible = true
+		crossbowman.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_halberdman(restore: bool = false):
 	var halberdman = preload("res://scenes/Units/Halberdman.tscn").instantiate()
@@ -178,11 +190,12 @@ func spawn_halberdman(restore: bool = false):
 		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 		var spawn_point = pos_clicked
 		var world_position = map_to_local(spawn_point)
-		
 		halberdman.position = world_position
 		halberdman.unit_owner_id = current_player.player_id
 		halberdman.unit_coords = spawn_point
 		halberdman.set_color(current_player.flag_color)
+		halberdman.fog_disperser_point_light.visible = true
+		halberdman.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_mage(restore: bool = false):
 	var mage = preload("res://scenes/Units/Mage.tscn").instantiate()
@@ -195,6 +208,8 @@ func spawn_mage(restore: bool = false):
 		mage.unit_owner_id = current_player.player_id
 		mage.unit_coords = spawn_point
 		mage.set_color(current_player.flag_color)
+		mage.fog_disperser_point_light.visible = true
+		mage.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_scout(restore: bool = false):
 	var scout = preload("res://scenes/Units/Scout.tscn").instantiate()
@@ -207,6 +222,8 @@ func spawn_scout(restore: bool = false):
 		scout.unit_owner_id = current_player.player_id
 		scout.unit_coords = spawn_point
 		scout.set_color(current_player.flag_color)
+		scout.fog_disperser_point_light.visible = true
+		scout.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_shieldman(restore: bool = false):
 	var shieldman = preload("res://scenes/Units/Shieldman.tscn").instantiate()
@@ -219,6 +236,8 @@ func spawn_shieldman(restore: bool = false):
 		shieldman.unit_owner_id = current_player.player_id
 		shieldman.unit_coords = spawn_point
 		shieldman.set_color(current_player.flag_color)
+		shieldman.fog_disperser_point_light.visible = true
+		shieldman.fog_dispenser_scene.set_fog_disperser_enabled(true)
 	
 func spawn_warrior(restore: bool = false):
 	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
@@ -231,6 +250,8 @@ func spawn_warrior(restore: bool = false):
 		warrior.unit_owner_id = current_player.player_id
 		warrior.unit_coords = spawn_point
 		warrior.set_color(current_player.flag_color)
+		warrior.fog_disperser_point_light.visible = true
+		warrior.fog_dispenser_scene.set_fog_disperser_enabled(true)
 
 func reload_unit(saved_unit: BaseUnit) -> void:
 	var unit_reloaded: bool = false
