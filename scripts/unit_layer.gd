@@ -50,7 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_pressed():
 			pos_clicked = local_to_map(to_local(global_clicked))
 				
-			if selected_unit:
+			if selected_unit and selected_unit.unit_owner_id == current_player_id:
 				if selected_unit.move_to(pos_clicked, self):
 					selected_unit = null
 					clear_highlight()
@@ -166,7 +166,6 @@ func spawn_crossbowman(restore: bool = false):
 		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
 		var spawn_point = pos_clicked
 		var world_position = map_to_local(spawn_point)
-		add_child(crossbowman)
 		crossbowman.position = world_position
 		crossbowman.unit_owner_id = current_player.player_id
 		crossbowman.unit_coords = spawn_point
