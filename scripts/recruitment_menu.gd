@@ -11,9 +11,7 @@ extends Control
 @onready var sfx_player:AudioStreamPlayer=$AudioStreamPlayer
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
 
-
-var build_sound:AudioStream=preload("res://audio/build.ogg")
-var destroy_sound:AudioStream=preload("res://audio/destroy_building.ogg")
+var can_recruit:bool=true
 
 #determines current building mode
 var _recruit_mode:String="Recruit":
@@ -34,6 +32,9 @@ var selected_unit:BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if unitlayer.get_unit_at_position(unitlayer.pos_clicked + Vector2i(1,-1))!=null:
+		recruit_button.disabled=true
+		can_recruit=false
 	unit_manager.city=city
 	recruit_button.disabled=true
 	get_tree().paused=true
@@ -89,7 +90,7 @@ func _on_building_list_item_selected(index: int) -> void:
 #	owned_item_list.deselect_all()
 	selected_unit=unit_manager.units[index]
 	recruit_button.disabled=true
-	if unit_manager.can_player_recruit_unit(selected_unit):
+	if unit_manager.can_player_recruit_unit(selected_unit) and can_recruit:
 		recruit_button.disabled=false
 	_recruit_mode="Recruit"
 	_display_unit_info(selected_unit)

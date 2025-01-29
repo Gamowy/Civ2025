@@ -28,7 +28,7 @@ region = Rect2(3, 483, 26, 26)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3pjb1"]
 
-[node name="BuildingsMenu" type="Control"]
+[node name="RecruitmentMenu" type="Control"]
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
