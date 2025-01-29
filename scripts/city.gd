@@ -11,7 +11,7 @@ extends Sprite2D
 class_name City
 
 ## Emitted when the [City] is destroyed :(
-signal destroyed()
+signal destroyed(city:City)
 
 @onready var name_label:Label=$Label
 @onready var fog_disperser:CityFogDisperser=$CityFogDisperser
@@ -29,6 +29,8 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 @export var city_radius:int=5
 ## The city's HP
 @export var city_health:int=100
+## Maximum city HP
+@export var max_city_health:int=100
 ## Maximum number of buildings that can be built in this city
 @export var building_limit:int=5
 ## How many units of gold the city produces per turn
@@ -70,7 +72,7 @@ func _ready() -> void:
 func take_damage(dmg_points:int)->void:
 	city_health-=dmg_points
 	if city_health<=0:
-		destroyed.emit()
+		destroyed.emit(self)
 		queue_free()
 
 #collect resources produced by the city

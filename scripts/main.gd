@@ -257,7 +257,7 @@ func exit_to_menu() -> void:
 	get_tree().root.remove_child(self)
 	self.queue_free()
 
-## Checks if somebody won the game, should be connected to "city_removed" signal from city_layer
+## Checks if somebody won the game, should be connected to "city_destroyed" signal from city_layer
 func check_win_condition()->void:
 	if len(city_layer.cities)>0:
 		var potential_winner=city_layer.cities[0].city_owner
