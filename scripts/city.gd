@@ -20,6 +20,7 @@ signal destroyed(city:City)
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
 @onready var flag:Sprite2D=$CityFlag
+@onready var health_bar:HealthBar=$UnitHealthbar
 var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
@@ -28,9 +29,21 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
-@export var city_health:int=100
+@export var city_health:int=100:
+	set(value):
+		city_health=value
+		if health_bar!=null:
+			health_bar.value=city_health
+	get:
+		return city_health
 ## Maximum city HP
-@export var max_city_health:int=100
+@export var max_city_health:int=100:
+	set(value):
+		max_city_health=value
+		if health_bar!=null:
+			health_bar.max_value=max_city_health
+	get:
+		return max_city_health
 ## Maximum number of buildings that can be built in this city
 @export var building_limit:int=5
 ## How many units of gold the city produces per turn
@@ -68,6 +81,8 @@ func _ready() -> void:
 	fog_disperser.set_fog_disperser_enabled(true)
 	fog_disperser_point_light.visible = true
 	resource_scan_area.force_update_transform()
+	
+	health_bar.max_value=max_city_health
 
 func take_damage(dmg_points:int)->void:
 	city_health-=dmg_points
