@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0d0766v5wur3"]
+[gd_scene load_steps=33 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_i7nb3"]
@@ -32,6 +32,30 @@ region = Rect2(320, 256, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jl2ka"]
 atlas = ExtResource("2_v0s0g")
 region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whkyc"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lpaf"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(64, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr7rp"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfd6i"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cdkk"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvv0r"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(320, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -119,6 +143,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_whkyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lpaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr7rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfd6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cdkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvv0r")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_blpyy")
 }, {
 "duration": 1.0,
@@ -178,7 +225,7 @@ unit_name = "Cavalry"
 material = ExtResource("2_i7nb3")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Attack"
+animation = &"Die"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_i774j")]

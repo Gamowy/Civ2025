@@ -228,7 +228,7 @@ unit_name = "Scout"
 material = ExtResource("2_02ym7")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Attack"
+animation = &"Die"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_n1xde")]

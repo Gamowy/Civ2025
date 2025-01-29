@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://idjj7t65s3nv"]
+[gd_scene load_steps=27 format=3 uid="uid://idjj7t65s3nv"]
 
 [ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
 [ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
@@ -28,6 +28,26 @@ region = Rect2(256, 204, 64, 52)
 [sub_resource type="AtlasTexture" id="AtlasTexture_s4016"]
 atlas = ExtResource("2_h1o32")
 region = Rect2(320, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10q02"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(0, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5v1p"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(64, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j344d"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(128, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57ads"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(192, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkonf"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(256, 332, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijqil"]
 atlas = ExtResource("2_h1o32")
@@ -96,6 +116,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_10q02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5v1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j344d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57ads")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkonf")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ijqil")
 }, {
 "duration": 1.0,
@@ -143,7 +183,7 @@ unit_name = "Halberdman"
 material = ExtResource("2_vr6dp")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Attack"
+animation = &"Die"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_agbtu")]

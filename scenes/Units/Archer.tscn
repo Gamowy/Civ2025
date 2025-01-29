@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cucaciw8btpl0"]
+[gd_scene load_steps=32 format=3 uid="uid://cucaciw8btpl0"]
 
 [ext_resource type="Script" path="res://scripts/Units/archer.gd" id="1_g2ghf"]
 [ext_resource type="Texture2D" uid="uid://q1wimt04swd0" path="res://resources/Units/Archer.png" id="2_fwosj"]
@@ -51,6 +51,22 @@ region = Rect2(576, 204, 64, 52)
 [sub_resource type="AtlasTexture" id="AtlasTexture_am0c3"]
 atlas = ExtResource("2_fwosj")
 region = Rect2(640, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jtt2"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(0, 396, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0ifl"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(64, 396, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_240ov"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(128, 396, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djgf7"]
+atlas = ExtResource("2_fwosj")
+region = Rect2(192, 396, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4pgt"]
 atlas = ExtResource("2_fwosj")
@@ -134,6 +150,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2jtt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0ifl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_240ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djgf7")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a4pgt")
 }, {
 "duration": 1.0,
@@ -181,7 +214,7 @@ script = ExtResource("1_g2ghf")
 material = ExtResource("2_t8iwf")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Attack"
+animation = &"Die"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_3koje")]
