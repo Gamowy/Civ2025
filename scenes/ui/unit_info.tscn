@@ -8,12 +8,12 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nlic"]
 resource_local_to_scene = true
 atlas = ExtResource("2_fvuhv")
-region = Rect2(33.3714, 191.68, 29.3799, 30.9034)
+region = Rect2(32, 192, 32, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3ptr2"]
 resource_local_to_scene = true
 atlas = ExtResource("2_fvuhv")
-region = Rect2(33.5672, 163.986, 27.0532, 25.864)
+region = Rect2(32, 160, 32, 32)
 
 [node name="UnitInfo" type="Control"]
 layout_mode = 3
@@ -53,6 +53,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxHealth"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_bo4en")
 
@@ -66,6 +67,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxDefense"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = SubResource("AtlasTexture_7nlic")
 
@@ -79,6 +81,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxAttack"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = SubResource("AtlasTexture_3ptr2")
 

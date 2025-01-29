@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bovkmgq5o2ru0"]
+
+[ext_resource type="Texture2D" uid="uid://cl7s5xt2cesy0" path="res://img/vehicles.png" id="1_w1g71"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t2536"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13foi"]
+atlas = ExtResource("1_w1g71")
+region = Rect2(0, 52, 16, 12)
+
+[node name="BoatSprite" type="Sprite2D"]
+visible = false
+material = SubResource("CanvasItemMaterial_t2536")
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_13foi")
