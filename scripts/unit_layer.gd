@@ -380,11 +380,9 @@ func unit_attack(unit, pos):
 		Vector2(1, 1), Vector2(-1, 1),
 		Vector2(-1,-1), Vector2(1,-1)
 	]
-	var is_it = is_unit_in_range(unit,backup_pos)
-	print(is_it)
 	var enemy = get_unit_at_position(pos)
 	if enemy:
-		if enemy.unit_owner_id != unit.unit_owner_id and is_it == true:
+		if enemy.unit_owner_id != unit.unit_owner_id and is_unit_in_range(unit,backup_pos) == true:
 			if enemy.position.x < unit.position.x:
 				unit.sprite.flip_h = true
 			else:
