@@ -42,6 +42,15 @@ func create_initial_city(map_layer:MapLayer, resource_layer:ResourceLayer, city_
 	if attempt>0:
 		create_initial_city(map_layer,resource_layer,city_owner,attempt-1)
 
+## Returns city at given position, returns null if no city was found
+func get_city_at_position(pos:Vector2)->City:
+	var map_pos=local_to_map(pos)
+	for city in cities:
+		if city!=null and is_instance_valid(city):
+			if local_to_map(city.position)==map_pos:
+				return city
+	return null
+
 ## Returns an array of coordinates close to existing cities
 func get_coords_around_cities() -> Array[Vector2i]:
 	var coords_array: Array[Vector2i]

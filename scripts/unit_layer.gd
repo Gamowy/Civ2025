@@ -9,6 +9,7 @@ var pos_clicked # = Vector2(0,0)
 @onready var backup_unit: BaseUnit = null
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 @onready var map_layer : MapLayer = $"../MapLayer"
+@onready var city_layer=get_tree().get_first_node_in_group("city_layer")
 
 var units : Array[BaseUnit] = []
 var unit_info:UnitInfo
@@ -117,15 +118,15 @@ func get_unit_at_position(map_position: Vector2) -> BaseUnit:
 func is_cell_free(map_position: Vector2) -> bool:
 	return get_unit_at_position(map_position) == null
 
-func get_city_at_position(map_position: Vector2) -> City:
-	var world_position = map_to_local(map_position)
-	for city in $"../CityLayer".get_children():
-		if city is City and city.position.distance_to(world_position) <1.0:
-			return city
-	return null
+#func get_city_at_position(map_position: Vector2) -> City:
+	#var world_position = map_to_local(map_position)
+	#for city in $"../CityLayer".get_children():
+		#if city is City and city.position.distance_to(world_position) <1.0:
+			#return city
+	#return null
 
 func is_cell_not_city(map_position: Vector2) -> bool:
-	return get_city_at_position(map_position) == null
+	return city_layer.get_city_at_position(map_to_local(map_position)) == null
 
 func spawn_spearman(restore: bool = false):
 	var spearman = preload("res://scenes/Units/Spearman.tscn").instantiate()
@@ -351,7 +352,7 @@ func get_neighbors(position: Vector2):
 		neighbors.append(neighbor_pos)
 		
 func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
-	if unit == null:
+	if unit == null or !is_instance_valid(unit):
 		return
 	var offsets = [
 		Vector2(1, 0), Vector2(-1, 0), 
@@ -365,14 +366,19 @@ func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
 		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
 		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var enemy_unit = get_unit_at_position(target_position)
-		if is_cell_not_city(target_position) and tile != empty:
-			if enemy_unit != null:
-				print(enemy_unit.name)
-				if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
-					highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
+		if is_cell_not_city(target_position):
+			if tile!=empty:
+				if enemy_unit != null:
+					print(enemy_unit.name)
+					if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+						highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
+		elif city_layer.get_city_at_position(map_to_local(target_position)).city_owner.player_id!=unit.unit_owner_id:
+			highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
 				
 	
 func unit_attack(unit, pos):
+	if unit==null or !is_instance_valid(unit):
+		return
 	var is_unit_there = false
 	var offsets = [
 		Vector2(1, 0), Vector2(-1, 0), 
@@ -382,7 +388,7 @@ func unit_attack(unit, pos):
 	]
 	var enemy = get_unit_at_position(pos)
 	if enemy:
-		if enemy.unit_owner_id != unit.unit_owner_id and is_unit_in_range(unit,backup_pos) == true:
+		if enemy.unit_owner_id != unit.unit_owner_id and is_target_in_range(unit,backup_pos) == true:
 			if enemy.position.x < unit.position.x:
 				unit.sprite.flip_h = true
 			else:
@@ -393,8 +399,20 @@ func unit_attack(unit, pos):
 			unit.sprite.play("Idle")
 			enemy.takeDamage(unit.attack)
 			enemy.is_dead()
-
-func is_unit_in_range(unit:BaseUnit, position_check) -> bool:
+	else:
+		get_tree().get_first_node_in_group("city_layer")
+		#var city_layer=get_tree().get_first_node_in_group("city_layer")
+		var city=city_layer.get_city_at_position(map_to_local(pos))
+		if city!=null and is_instance_valid(city) and city.city_owner.player_id!=unit.unit_owner_id:
+			if is_target_in_range(unit,backup_pos):
+				unit.sprite.play("Attack")
+				await unit.sprite.animation_finished
+				unit.sprite.play("Idle")
+				city.take_damage(unit.attack)
+				print("attack city")
+		
+		
+func is_target_in_range(unit:BaseUnit, position_check) -> bool:
 	if unit == null:
 		return false
 	
@@ -410,11 +428,15 @@ func is_unit_in_range(unit:BaseUnit, position_check) -> bool:
 		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
 		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var enemy_unit = get_unit_at_position(target_position)
-		if is_cell_not_city(target_position) and tile != empty:
-			if enemy_unit != null:
-				print(enemy_unit.name)
-				if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
-					return true
+		if is_cell_not_city(target_position):
+			if tile!=empty:
+				if enemy_unit != null and is_instance_valid(enemy_unit):
+					print(enemy_unit.name)
+					if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+						return true
+		elif city_layer.get_city_at_position(map_to_local(target_position)).city_owner.player_id!=unit.unit_owner_id:
+			return true
+			
 	return false
 	#var enemy_position = []
 	#var neighbors = get_neighbors(selected_unit.position)

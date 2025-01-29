@@ -10,6 +10,9 @@
 extends Sprite2D
 class_name City
 
+## Emitted when the [City] is destroyed :(
+signal destroyed(city:City)
+
 @onready var name_label:Label=$Label
 @onready var fog_disperser:CityFogDisperser=$CityFogDisperser
 @onready var fog_disperser_point_light = $CityFogDisperser/PointLight2D
@@ -63,6 +66,12 @@ func _ready() -> void:
 	fog_disperser.set_fog_disperser_enabled(true)
 	fog_disperser_point_light.visible = true
 	resource_scan_area.force_update_transform()
+
+func take_damage(dmg_points:int)->void:
+	city_health-=dmg_points
+	if city_health<=0:
+		destroyed.emit(self)
+		queue_free()
 
 #collect resources produced by the city
 #and give them to the city owner

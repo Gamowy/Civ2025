@@ -170,7 +170,7 @@ tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
 resource_seed = 0
 
-[node name="CityLayer" type="TileMapLayer" parent="Map"]
+[node name="CityLayer" type="TileMapLayer" parent="Map" groups=["city_layer"]]
 z_index = 2
 tile_set = ExtResource("7_y6bwc")
 script = ExtResource("12_nt62r")
