@@ -406,6 +406,10 @@ func unit_attack(unit, pos):
 		var city=city_layer.get_city_at_position(map_to_local(pos))
 		if city!=null and is_instance_valid(city) and city.city_owner.player_id!=unit.unit_owner_id:
 			if is_target_in_range(unit,backup_pos):
+				if city.position.x < unit.position.x:
+					unit.sprite.flip_h = true
+				else:
+					unit.sprite.flip_h = false
 				unit.sprite.play("Attack")
 				await unit.sprite.animation_finished
 				unit.sprite.play("Idle")

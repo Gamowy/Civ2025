@@ -199,8 +199,8 @@ tile_set = ExtResource("3_ns1bu")
 process_mode = 3
 volume_db = -15.0
 
-[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_highlight"]
 [connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_unit_info"]
+[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_highlight"]
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
 [connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
