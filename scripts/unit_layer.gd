@@ -13,12 +13,14 @@ var pos_clicked # = Vector2(0,0)
 var units : Array[BaseUnit] = []
 var unit_info:UnitInfo
 
+
 ## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
 var unit_moving = false
 
 func _ready() -> void:
 	child_entered_tree.connect(_unit_added)
 	child_exiting_tree.connect(_unit_removed)
+	
 
 ## Called every time a new unid is recruited
 func _unit_added(unit: BaseUnit) -> void:
@@ -382,6 +384,7 @@ func unit_attack(unit, pos):
 			await unit.sprite.animation_finished
 			unit.sprite.play("Idle")
 			enemy.takeDamage(unit.attack)
+			enemy.is_dead()
 	
 	#var enemy_position = []
 	#var neighbors = get_neighbors(selected_unit.position)

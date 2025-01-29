@@ -12,12 +12,9 @@ signal finished_movement
 @export var health: int = 100:
 	set(value):
 		health=value
-		health_updated.emit(health)
+		if(health>0):
+			health_updated.emit(health)
 	get():
-		if (health<=0):
-			sprite.play("Die")
-			get_tree().create_timer(2).timeout
-			queue_free()
 		return health
 @export var attack: int = 5
 @export var defense: int = 5
@@ -116,3 +113,8 @@ func _on_finished_moving():
 	is_moving=false
 
 	
+func is_dead():
+	if (health<=0):
+			sprite.play("Die")
+			await get_tree().create_timer(2).timeout
+			queue_free()
