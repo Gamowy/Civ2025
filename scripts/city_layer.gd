@@ -2,6 +2,9 @@ extends TileMapLayer
 class_name CityLayer
 const city_scene = preload("res://scenes/city.tscn")
 
+## Emitted when a city is removed/destroyed
+signal city_removed()
+
 var cities: Array[City] = []
 
 func _ready() -> void:
@@ -16,6 +19,7 @@ func _city_added(city: City) -> void:
 ## Called every time a city is removed from tilemap
 func _city_removed(city: City) -> void:
 	cities.erase(city)
+	city_removed.emit()
 
 ## Use this to create and add city from within code
 func add_city(coords: Vector2i, city_owner: Player, city_name = "") -> void:

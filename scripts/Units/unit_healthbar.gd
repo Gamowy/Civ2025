@@ -1,7 +1,7 @@
 extends ProgressBar
 class_name HealthBar
 
-static func create_healthbar(owner:BaseUnit,health:int,max_health:int):
+static func create_healthbar(owner,health:int,max_health:int):
 	var healthbar:HealthBar=load("res://scenes/Units/unit_elements/unit_healthbar.tscn").instantiate()
 	healthbar.max_value=max_health
 	healthbar.value=health
@@ -11,12 +11,3 @@ static func create_healthbar(owner:BaseUnit,health:int,max_health:int):
 
 func update_health_bar(hp:int):
 	value=hp
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

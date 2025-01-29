@@ -66,10 +66,12 @@ theme = ExtResource("2_ieitm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Center/CenterContainer/PanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Center/CenterContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(450, 50)
 layout_mode = 2
+size_flags_horizontal = 4
 bbcode_enabled = true
 text = "[center]Congratulations,  [color=#ff0000]Name[/color],
 you've won!
@@ -82,15 +84,12 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Center/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 10
-
-[node name="PlayButton" type="Button" parent="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Play again"
-script = ExtResource("5_he2hm")
 
 [node name="MenuButton" type="Button" parent="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Main menu"
 script = ExtResource("5_he2hm")
 
@@ -127,5 +126,4 @@ stream = ExtResource("7_lscvp")
 autoplay = true
 bus = &"SFX"
 
-[connection signal="pressed" from="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Center/CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]

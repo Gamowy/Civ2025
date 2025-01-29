@@ -94,6 +94,7 @@ tile_offset_axis = 1
 tile_size = Vector2i(32, 28)
 
 [node name="Main" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_5huqx")
 
 [node name="PlayersManager" type="Node" parent="." groups=["players"]]
@@ -218,4 +219,5 @@ volume_db = -15.0
 [connection signal="action_bought" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_action_bought"]
 [connection signal="exit_actions_menu" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_exit_actions_menu"]
 [connection signal="animation_finished" from="UILayer/Transition" to="UILayer/Transition" method="_on_animation_finished"]
+[connection signal="city_removed" from="Map/CityLayer" to="." method="check_win_condition"]
 [connection signal="unit_selected" from="Map/UnitLayer" to="UILayer" method="display_unit_info"]

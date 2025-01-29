@@ -256,7 +256,19 @@ func exit_to_menu() -> void:
 	get_tree().change_scene_to_file(LOADING_SCREEN);
 	get_tree().root.remove_child(self)
 	self.queue_free()
-	
+
+## Checks if somebody won the game, should be connected to "city_removed" signal from city_layer
+func check_win_condition()->void:
+	if len(city_layer.cities)>0:
+		var potential_winner=city_layer.cities[0].city_owner
+		for city in city_layer.cities:
+			if city.city_owner!=potential_winner:
+				return
+		get_tree().paused=true
+		var game_over_screen:GameOverScreen=GameOverScreen.get_game_over_screen(potential_winner)
+		game_over_screen.menu_button_pressed.connect(exit_to_menu)
+		ui_layer.add_child(game_over_screen)
+
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	switch_turns()
