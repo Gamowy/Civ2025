@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://tev6otisa5du"]
+[gd_scene load_steps=38 format=3 uid="uid://tev6otisa5du"]
 
 [ext_resource type="Script" path="res://scripts/Units/mage.gd" id="1_uuqkf"]
 [ext_resource type="Texture2D" uid="uid://b8oyhq3aepoh3" path="res://resources/Units/Mage.png" id="2_degh1"]
+[ext_resource type="AudioStream" uid="uid://co8y5r0dg5sh2" path="res://audio/units/spell.ogg" id="2_q0bql"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_yfwws"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_m7h36"]
 
@@ -248,12 +249,14 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uuqkf")
 unit_name = "Mage"
+attack_sound = ExtResource("2_q0bql")
+attack_sound_frame = 7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_yfwws")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_m7h36")]

@@ -397,8 +397,9 @@ func unit_attack(unit, pos):
 			#await get_tree().create_timer(2).timeout
 			await unit.sprite.animation_finished
 			unit.sprite.play("Idle")
-			enemy.takeDamage(unit.attack)
-			enemy.is_dead()
+			if is_instance_valid(enemy):
+				enemy.takeDamage(unit.attack)
+				enemy.is_dead()
 	else:
 		get_tree().get_first_node_in_group("city_layer")
 		#var city_layer=get_tree().get_first_node_in_group("city_layer")

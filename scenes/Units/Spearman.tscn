@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=29 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_jaymq"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_q3tvv"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_1id4g"]
 
@@ -185,12 +186,14 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ro8s4")
 unit_name = "Spearman"
+attack_sound = ExtResource("2_q3tvv")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_jaymq")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_1id4g")]

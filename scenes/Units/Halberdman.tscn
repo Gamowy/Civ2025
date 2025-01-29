@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://idjj7t65s3nv"]
+[gd_scene load_steps=28 format=3 uid="uid://idjj7t65s3nv"]
 
 [ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_43f4r"]
 [ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_vr6dp"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_agbtu"]
@@ -178,12 +179,14 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_fvn48")
 unit_name = "Halberdman"
+attack_sound = ExtResource("2_43f4r")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_vr6dp")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_agbtu")]

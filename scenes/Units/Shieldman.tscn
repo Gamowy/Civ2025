@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://d28vngsou6ld"]
+[gd_scene load_steps=27 format=3 uid="uid://d28vngsou6ld"]
 
 [ext_resource type="Script" path="res://scripts/Units/shieldman.gd" id="1_81s3e"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_7vow7"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_n7ivp"]
 [ext_resource type="Texture2D" uid="uid://binle7qqoofhq" path="res://resources/Units/ShieldMan.png" id="2_pt8l7"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_xmkw0"]
 
@@ -171,12 +172,14 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_81s3e")
 unit_name = "Shieldman"
+attack_sound = ExtResource("2_n7ivp")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_7vow7")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_xmkw0")]

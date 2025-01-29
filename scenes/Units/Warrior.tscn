@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://bpj2np0vniipy"]
+[gd_scene load_steps=28 format=3 uid="uid://bpj2np0vniipy"]
 
 [ext_resource type="Script" path="res://scripts/Units/warrior.gd" id="1_061m6"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_5y6aj"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_gor1s"]
 [ext_resource type="Texture2D" uid="uid://ig077oace0jl" path="res://resources/Units/SwordMan.png" id="2_y4xu3"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_c6hfj"]
 
@@ -175,12 +176,14 @@ animations = [{
 material = SubResource("CanvasItemMaterial_rl2ly")
 script = ExtResource("1_061m6")
 unit_name = "Warrior"
+attack_sound = ExtResource("2_gor1s")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_5y6aj")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_c6hfj")]

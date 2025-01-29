@@ -87,6 +87,7 @@ func _ready() -> void:
 func take_damage(dmg_points:int)->void:
 	city_health-=dmg_points
 	if city_health<=0:
+		UISoundPlayer.play_sound(load("res://audio/destroy_building.ogg"))
 		destroyed.emit(self)
 		queue_free()
 

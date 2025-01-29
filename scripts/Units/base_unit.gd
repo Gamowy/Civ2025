@@ -24,6 +24,10 @@ signal finished_movement
 @export var cost_food:int = 1
 @export var description:String = "lorem ipsum"
 
+## Sound played when the unit attacks
+@export var attack_sound:AudioStream
+## Frame of attack animation on which the attack sound should be played
+@export var attack_sound_frame:int
 
 @export_storage var unit_owner_id: int
 @export_storage var unit_coords : Vector2i
@@ -45,12 +49,19 @@ var is_in_water:bool=false:
 			boat.visible=is_in_water
 	get:
 		return is_in_water
+var audio_player:AudioStreamPlayer
+var death_sounds:Array[AudioStream]=[preload("res://audio/units/unit_death1.ogg"),preload('res://audio/units/unit_death2.ogg'),preload("res://audio/units/unit_death3.ogg")]
 
 func _ready() -> void:
 	health_bar=HealthBar.create_healthbar(self,health,max_health)
 	boat=load("res://scenes/Units/unit_elements/boat_sprite.tscn").instantiate()
 	add_child(boat)
 	move_child(boat,0)
+	audio_player=AudioStreamPlayer.new()
+	audio_player.bus="SFX"
+	audio_player.stream=attack_sound
+	add_child(audio_player)
+	sprite.frame_changed.connect(play_attack_sound)
 	finished_movement.connect(_on_finished_moving)
 
 func _process(_delta: float) -> void:
@@ -116,5 +127,12 @@ func _on_finished_moving():
 func is_dead():
 	if (health<=0):
 			sprite.play("Die")
+			audio_player.stream=death_sounds.pick_random()
+			audio_player.play()
 			await get_tree().create_timer(2).timeout
 			queue_free()
+
+func play_attack_sound():
+	if audio_player!=null:
+		if sprite.animation=="Attack" and sprite.frame==attack_sound_frame:
+			audio_player.play()

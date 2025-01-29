@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://cucaciw8btpl0"]
+[gd_scene load_steps=33 format=3 uid="uid://cucaciw8btpl0"]
 
 [ext_resource type="Script" path="res://scripts/Units/archer.gd" id="1_g2ghf"]
 [ext_resource type="Texture2D" uid="uid://q1wimt04swd0" path="res://resources/Units/Archer.png" id="2_fwosj"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_t8iwf"]
+[ext_resource type="AudioStream" uid="uid://bv7m18lbf764p" path="res://audio/units/arrow.ogg" id="2_ucjoc"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_3koje"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t8a7u"]
@@ -209,12 +210,14 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 material = SubResource("CanvasItemMaterial_t8a7u")
 script = ExtResource("1_g2ghf")
+attack_sound = ExtResource("2_ucjoc")
+attack_sound_frame = 7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_t8iwf")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Die"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_3koje")]
