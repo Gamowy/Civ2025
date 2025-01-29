@@ -42,6 +42,7 @@ func _ready() -> void:
 		
 		recruit_item_list.add_child(unit)
 		recruit_item_list.add_item(unit.unit_name)
+		unit.health_bar.visible=false
 		print(unit.unit_name)
 #	_update_owned_buildings()
 	

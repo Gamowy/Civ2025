@@ -5,6 +5,7 @@ extends BaseUnit
 func _ready():
 	unit_name = "Arch Mage"
 	health = 60
+	max_health=health
 	@warning_ignore("integer_division")
 	attack = 30 * (health/50)
 	defense = 5
@@ -16,3 +17,4 @@ func _ready():
 	description = "Dedicated his whole life to creating handheld atomic bombs (failed, but got fireballs instead)."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
+	super._ready()

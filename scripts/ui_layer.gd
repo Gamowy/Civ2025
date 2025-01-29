@@ -76,3 +76,6 @@ func _on_actions_menu_action_bought(action_name: String) -> void:
 			build_city.emit()
 		_:
 			printerr("No action found")
+
+func display_unit_info(unit_info:UnitInfo):
+	add_child(unit_info)

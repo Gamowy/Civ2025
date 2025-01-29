@@ -5,6 +5,7 @@ extends BaseUnit
 func _ready():
 	unit_name = "Cavalry"
 	health = 150
+	max_health=health
 	@warning_ignore("integer_division")
 	attack = 15 * (health/150)
 	defense = 8
@@ -16,3 +17,4 @@ func _ready():
 	description = "Puts Sonic the Hedgehog in his place when at full speed."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
+	super._ready()

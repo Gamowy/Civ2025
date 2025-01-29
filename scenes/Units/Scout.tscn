@@ -121,6 +121,7 @@ light_mode = 2
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_et4t3")
+unit_name = "Scout"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_02ym7")

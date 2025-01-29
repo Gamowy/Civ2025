@@ -90,6 +90,7 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_a5tle")
+unit_name = "Crossbwman"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_oho47")

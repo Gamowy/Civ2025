@@ -79,6 +79,9 @@ text = "[center][b]Assets used in this game[/b]:
 [b]Music:[/b]
 Stronghold 2 Soundtrack by Firefly Studios
 
+[b]Shaders[/b]
+[url=https://godotshaders.com/shader/palette-swap-no-recolor-recolor/]Palette Swap (no recolor / recolor)[/url] by Exuin
+
 [/center]"
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]

@@ -91,10 +91,10 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("fog_dispenser_scene")]
+[node name="Node2D" type="Node2D"]
 material = SubResource("CanvasItemMaterial_rl2ly")
 script = ExtResource("1_061m6")
-fog_dispenser_scene = NodePath("UnitFogDisperser")
+unit_name = "Warrior"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_5y6aj")

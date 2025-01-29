@@ -1,9 +1,17 @@
 extends Node2D
 class_name BaseUnit
 
+signal health_updated(hp)
+
 @export_category("Unit")
 @export var unit_name:String = "Base Unit"
-@export var health: int = 100
+@export var max_health:int=100
+@export var health: int = 100:
+	set(value):
+		health=value
+		health_updated.emit(health)
+	get():
+		return health
 @export var attack: int = 5
 @export var defense: int = 5
 @export var movementRange: int = 2
@@ -11,6 +19,7 @@ class_name BaseUnit
 @export var cost_gold:int = 1
 @export var cost_food:int = 1
 @export var description:String = "lorem ipsum"
+
 
 @export_storage var unit_owner_id: int
 @export_storage var unit_coords : Vector2i
@@ -21,6 +30,11 @@ class_name BaseUnit
 
 ## The unit's fog disperser
 @onready var fog_dispenser_scene:UnitFogDisperser = $UnitFogDisperser
+
+var health_bar:HealthBar
+
+func _ready() -> void:
+	health_bar=HealthBar.create_healthbar(self,health,max_health)
 
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:

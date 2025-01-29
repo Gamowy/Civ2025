@@ -1,6 +1,8 @@
 extends TileMapLayer
 class_name UnitLayer
 
+signal unit_selected(unit_info:UnitInfo)
+
 var global_clicked #= Vector2(0,0)
 var pos_clicked # = Vector2(0,0)
 @onready var selected_unit: BaseUnit = null
@@ -8,6 +10,7 @@ var pos_clicked # = Vector2(0,0)
 @onready var map_layer : TileMapLayer = $"../MapLayer"
 
 var units : Array[BaseUnit] = []
+var unit_info:UnitInfo
 
 ## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
 var unit_moving = false
@@ -50,9 +53,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
+			clear_unit_info()
 			pos_clicked = local_to_map(to_local(global_clicked))
-				
-			if selected_unit and selected_unit.unit_owner_id == current_player_id:
+				#check if instance is valid to make sure the selected unit still exists
+			if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
 				if selected_unit.move_to(pos_clicked, self):
 					selected_unit = null
 					clear_highlight()
@@ -60,7 +64,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
-				if selected_unit and selected_unit.unit_owner_id == current_player_id:
+				if selected_unit!=null and is_instance_valid(selected_unit):
+					unit_info=UnitInfo.get_unit_info_window(selected_unit.unit_name,selected_unit.health,selected_unit.defense,selected_unit.attack)
+					unit_selected.emit(unit_info)
+				if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
 					highlight_possible_moves(selected_unit, pos_clicked)
 
 
@@ -254,6 +261,8 @@ func spawn_warrior(restore: bool = false):
 		warrior.fog_dispenser_scene.set_fog_disperser_enabled(true)
 
 func reload_unit(saved_unit: BaseUnit) -> void:
+	#clear highlight to avoid showing range of possibly nonexistent unit
+	clear_highlight()
 	var unit_reloaded: bool = false
 	match saved_unit.unit_name:
 		"Archer":
@@ -295,5 +304,13 @@ func reload_unit(saved_unit: BaseUnit) -> void:
 		units[units.size() -1].rangeOfView = saved_unit.rangeOfView
 		units[units.size() -1].unit_owner_id = saved_unit.unit_owner_id
 		units[units.size() -1].unit_coords = saved_unit.unit_coords
-		units[units.size() -1].position = saved_unit.position
+		# This is to ensure the unit is not stuck between tiles and can be selected
+		var unit_pos=saved_unit.position
+		unit_pos=local_to_map(unit_pos)
+		unit_pos=map_to_local(unit_pos)
+		units[units.size() -1].position = unit_pos
 		units[units.size() -1].set_color(player_manager.players[saved_unit.unit_owner_id].flag_color)
+
+func clear_unit_info()->void:
+	if unit_info!=null and is_instance_valid(unit_info):
+		unit_info.queue_free()

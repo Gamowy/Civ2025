@@ -1,6 +1,9 @@
 extends Node2D
 class_name Main
 
+##Emitted when the turn ends
+signal turn_ended
+
 var save_path = FilePaths.save_path
 # Everything below needs to be saved in save_game() func
 # ---------------------------------------------------------------------
@@ -218,6 +221,7 @@ func load_game():
 		printerr("Save file not found!")
 	
 func switch_turns() -> void:
+	turn_ended.emit()
 	transition.fade_to_black()
 	await transition.transition_finished
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
