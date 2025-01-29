@@ -13,7 +13,7 @@ var pos_clicked # = Vector2(0,0)
 var units : Array[BaseUnit] = []
 var unit_info:UnitInfo
 
-
+var backup_pos
 ## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
 var unit_moving = false
 
@@ -56,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
+			backup_pos = pos_clicked
 			clear_unit_info()
 			clear_highlight()
 			pos_clicked = local_to_map(to_local(global_clicked))
@@ -372,9 +373,18 @@ func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
 				
 	
 func unit_attack(unit, pos):
+	var is_unit_there = false
+	var offsets = [
+		Vector2(1, 0), Vector2(-1, 0), 
+		Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, 1), Vector2(-1, 1),
+		Vector2(-1,-1), Vector2(1,-1)
+	]
+	var is_it = is_unit_in_range(unit,backup_pos)
+	print(is_it)
 	var enemy = get_unit_at_position(pos)
 	if enemy:
-		if enemy.unit_owner_id != unit.unit_owner_id:
+		if enemy.unit_owner_id != unit.unit_owner_id and is_it == true:
 			if enemy.position.x < unit.position.x:
 				unit.sprite.flip_h = true
 			else:
@@ -385,7 +395,29 @@ func unit_attack(unit, pos):
 			unit.sprite.play("Idle")
 			enemy.takeDamage(unit.attack)
 			enemy.is_dead()
+
+func is_unit_in_range(unit:BaseUnit, position_check) -> bool:
+	if unit == null:
+		return false
 	
+	var offsets = [
+		Vector2i(1, 0), Vector2i(-1, 0), 
+		Vector2i(0, 1), Vector2i(0, -1),
+		Vector2i(1, 1), Vector2i(-1, 1),
+		Vector2i(-1,-1), Vector2i(1,-1)
+	]
+	for tilex in offsets:
+		var target_position = position_check + tilex
+		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
+		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var enemy_unit = get_unit_at_position(target_position)
+		if is_cell_not_city(target_position) and tile != empty:
+			if enemy_unit != null:
+				print(enemy_unit.name)
+				if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+					return true
+	return false
 	#var enemy_position = []
 	#var neighbors = get_neighbors(selected_unit.position)
 	
