@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ui_elements/sound_menu_button.gd" id="1_h2f6m"]
 
 [node name="SoundMenuButton" type="MenuButton"]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 script = ExtResource("1_h2f6m")

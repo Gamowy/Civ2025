@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cw26sir1f7dlw"]
+[gd_scene load_steps=19 format=3 uid="uid://cw26sir1f7dlw"]
 
 [ext_resource type="Script" path="res://scripts/ui/upgrade_menu.gd" id="1_hce8h"]
 [ext_resource type="Shader" path="res://resources/shaders/menu_shader.gdshader" id="2_5bn5h"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bsjx75srq732h" path="res://img/ui/TitleBox_64x16.png" id="8_bk1l7"]
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="9_0hgl7"]
 [ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="10_n1d3t"]
+[ext_resource type="AudioStream" uid="uid://cwp1xpdjfbxot" path="res://audio/build.ogg" id="11_5tyt0"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="11_cnbmh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
@@ -367,6 +368,8 @@ layout_mode = 1
 text = "Destroy selected building?"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_5tyt0")
+bus = &"SFX"
 
 [connection signal="pressed" from="Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/ButtonUpgrade" to="." method="_on_button_upgrade_pressed"]
 [connection signal="pressed" from="Center/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -11,3 +11,5 @@ script = ExtResource("1_xysbi")
 material = ExtResource("2_mfimp")
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("2_wqfoe")]
+
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
