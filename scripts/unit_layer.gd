@@ -54,13 +54,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
 			clear_unit_info()
+			clear_highlight()
 			pos_clicked = local_to_map(to_local(global_clicked))
 				#check if instance is valid to make sure the selected unit still exists
 			if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
-				if selected_unit.move_to(pos_clicked, self):
-					selected_unit = null
-					clear_highlight()
-					unit_moving = false
+				selected_unit.move_to(pos_clicked, self)
+				selected_unit = null
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)

@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cy8mhrvicwm25"]
+[gd_scene load_steps=7 format=3 uid="uid://c5kyiqlkapo2j"]
 
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="1_1bqnc"]
 [ext_resource type="Script" path="res://scripts/ui/unit_info.gd" id="1_joia0"]
 [ext_resource type="Texture2D" uid="uid://dtuvpu0ftqv3a" path="res://img/ui/icons.png" id="2_fvuhv"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ko3tk"]
-resource_local_to_scene = true
-atlas = ExtResource("2_fvuhv")
-region = Rect2(3.24155, 34.2152, 27.7964, 28.3909)
+[ext_resource type="Texture2D" uid="uid://b0d4hqq4qqfu7" path="res://img/ui/HeartIcons_32x32.png" id="3_bo4en"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nlic"]
 resource_local_to_scene = true
@@ -58,7 +54,7 @@ size_flags_horizontal = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxHealth"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_ko3tk")
+texture = ExtResource("3_bo4en")
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxHealth"]
 layout_mode = 2

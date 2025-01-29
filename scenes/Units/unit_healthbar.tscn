@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Units/unit_healthbar.gd" id="1_c0pmb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_efg26"]
+light_mode = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwfop"]
 bg_color = Color(0, 0, 0, 0.470588)
