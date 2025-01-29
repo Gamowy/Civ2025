@@ -1,9 +1,33 @@
-[gd_scene load_steps=16 format=3 uid="uid://idjj7t65s3nv"]
+[gd_scene load_steps=22 format=3 uid="uid://idjj7t65s3nv"]
 
 [ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
 [ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_vr6dp"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_agbtu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpuow"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(0, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eawwa"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(64, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csg88"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(128, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqkr7"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(192, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvlsy"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(256, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4016"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(320, 204, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijqil"]
 atlas = ExtResource("2_h1o32")
@@ -47,6 +71,29 @@ region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpuow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eawwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csg88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqkr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvlsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4016")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ijqil")
@@ -96,7 +143,7 @@ unit_name = "Halberdman"
 material = ExtResource("2_vr6dp")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_agbtu")]

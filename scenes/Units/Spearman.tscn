@@ -1,9 +1,37 @@
-[gd_scene load_steps=16 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=23 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_jaymq"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_1id4g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3rv5"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(0, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k5jt"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(64, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mshwd"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(128, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca4vn"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(192, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8iag"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(256, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dln0w"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(320, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbwj7"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(384, 204, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c00ss"]
 atlas = ExtResource("2_xf8o8")
@@ -47,6 +75,32 @@ region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3rv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k5jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mshwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca4vn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8iag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dln0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbwj7")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c00ss")
@@ -96,7 +150,7 @@ unit_name = "Spearman"
 material = ExtResource("2_jaymq")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_1id4g")]

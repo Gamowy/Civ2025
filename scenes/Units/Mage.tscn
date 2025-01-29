@@ -1,9 +1,53 @@
-[gd_scene load_steps=16 format=3 uid="uid://tev6otisa5du"]
+[gd_scene load_steps=27 format=3 uid="uid://tev6otisa5du"]
 
 [ext_resource type="Script" path="res://scripts/Units/mage.gd" id="1_uuqkf"]
 [ext_resource type="Texture2D" uid="uid://b8oyhq3aepoh3" path="res://resources/Units/Mage.png" id="2_degh1"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_yfwws"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_m7h36"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4s5f"]
+atlas = ExtResource("2_degh1")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em4ov"]
+atlas = ExtResource("2_degh1")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbs6h"]
+atlas = ExtResource("2_degh1")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq0k3"]
+atlas = ExtResource("2_degh1")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64y8e"]
+atlas = ExtResource("2_degh1")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiqjx"]
+atlas = ExtResource("2_degh1")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwyd3"]
+atlas = ExtResource("2_degh1")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lfoj"]
+atlas = ExtResource("2_degh1")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlk3c"]
+atlas = ExtResource("2_degh1")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rd28"]
+atlas = ExtResource("2_degh1")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aygtl"]
+atlas = ExtResource("2_degh1")
+region = Rect2(640, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxfee"]
 atlas = ExtResource("2_degh1")
@@ -47,6 +91,44 @@ region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4s5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em4ov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbs6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oq0k3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64y8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiqjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwyd3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lfoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlk3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rd28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aygtl")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sxfee")
@@ -96,7 +178,7 @@ unit_name = "Mage"
 material = ExtResource("2_yfwws")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_m7h36")]

@@ -14,6 +14,10 @@ signal finished_movement
 		health=value
 		health_updated.emit(health)
 	get():
+		if (health<=0):
+			sprite.play("Die")
+			get_tree().create_timer(2).timeout
+			queue_free()
 		return health
 @export var attack: int = 5
 @export var defense: int = 5
@@ -62,6 +66,7 @@ func move_to(target_hex: Vector2, unit_layer: UnitLayer) -> bool:
 	var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
 	print(tile)
 	print(empty)
+	#health -= 30
 	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
 	#var custom_range = unit_layer.get_tile_cost(hex_coords)
@@ -88,10 +93,10 @@ func move_to(target_hex: Vector2, unit_layer: UnitLayer) -> bool:
 	return false
 		
 func takeDamage(damage: int):
+	
 	var damageTaken = max(damage - defense,0)
 	health -= damageTaken
-	if health <= 0:
-		die()
+	
 		
 func set_color(color: Color):
 	sprite.material.set("shader_parameter/replace_0", color)
@@ -110,5 +115,4 @@ func check_if_unit_is_in_water()->bool:
 func _on_finished_moving():
 	is_moving=false
 
-func die():
-	queue_free()
+	

@@ -1,9 +1,37 @@
-[gd_scene load_steps=20 format=3 uid="uid://0d0766v5wur3"]
+[gd_scene load_steps=27 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_i7nb3"]
 [ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_i774j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e53fc"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl5lu"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5xkt"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o37j0"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xf0b"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfydp"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl2ka"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(384, 256, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -65,6 +93,32 @@ region = Rect2(320, 64, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_e53fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl5lu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5xkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o37j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xf0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfydp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl2ka")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_blpyy")
 }, {
 "duration": 1.0,
@@ -124,7 +178,7 @@ unit_name = "Cavalry"
 material = ExtResource("2_i7nb3")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_i774j")]

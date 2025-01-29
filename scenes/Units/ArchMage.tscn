@@ -1,9 +1,45 @@
-[gd_scene load_steps=16 format=3 uid="uid://bo2anmodnfvwi"]
+[gd_scene load_steps=25 format=3 uid="uid://bo2anmodnfvwi"]
 
 [ext_resource type="Script" path="res://scripts/Units/arch_mage.gd" id="1_cbkqs"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_exeh1"]
 [ext_resource type="Texture2D" uid="uid://dvv0522xixsr3" path="res://resources/Units/ArchMage.png" id="2_x7qhk"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_kngkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sfl2"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(0, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fd70"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(64, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1f12"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(128, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjk7c"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(192, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqwyl"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(256, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh4ui"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(320, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saecf"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(384, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jjb3"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(448, 268, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83yxd"]
+atlas = ExtResource("2_x7qhk")
+region = Rect2(512, 268, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qivm4"]
 atlas = ExtResource("2_x7qhk")
@@ -47,6 +83,38 @@ region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1sfl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fd70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1f12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjk7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqwyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh4ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saecf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jjb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83yxd")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qivm4")
@@ -96,7 +164,7 @@ unit_name = "ArchMage"
 material = ExtResource("2_exeh1")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_kngkb")]

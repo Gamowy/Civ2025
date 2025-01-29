@@ -1,9 +1,49 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1o18kkh3ayxf"]
+[gd_scene load_steps=26 format=3 uid="uid://c1o18kkh3ayxf"]
 
 [ext_resource type="Script" path="res://scripts/Units/crossbowman.gd" id="1_a5tle"]
 [ext_resource type="Texture2D" uid="uid://devfkf6fyy5xh" path="res://resources/Units/CrossbowMan.png" id="2_8pufn"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_oho47"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_v7ow6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qtg5"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnvrw"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i17v"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1jep"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38beh"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bii76"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbqgn"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_df8tp"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5e17"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1xdp"]
+atlas = ExtResource("2_8pufn")
+region = Rect2(576, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mb54h"]
 atlas = ExtResource("2_8pufn")
@@ -47,6 +87,41 @@ region = Rect2(320, 76, 64, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m07on"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qtg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnvrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1i17v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1jep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38beh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bii76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbqgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_df8tp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5e17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1xdp")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mb54h")
@@ -96,7 +171,7 @@ unit_name = "Crossbwman"
 material = ExtResource("2_oho47")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_v7ow6")]

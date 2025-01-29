@@ -6,6 +6,7 @@ signal unit_selected(unit_info:UnitInfo)
 var global_clicked #= Vector2(0,0)
 var pos_clicked # = Vector2(0,0)
 @onready var selected_unit: BaseUnit = null
+@onready var backup_unit: BaseUnit = null
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
 @onready var map_layer : MapLayer = $"../MapLayer"
 
@@ -59,15 +60,19 @@ func _unhandled_input(event: InputEvent) -> void:
 				#check if instance is valid to make sure the selected unit still exists
 			if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
 				selected_unit.move_to(pos_clicked, self)
+				unit_attack(selected_unit,pos_clicked)
 				selected_unit = null
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
+				backup_unit = selected_unit
+				unit_attack(selected_unit, pos_clicked)
 				if selected_unit!=null and is_instance_valid(selected_unit):
 					unit_info=UnitInfo.get_unit_info_window(selected_unit.unit_name,selected_unit.health,selected_unit.defense,selected_unit.attack)
 					unit_selected.emit(unit_info)
 				if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
 					highlight_possible_moves(selected_unit, pos_clicked)
+					highlight_enemy_targets(selected_unit, pos_clicked)
 
 
 func get_tile_cost(_tile_position: Vector2) -> int:
@@ -328,3 +333,66 @@ func reload_unit(saved_unit: BaseUnit) -> void:
 func clear_unit_info()->void:
 	if unit_info!=null and is_instance_valid(unit_info):
 		unit_info.queue_free()
+
+
+func get_neighbors(position: Vector2):
+	var neighbors = []
+	var offsets = [
+		Vector2(1, 0), Vector2(-1, 0), 
+		Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, -1), Vector2(-1, 1)
+	]
+	
+	for offset in offsets:
+		var neighbor_pos = position + offset
+		neighbors.append(neighbor_pos)
+		
+func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
+	if unit == null:
+		return
+	var offsets = [
+		Vector2(1, 0), Vector2(-1, 0), 
+		Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, 1), Vector2(-1, 1),
+		Vector2(-1,-1), Vector2(1,-1)
+	]
+	for tileX in offsets:
+		var target_position = start_position + tileX
+		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
+		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var enemy_unit = get_unit_at_position(target_position)
+		if is_cell_not_city(target_position) and tile != empty:
+			if enemy_unit != null:
+				print(enemy_unit.name)
+				if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+					highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
+				
+	
+func unit_attack(unit, pos):
+	var enemy = get_unit_at_position(pos)
+	if enemy:
+		if enemy.unit_owner_id != unit.unit_owner_id:
+			if enemy.position.x < unit.position.x:
+				unit.sprite.flip_h = true
+			else:
+				unit.sprite.flip_h = false
+			unit.sprite.play("Attack")
+			#await get_tree().create_timer(2).timeout
+			await unit.sprite.animation_finished
+			unit.sprite.play("Idle")
+			enemy.takeDamage(unit.attack)
+	
+	#var enemy_position = []
+	#var neighbors = get_neighbors(selected_unit.position)
+	
+	#for pos in neighbors:
+	#	var unit = get_unit_at_position(pos)
+	#	if unit and unit.unit_owner_id != selected_unit.unit_owner_id:
+	#		enemy_position.append(pos)
+	#		highlight_layer.set_cell(pos, 0, Vector2i(0,0), 2)
+
+#func get_unit_at(position: Vector2) -> BaseUnit:
+#	var world_position = map_to_local(position)
+#	for unit in get_children():
+#		if unit.position.distance_to(world_position)
