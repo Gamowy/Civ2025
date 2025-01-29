@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://tev6otisa5du"]
+[gd_scene load_steps=17 format=3 uid="uid://tev6otisa5du"]
 
 [ext_resource type="Script" path="res://scripts/Units/mage.gd" id="1_uuqkf"]
 [ext_resource type="Texture2D" uid="uid://b8oyhq3aepoh3" path="res://resources/Units/Mage.png" id="2_degh1"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_yfwws"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_m7h36"]
+[ext_resource type="AudioStream" uid="uid://rkcpxxjg0822" path="res://audio/walking.wav" id="5_gnhwq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxfee"]
 atlas = ExtResource("2_degh1")
@@ -99,3 +100,8 @@ animation = &"Walk"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_m7h36")]
+
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gnhwq")
+volume_db = 12.0
+bus = &"SFX"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpj2np0vniipy"]
+[gd_scene load_steps=18 format=3 uid="uid://bpj2np0vniipy"]
 
 [ext_resource type="Script" path="res://scripts/Units/warrior.gd" id="1_061m6"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_5y6aj"]
 [ext_resource type="Texture2D" uid="uid://ig077oace0jl" path="res://resources/Units/SwordMan.png" id="2_y4xu3"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_c6hfj"]
+[ext_resource type="AudioStream" uid="uid://rkcpxxjg0822" path="res://audio/walking.wav" id="5_r350l"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rl2ly"]
 light_mode = 2
@@ -91,10 +92,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("fog_dispenser_scene")]
+[node name="Node2D" type="Node2D"]
 material = SubResource("CanvasItemMaterial_rl2ly")
 script = ExtResource("1_061m6")
-fog_dispenser_scene = NodePath("UnitFogDisperser")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_5y6aj")
@@ -104,3 +104,8 @@ animation = &"Walk"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_c6hfj")]
+
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_r350l")
+volume_db = 12.0
+bus = &"SFX"

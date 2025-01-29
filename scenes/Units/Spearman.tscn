@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=17 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_jaymq"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_1id4g"]
+[ext_resource type="AudioStream" uid="uid://rkcpxxjg0822" path="res://audio/walking.wav" id="5_eouu1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c00ss"]
 atlas = ExtResource("2_xf8o8")
@@ -99,3 +100,8 @@ animation = &"Walk"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_1id4g")]
+
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_eouu1")
+volume_db = 12.0
+bus = &"SFX"

@@ -7,3 +7,4 @@ func play_sound(sound:AudioStream=button_press_sound, pitch:float=1.0):
 	stream=sound
 	pitch_scale=pitch
 	play()
+	

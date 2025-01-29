@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://0d0766v5wur3"]
+[gd_scene load_steps=21 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_i7nb3"]
 [ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_i774j"]
+[ext_resource type="AudioStream" uid="uid://bociu0vgderl4" path="res://audio/horse_gallop.wav" id="5_57rdl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -127,3 +128,8 @@ animation = &"Walk"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_i774j")]
+
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_57rdl")
+volume_db = -5.0
+bus = &"SFX"
