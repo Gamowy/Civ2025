@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://cucaciw8btpl0"]
+[gd_scene load_steps=34 format=3 uid="uid://cucaciw8btpl0"]
 
 [ext_resource type="Script" path="res://scripts/Units/archer.gd" id="1_g2ghf"]
 [ext_resource type="Texture2D" uid="uid://q1wimt04swd0" path="res://resources/Units/Archer.png" id="2_fwosj"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_t8iwf"]
 [ext_resource type="AudioStream" uid="uid://bv7m18lbf764p" path="res://audio/units/arrow.ogg" id="2_ucjoc"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_3koje"]
+[ext_resource type="AudioStream" uid="uid://bbsdeuywt34p" path="res://audio/units/walking.ogg" id="3_ufaau"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t8a7u"]
 light_mode = 2
@@ -211,6 +212,7 @@ animations = [{
 material = SubResource("CanvasItemMaterial_t8a7u")
 script = ExtResource("1_g2ghf")
 attack_sound = ExtResource("2_ucjoc")
+movement_sound = ExtResource("3_ufaau")
 attack_sound_frame = 7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

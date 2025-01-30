@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://bo2anmodnfvwi"]
+[gd_scene load_steps=36 format=3 uid="uid://bo2anmodnfvwi"]
 
 [ext_resource type="Script" path="res://scripts/Units/arch_mage.gd" id="1_cbkqs"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_exeh1"]
 [ext_resource type="AudioStream" uid="uid://co8y5r0dg5sh2" path="res://audio/units/spell.ogg" id="2_of3ni"]
 [ext_resource type="Texture2D" uid="uid://dvv0522xixsr3" path="res://resources/Units/ArchMage.png" id="2_x7qhk"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_kngkb"]
+[ext_resource type="AudioStream" uid="uid://bbsdeuywt34p" path="res://audio/units/walking.ogg" id="3_n0v76"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1sfl2"]
 atlas = ExtResource("2_x7qhk")
@@ -229,6 +230,7 @@ animations = [{
 script = ExtResource("1_cbkqs")
 unit_name = "ArchMage"
 attack_sound = ExtResource("2_of3ni")
+movement_sound = ExtResource("3_n0v76")
 attack_sound_frame = 7
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

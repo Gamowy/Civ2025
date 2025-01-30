@@ -26,8 +26,10 @@ signal finished_movement
 
 ## Sound played when the unit attacks
 @export var attack_sound:AudioStream
+@export var movement_sound:AudioStream
 ## Frame of attack animation on which the attack sound should be played
 @export var attack_sound_frame:int
+
 
 @export_storage var unit_owner_id: int
 @export_storage var unit_coords : Vector2i
@@ -39,7 +41,9 @@ signal finished_movement
 ## The unit's fog disperser
 @onready var fog_dispenser_scene:UnitFogDisperser = $UnitFogDisperser
 
+
 var boat:Sprite2D
+const boat_sound = preload("res://audio/units/boat.ogg")
 var health_bar:HealthBar
 var is_moving:bool=false
 var is_in_water:bool=false:
@@ -59,7 +63,7 @@ func _ready() -> void:
 	move_child(boat,0)
 	audio_player=AudioStreamPlayer.new()
 	audio_player.bus="SFX"
-	audio_player.stream=attack_sound
+
 	add_child(audio_player)
 	sprite.frame_changed.connect(play_attack_sound)
 	finished_movement.connect(_on_finished_moving)
@@ -72,8 +76,12 @@ func _process(_delta: float) -> void:
 func move_to(target_hex: Vector2, unit_layer: UnitLayer) -> bool:
 	var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_hex))
 	var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
-	print(tile)
-	print(empty)
+	
+	if is_in_water:
+		audio_player.stream = boat_sound
+	else:
+		audio_player.stream = movement_sound
+			
 	#health -= 30
 	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
@@ -89,11 +97,14 @@ func move_to(target_hex: Vector2, unit_layer: UnitLayer) -> bool:
 		else:
 			sprite.flip_h = false
 		
+
 		sprite.play("Walk")
+		audio_player.play()
 		tween.tween_property(self,"position",unit_layer.map_to_local(target_hex), move_time)
 		is_moving=true
 		tween.finished.connect(func():
 			sprite.play("Idle")
+			audio_player.stop()
 			)
 		tween.finished.connect(finished_movement.emit)
 		await tween.finished
@@ -114,16 +125,19 @@ func check_if_unit_is_in_water()->bool:
 	if map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(map_layer.local_to_map(position)))=="ocean":
 		if is_in_water==false:
 			is_in_water=true
-			print("unit in water")
+			if is_moving:
+				audio_player.stream = boat_sound
+				audio_player.play()
 	elif is_in_water:
+		if is_moving:
+			audio_player.stream = movement_sound
+			audio_player.play()
 		is_in_water=false
-		print("unit not in water")
 	return is_in_water
 
 func _on_finished_moving():
 	is_moving=false
 
-	
 func is_dead():
 	if (health<=0):
 			sprite.play("Die")
@@ -135,4 +149,5 @@ func is_dead():
 func play_attack_sound():
 	if audio_player!=null:
 		if sprite.animation=="Attack" and sprite.frame==attack_sound_frame:
+			audio_player.stream=attack_sound
 			audio_player.play()

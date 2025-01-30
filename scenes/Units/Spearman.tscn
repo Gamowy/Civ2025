@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=30 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_jaymq"]
 [ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_q3tvv"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
+[ext_resource type="AudioStream" uid="uid://bbsdeuywt34p" path="res://audio/units/walking.ogg" id="3_0us5w"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_1id4g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k3rv5"]
@@ -187,6 +188,7 @@ animations = [{
 script = ExtResource("1_ro8s4")
 unit_name = "Spearman"
 attack_sound = ExtResource("2_q3tvv")
+movement_sound = ExtResource("3_0us5w")
 attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
