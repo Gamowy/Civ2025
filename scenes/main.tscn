@@ -124,6 +124,7 @@ script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
 process_mode = 3
+visible = false
 mouse_filter = 1
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
@@ -195,8 +196,8 @@ tile_set = ExtResource("3_ns1bu")
 process_mode = 3
 volume_db = -15.0
 
-[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_unit_info"]
 [connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_highlight"]
+[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_unit_info"]
 [connection signal="current_player_energy_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_energy_changed"]
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
