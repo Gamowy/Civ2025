@@ -326,6 +326,12 @@ func _on_ui_layer_spy_on_enemies() -> void:
 			current_fog.append(coord)
 	fog_thick_layer.restore_uncovered_cells(current_fog)
 		
+func _on_user_interface_open_settings() -> void:
+	unit_layer.clear_unit_info()
+	
+func _on_user_interface_open_actions_menu() -> void:
+	unit_layer.clear_unit_info()
+
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
 	user_interface.update_resources(resource, str(value))
