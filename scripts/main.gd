@@ -25,25 +25,14 @@ var save_path = FilePaths.save_path
 @onready var camera=$Camera
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
 
+## Volume at which the music should be played
+@export var music_volume_db:float=-15
 var soundtrack_list = [
-	preload("res://audio/soundtrack/Game_1.mp3"),
-	preload("res://audio/soundtrack/Game_2.mp3"),
-	preload("res://audio/soundtrack/Game_3.mp3"),
-	preload("res://audio/soundtrack/Game_4.mp3"),
-	preload("res://audio/soundtrack/Game_5.mp3"),
-	preload("res://audio/soundtrack/Game_6.mp3"),
-	preload("res://audio/soundtrack/Game_7.mp3"),
-	preload("res://audio/soundtrack/Game_8.mp3"),
-	preload("res://audio/soundtrack/Game_9.mp3"),
-	preload("res://audio/soundtrack/Game_10.mp3"),
-	preload("res://audio/soundtrack/Game_11.mp3"),
-	preload("res://audio/soundtrack/Game_12.mp3"),
-	preload("res://audio/soundtrack/Game_13.mp3"),
-	preload("res://audio/soundtrack/Game_14.mp3"),
-	preload("res://audio/soundtrack/Game_15.mp3"),
-	preload("res://audio/soundtrack/Game_16.mp3"),
-	preload("res://audio/soundtrack/Game_17.mp3"),
-	preload("res://audio/soundtrack/Game_18.mp3")
+	preload("res://audio/soundtrack/1. Eldertide Loop.ogg"),
+	preload("res://audio/soundtrack/2. Moonshadow Loop.ogg"),
+	preload("res://audio/soundtrack/4. Starforge (No Vocals) Loop.ogg"),
+	preload("res://audio/soundtrack/5. Wraithsong Loop.ogg"),
+	preload("res://audio/soundtrack/6. Dreamspire Loop.ogg")
 ]
 var previous_cell:Vector2=Vector2(0,0)
 var isLoading = false
@@ -77,8 +66,12 @@ func _ready() -> void:
 		initGame()
 	transition.fade_to_normal()
 	await transition.transition_finished
+	music_player.volume_db=-80
 	music_player.set("spatial", false)
 	play_next_track()
+	#Fade in music
+	var tween = get_tree().create_tween()
+	tween.tween_property(music_player,"volume_db", music_volume_db, 3.0)
 	
 
 func initGame() -> void:

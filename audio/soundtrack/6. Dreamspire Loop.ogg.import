@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d0s71bhy4fgy0"
+path="res://.godot/imported/6. Dreamspire Loop.ogg-b285bd9a0fd3d011f0669db90b6b1f0f.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/soundtrack/6. Dreamspire Loop.ogg"
+dest_files=["res://.godot/imported/6. Dreamspire Loop.ogg-b285bd9a0fd3d011f0669db90b6b1f0f.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
