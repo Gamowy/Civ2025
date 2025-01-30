@@ -290,7 +290,27 @@ func _on_ui_layer_build_city() -> void:
 	user_interface.show_action_info("Double tap on empty tile to build new city")
 	map.process_mode = Node.PROCESS_MODE_DISABLED
 	adding_city = true
+	
+func _on_ui_layer_repair_cities() -> void:
+	var current_player: Player = players_manager.current_player
+	for city in city_layer.cities:
+		if city.city_owner == current_player:
+			city.city_health += 10
+	
+func _on_ui_layer_heal_units() -> void:
+	var current_player_id = players_manager.current_player_id
+	for unit in unit_layer.units:
+		if unit.unit_owner_id == current_player_id:
+			unit.health += 10
 
+func _on_ui_layer_spy_on_enemies() -> void:
+	var current_fog = fog_thick_layer.get_uncovered_cells()
+	var coords = city_layer.get_coords_around_cities()
+	for coord in coords:
+		if not current_fog.has(coord):
+			current_fog.append(coord)
+	fog_thick_layer.restore_uncovered_cells(current_fog)
+		
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
 	user_interface.update_resources(resource, str(value))

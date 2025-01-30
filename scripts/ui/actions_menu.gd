@@ -18,7 +18,10 @@ signal action_bought(action_name: String)
 
 # Holds all possible actions
 var actions_array : Array[ActionBaseClass] = [
-	preload("res://scenes/actions/build_city_action.tscn").instantiate()
+	preload("res://scenes/actions/build_city_action.tscn").instantiate(),
+	preload("res://scenes/actions/city_repair_action.tscn").instantiate(),
+	preload("res://scenes/actions/heal_units_action.tscn").instantiate(),
+	preload("res://scenes/actions/spy_action.tscn").instantiate()
 ]
 # Holds currently selected action
 var selected_action: ActionBaseClass

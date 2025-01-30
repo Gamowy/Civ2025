@@ -8,7 +8,12 @@ signal save_game
 signal load_game
 signal end_player_turn
 signal exit_to_menu
+
+# Actions menu signals
 signal build_city
+signal repair_cities
+signal heal_units
+signal spy_on_enemies
 
 func _ready() -> void:
 	user_interface.visible = true
@@ -74,6 +79,12 @@ func _on_actions_menu_action_bought(action_name: String) -> void:
 	match(action_name):
 		"Build city":
 			build_city.emit()
+		"Repair cities":
+			repair_cities.emit()
+		"Heal units":
+			heal_units.emit()
+		"Spy on enemies":
+			spy_on_enemies.emit()
 		_:
 			printerr("No action found")
 
