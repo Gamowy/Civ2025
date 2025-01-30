@@ -2,6 +2,7 @@ extends Node
 class_name Player
 
 signal resource_value_changed(resource: String, value: int)
+signal energy_value_changed(energy: int, max_energy: int)
 
 @export_category("Player info")
 ## Player's id (must be unique), player's id's should start from 0 and increment
@@ -51,6 +52,18 @@ signal resource_value_changed(resource: String, value: int)
 	set(value):
 		food = value
 		resource_value_changed.emit("food", value)
-		
+## Energy determines how much a player can do durign their turn
+@export var max_energy:int=3:
+	get:
+		return max_energy
+	set(value):
+		max_energy = value
+		energy_value_changed.emit(energy, max_energy)
+@export var energy:int=3:
+	get:
+		return energy
+	set(value):
+		energy = value
+		energy_value_changed.emit(energy, max_energy)
 ## Fog of war uncovered cells
 @export var uncovered_cells:Array[Vector2i]

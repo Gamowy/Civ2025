@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_8p4ty"]
 
-[node name="CityRepairAction" type="Node"]
+[node name="HealUnitsAction" type="Node"]
 script = ExtResource("1_8p4ty")
 action_name = "Heal units"
 action_description = "Order medics to slightly heal all your units."

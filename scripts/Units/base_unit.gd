@@ -82,7 +82,6 @@ func move_to(target_hex: Vector2, unit_layer: UnitLayer) -> bool:
 	else:
 		audio_player.stream = movement_sound
 			
-	#health -= 30
 	var target_position = unit_layer.map_to_local(target_hex)
 	var hex_coords = unit_layer.local_to_map(position)
 	#var custom_range = unit_layer.get_tile_cost(hex_coords)

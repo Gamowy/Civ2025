@@ -283,6 +283,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 max_lines_visible = 1
 
+[node name="EnergyLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -325.0
+offset_top = -52.0
+offset_right = -145.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "Energy: 0/0"
+horizontal_alignment = 1
+visible_characters = 16
+visible_ratio = 1.45455
+
 [connection signal="pressed" from="TopLeftCorner/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="BottomLeftCorner/ActionsButton" to="." method="_on_actions_button_pressed"]
 [connection signal="pressed" from="BottomRightCorner/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

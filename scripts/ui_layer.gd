@@ -13,6 +13,9 @@ signal exit_to_menu
 signal build_city
 signal repair_cities
 signal heal_units
+signal feed_units
+signal units_training
+signal trade_gold
 signal spy_on_enemies
 
 func _ready() -> void:
@@ -85,6 +88,12 @@ func _on_actions_menu_action_bought(action_name: String) -> void:
 			heal_units.emit()
 		"Spy on enemies":
 			spy_on_enemies.emit()
+		"Feed units":
+			feed_units.emit()
+		"Unit training":
+			units_training.emit()
+		"Trade gold":
+			trade_gold.emit()
 		_:
 			printerr("No action found")
 

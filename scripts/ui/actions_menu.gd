@@ -21,6 +21,9 @@ var actions_array : Array[ActionBaseClass] = [
 	preload("res://scenes/actions/build_city_action.tscn").instantiate(),
 	preload("res://scenes/actions/city_repair_action.tscn").instantiate(),
 	preload("res://scenes/actions/heal_units_action.tscn").instantiate(),
+	preload("res://scenes/actions/restore_energy_action.tscn").instantiate(),
+	preload("res://scenes/actions/unit_training_action.tscn").instantiate(),
+	preload("res://scenes/actions/trade_action.tscn").instantiate(),
 	preload("res://scenes/actions/spy_action.tscn").instantiate()
 ]
 # Holds currently selected action

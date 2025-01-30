@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvaurnbp3txjb"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_ai7nh"]
+
+[node name="UnitTraining" type="Node"]
+script = ExtResource("1_ai7nh")
+action_name = "Unit training"
+action_description = "Order mandatory training for all units permanently increasing available energy by +1."
+action_picture = "res://img/training.png"
+gold_cost = 50
+food_cost = 10

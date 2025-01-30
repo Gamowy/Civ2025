@@ -83,10 +83,13 @@ func _ready() -> void:
 	resource_scan_area.force_update_transform()
 	
 	health_bar.max_value=max_city_health
+	health_bar.value = city_health
 
 func take_damage(dmg_points:int)->void:
 	city_health-=dmg_points
 	if city_health<=0:
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		current_player.gold += 20
 		UISoundPlayer.play_sound(load("res://audio/destroy_building.ogg"))
 		destroyed.emit(self)
 		queue_free()

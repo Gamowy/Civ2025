@@ -15,8 +15,6 @@ var units : Array[BaseUnit] = []
 var unit_info:UnitInfo
 
 var backup_pos
-## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
-var unit_moving = false
 
 func _ready() -> void:
 	child_entered_tree.connect(_unit_added)
@@ -33,7 +31,7 @@ func _unit_removed(unit: BaseUnit) -> void:
 	units.erase(unit)
 	
 ## Use this to add already created unit from within code
-func add_exisuing_unit(new_unit: BaseUnit) -> void:
+func add_existing_unit(new_unit: BaseUnit) -> void:
 	add_child(new_unit)
 	
 ## Use this to remove all units (used when loading save)
@@ -53,7 +51,8 @@ func switch_unit_fog(currentPlayer: Player) -> void:
 			unit.fog_dispenser_scene.set_fog_disperser_enabled(false)
 
 func _unhandled_input(event: InputEvent) -> void:
-	var current_player_id: int= get_tree().get_first_node_in_group("players").current_player_id
+	var player_manager : PlayersManager = get_tree().get_first_node_in_group("players")
+	var current_player_id : int = player_manager.current_player_id
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
@@ -61,11 +60,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			clear_unit_info()
 			clear_highlight()
 			pos_clicked = local_to_map(to_local(global_clicked))
-				#check if instance is valid to make sure the selected unit still exists
-			if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
-				selected_unit.move_to(pos_clicked, self)
-				unit_attack(selected_unit,pos_clicked)
+			#check if instance is valid to make sure the selected unit still exists
+			if (is_instance_valid(selected_unit) and selected_unit 
+			and selected_unit.unit_owner_id == current_player_id
+			and player_manager.current_player.energy > 0
+			):
 				selected_unit = null
+				player_manager.current_player.energy -= 1
+				var unit_moveed = await backup_unit.move_to(pos_clicked, self)
+				var unit_attacked = await unit_attack(backup_unit, pos_clicked)
+				if not unit_moveed and not unit_attacked:
+					player_manager.current_player.energy += 1
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
@@ -74,7 +79,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				if selected_unit!=null and is_instance_valid(selected_unit):
 					unit_info=UnitInfo.get_unit_info_window(selected_unit.unit_name,selected_unit.health,selected_unit.defense,selected_unit.attack)
 					unit_selected.emit(unit_info)
-				if is_instance_valid(selected_unit) and selected_unit and selected_unit.unit_owner_id == current_player_id:
+				if (is_instance_valid(selected_unit) and selected_unit 
+				and selected_unit.unit_owner_id == current_player_id
+				and player_manager.current_player.energy > 0):
 					highlight_possible_moves(selected_unit, pos_clicked)
 					highlight_enemy_targets(selected_unit, pos_clicked)
 
@@ -377,7 +384,7 @@ func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
 	
 func unit_attack(unit, pos):
 	if unit==null or !is_instance_valid(unit):
-		return
+		return false
 	var enemy = get_unit_at_position(pos)
 	if enemy:
 		if enemy.unit_owner_id != unit.unit_owner_id and is_target_in_range(unit,backup_pos) == true:
@@ -392,6 +399,7 @@ func unit_attack(unit, pos):
 			if is_instance_valid(enemy):
 				enemy.takeDamage(unit.attack)
 				enemy.is_dead()
+				return true
 	else:
 		get_tree().get_first_node_in_group("city_layer")
 		#var city_layer=get_tree().get_first_node_in_group("city_layer")
@@ -407,6 +415,7 @@ func unit_attack(unit, pos):
 				unit.sprite.play("Idle")
 				city.take_damage(unit.attack)
 				print("attack city")
+				return true
 		
 		
 func is_target_in_range(unit:BaseUnit, position_check) -> bool:
@@ -428,7 +437,7 @@ func is_target_in_range(unit:BaseUnit, position_check) -> bool:
 			if tile!=empty:
 				if enemy_unit != null and is_instance_valid(enemy_unit):
 					print(enemy_unit.name)
-					if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+					if enemy_unit.unit_owner_id != backup_unit.unit_owner_id:
 						return true
 		elif city_layer.get_city_at_position(map_to_local(target_position)).city_owner.player_id!=unit.unit_owner_id:
 			return true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://jbtltnr7ag8c"]
+[gd_scene load_steps=25 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -14,6 +14,7 @@
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
 [ext_resource type="Script" path="res://scripts/ui_elements/switch_turn_transition.gd" id="8_yokiu"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
+[ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://scenes/fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 [ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
@@ -191,6 +192,8 @@ metadata/_edit_lock_ = true
 modulate = Color(1, 1, 1, 0.392157)
 tile_set = ExtResource("3_ns1bu")
 
+[node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
+
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 volume_db = -15.0
@@ -202,14 +205,11 @@ volume_db = -15.0
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
 [connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
 [connection signal="exit_to_menu" from="UILayer" to="." method="_on_ui_layer_exit_to_menu"]
-[connection signal="feed_units" from="UILayer" to="." method="_on_ui_layer_feed_units"]
 [connection signal="heal_units" from="UILayer" to="." method="_on_ui_layer_heal_units"]
 [connection signal="load_game" from="UILayer" to="." method="_on_ui_layer_load_game"]
 [connection signal="repair_cities" from="UILayer" to="." method="_on_ui_layer_repair_cities"]
 [connection signal="save_game" from="UILayer" to="." method="_on_ui_layer_save_game"]
 [connection signal="spy_on_enemies" from="UILayer" to="." method="_on_ui_layer_spy_on_enemies"]
-[connection signal="trade_gold" from="UILayer" to="." method="_on_ui_layer_trade_gold"]
-[connection signal="units_training" from="UILayer" to="." method="_on_ui_layer_units_training"]
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_actions_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_actions_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
