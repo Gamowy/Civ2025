@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bkqyvio06d3aa" path="res://img/ui/QuitIcon.png" id="9_6svsa"]
 [ext_resource type="AudioStream" uid="uid://bek6q465xatap" path="res://audio/button_no_press.ogg" id="10_u2x0k"]
 [ext_resource type="PackedScene" uid="uid://cd7v1b6dnp601" path="res://scenes/ui/prompt_window.tscn" id="11_82hq1"]
-[ext_resource type="Script" path="res://scripts/ui/building_manager.gd" id="12_j1idg"]
 [ext_resource type="Script" path="res://scripts/ui/unit_manager.gd" id="13_jhemu"]
+[ext_resource type="AudioStream" uid="uid://bg6usvtgw3106" path="res://audio/recruit.ogg" id="13_lnl00"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfvw"]
 shader = ExtResource("2_4xh8q")
@@ -182,6 +182,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 22
 text = "Recruit"
 script = ExtResource("7_qc207")
+press_sound = ExtResource("13_lnl00")
 
 [node name="MenuTitle" type="MarginContainer" parent="Center"]
 layout_mode = 1
@@ -233,11 +234,6 @@ press_sound = ExtResource("10_u2x0k")
 visible = false
 layout_mode = 1
 text = "Destroy selected building?"
-
-[node name="BuildingManager" type="Node" parent="."]
-script = ExtResource("12_j1idg")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="UnitManager" type="Node" parent="."]
 script = ExtResource("13_jhemu")

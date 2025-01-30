@@ -15,6 +15,7 @@ extends Control
 @onready var steel_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer/SteelCost
 @onready var food_cost_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/HBoxCostInfo/VBoxContainer2/HBoxContainer2/FoodCost
 @onready var description_label: Label = $Center/CenterContainer/PanelContainer/HBoxContainer/VBoxInfo/Description
+@onready var audio_player:AudioStreamPlayer=$AudioStreamPlayer
 
 var city_texture: CompressedTexture2D = load("res://img/city.png") as CompressedTexture2D
 var town_texture: CompressedTexture2D = load("res://img/town.png") as CompressedTexture2D
@@ -113,6 +114,8 @@ func _on_exit_button_pressed() -> void:
 
 
 func _on_button_upgrade_pressed() -> void:
+	audio_player.play()
+	
 	if city.city_level == 0:
 		first_upgrade_upgrade()
 		second_upgrade_info()
