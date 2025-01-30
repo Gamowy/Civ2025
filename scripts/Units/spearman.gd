@@ -5,6 +5,7 @@ extends BaseUnit
 func _ready():
 	unit_name = "Spearman"
 	health = 110
+	max_health=health
 	@warning_ignore("integer_division")
 	attack = 12 * (health/110)
 	defense = 7
@@ -16,6 +17,7 @@ func _ready():
 	description = "Likes stabbing people but dagger was too short."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
+	super._ready()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

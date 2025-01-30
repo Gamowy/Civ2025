@@ -18,6 +18,7 @@ var units: Array[BaseUnit] = [
 var unit:BaseUnit
 var city: City
 
+
 func get_unit_cost(unt: BaseUnit) -> Dictionary:
 	return {"gold": unt.cost_gold, "food": unt.cost_food}
 	

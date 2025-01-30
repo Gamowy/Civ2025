@@ -1,20 +1,25 @@
 extends TileMapLayer
 class_name UnitLayer
 
+signal unit_selected(unit_info:UnitInfo)
+
 var global_clicked #= Vector2(0,0)
 var pos_clicked # = Vector2(0,0)
 @onready var selected_unit: BaseUnit = null
+@onready var backup_unit: BaseUnit = null
 @onready var highlight_layer: TileMapLayer =$"../HighlightLayer"
-@onready var map_layer : TileMapLayer = $"../MapLayer"
+@onready var map_layer : MapLayer = $"../MapLayer"
+@onready var city_layer=get_tree().get_first_node_in_group("city_layer")
 
 var units : Array[BaseUnit] = []
+var unit_info:UnitInfo
 
-## This is stored so we know if any units are currently moving, so we don't allow saving game while ane movement is in progres
-var unit_moving = false
+var backup_pos
 
 func _ready() -> void:
 	child_entered_tree.connect(_unit_added)
 	child_exiting_tree.connect(_unit_removed)
+	
 
 ## Called every time a new unid is recruited
 func _unit_added(unit: BaseUnit) -> void:
@@ -46,22 +51,39 @@ func switch_unit_fog(currentPlayer: Player) -> void:
 			unit.fog_dispenser_scene.set_fog_disperser_enabled(false)
 
 func _unhandled_input(event: InputEvent) -> void:
-	var current_player_id: int= get_tree().get_first_node_in_group("players").current_player_id
+	var player_manager : PlayersManager = get_tree().get_first_node_in_group("players")
+	var current_player_id : int = player_manager.current_player_id
 	if event is InputEventScreenTouch:
 		global_clicked = get_global_mouse_position()
 		if event.is_pressed():
+			backup_pos = pos_clicked
+			clear_unit_info()
+			clear_highlight()
 			pos_clicked = local_to_map(to_local(global_clicked))
-				
-			if selected_unit and selected_unit.unit_owner_id == current_player_id:
-				if selected_unit.move_to(pos_clicked, self):
-					selected_unit = null
-					clear_highlight()
-					unit_moving = false
+			#check if instance is valid to make sure the selected unit still exists
+			if (is_instance_valid(selected_unit) and selected_unit 
+			and selected_unit.unit_owner_id == current_player_id
+			and player_manager.current_player.energy > 0
+			):
+				selected_unit = null
+				player_manager.current_player.energy -= 1
+				var unit_moveed = await backup_unit.move_to(pos_clicked, self)
+				var unit_attacked = await unit_attack(backup_unit, pos_clicked)
+				if not unit_moveed and not unit_attacked:
+					player_manager.current_player.energy += 1
 			else:
 				clear_highlight()
 				selected_unit = get_unit_at_position(pos_clicked)
-				if selected_unit and selected_unit.unit_owner_id == current_player_id:
+				backup_unit = selected_unit
+				unit_attack(selected_unit, pos_clicked)
+				if selected_unit!=null and is_instance_valid(selected_unit):
+					unit_info=UnitInfo.get_unit_info_window(selected_unit.unit_name,selected_unit.health,selected_unit.defense,selected_unit.attack)
+					unit_selected.emit(unit_info)
+				if (is_instance_valid(selected_unit) and selected_unit 
+				and selected_unit.unit_owner_id == current_player_id
+				and player_manager.current_player.energy > 0):
 					highlight_possible_moves(selected_unit, pos_clicked)
+					highlight_enemy_targets(selected_unit, pos_clicked)
 
 
 func get_tile_cost(_tile_position: Vector2) -> int:
@@ -103,15 +125,15 @@ func get_unit_at_position(map_position: Vector2) -> BaseUnit:
 func is_cell_free(map_position: Vector2) -> bool:
 	return get_unit_at_position(map_position) == null
 
-func get_city_at_position(map_position: Vector2) -> City:
-	var world_position = map_to_local(map_position)
-	for city in $"../CityLayer".get_children():
-		if city is City and city.position.distance_to(world_position) <1.0:
-			return city
-	return null
+#func get_city_at_position(map_position: Vector2) -> City:
+	#var world_position = map_to_local(map_position)
+	#for city in $"../CityLayer".get_children():
+		#if city is City and city.position.distance_to(world_position) <1.0:
+			#return city
+	#return null
 
 func is_cell_not_city(map_position: Vector2) -> bool:
-	return get_city_at_position(map_position) == null
+	return city_layer.get_city_at_position(map_to_local(map_position)) == null
 
 func spawn_spearman(restore: bool = false):
 	var spearman = preload("res://scenes/Units/Spearman.tscn").instantiate()
@@ -126,6 +148,7 @@ func spawn_spearman(restore: bool = false):
 		spearman.set_color(current_player.flag_color)
 		spearman.fog_disperser_point_light.visible = true
 		spearman.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	spearman.check_if_unit_is_in_water()
 	
 func spawn_archer(restore: bool = false):
 	var archer = preload("res://scenes/Units/Archer.tscn").instantiate()
@@ -140,6 +163,7 @@ func spawn_archer(restore: bool = false):
 		archer.set_color(current_player.flag_color)
 		archer.fog_disperser_point_light.visible = true
 		archer.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	archer.check_if_unit_is_in_water()
 	
 func spawn_archmage(restore: bool = false):
 	var archmage = preload("res://scenes/Units/ArchMage.tscn").instantiate()
@@ -154,6 +178,7 @@ func spawn_archmage(restore: bool = false):
 		archmage.set_color(current_player.flag_color)
 		archmage.fog_disperser_point_light.visible = true
 		archmage.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	archmage.check_if_unit_is_in_water()
 		
 func spawn_cavalry(restore: bool = false):
 	var cavalry = preload("res://scenes/Units/Cavalry.tscn").instantiate()
@@ -168,6 +193,7 @@ func spawn_cavalry(restore: bool = false):
 		cavalry.set_color(current_player.flag_color)
 		cavalry.fog_disperser_point_light.visible = true
 		cavalry.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	cavalry.check_if_unit_is_in_water()
 	
 func spawn_crossbowman(restore: bool = false):
 	var crossbowman = preload("res://scenes/Units/Crossbowman.tscn").instantiate()
@@ -182,6 +208,7 @@ func spawn_crossbowman(restore: bool = false):
 		crossbowman.set_color(current_player.flag_color)
 		crossbowman.fog_disperser_point_light.visible = true
 		crossbowman.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	crossbowman.check_if_unit_is_in_water()
 	
 func spawn_halberdman(restore: bool = false):
 	var halberdman = preload("res://scenes/Units/Halberdman.tscn").instantiate()
@@ -196,6 +223,7 @@ func spawn_halberdman(restore: bool = false):
 		halberdman.set_color(current_player.flag_color)
 		halberdman.fog_disperser_point_light.visible = true
 		halberdman.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	halberdman.check_if_unit_is_in_water()
 	
 func spawn_mage(restore: bool = false):
 	var mage = preload("res://scenes/Units/Mage.tscn").instantiate()
@@ -210,6 +238,8 @@ func spawn_mage(restore: bool = false):
 		mage.set_color(current_player.flag_color)
 		mage.fog_disperser_point_light.visible = true
 		mage.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	mage.check_if_unit_is_in_water()
+
 	
 func spawn_scout(restore: bool = false):
 	var scout = preload("res://scenes/Units/Scout.tscn").instantiate()
@@ -224,6 +254,8 @@ func spawn_scout(restore: bool = false):
 		scout.set_color(current_player.flag_color)
 		scout.fog_disperser_point_light.visible = true
 		scout.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	scout.check_if_unit_is_in_water()
+
 	
 func spawn_shieldman(restore: bool = false):
 	var shieldman = preload("res://scenes/Units/Shieldman.tscn").instantiate()
@@ -238,6 +270,8 @@ func spawn_shieldman(restore: bool = false):
 		shieldman.set_color(current_player.flag_color)
 		shieldman.fog_disperser_point_light.visible = true
 		shieldman.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	shieldman.check_if_unit_is_in_water()
+
 	
 func spawn_warrior(restore: bool = false):
 	var warrior = preload("res://scenes/Units/Warrior.tscn").instantiate()
@@ -252,8 +286,12 @@ func spawn_warrior(restore: bool = false):
 		warrior.set_color(current_player.flag_color)
 		warrior.fog_disperser_point_light.visible = true
 		warrior.fog_dispenser_scene.set_fog_disperser_enabled(true)
+	warrior.check_if_unit_is_in_water()
+
 
 func reload_unit(saved_unit: BaseUnit) -> void:
+	#clear highlight to avoid showing range of possibly nonexistent unit
+	clear_highlight()
 	var unit_reloaded: bool = false
 	match saved_unit.unit_name:
 		"Archer":
@@ -295,5 +333,126 @@ func reload_unit(saved_unit: BaseUnit) -> void:
 		units[units.size() -1].rangeOfView = saved_unit.rangeOfView
 		units[units.size() -1].unit_owner_id = saved_unit.unit_owner_id
 		units[units.size() -1].unit_coords = saved_unit.unit_coords
-		units[units.size() -1].position = saved_unit.position
+		# This is to ensure the unit is not stuck between tiles and can be selected
+		var unit_pos=saved_unit.position
+		unit_pos=local_to_map(unit_pos)
+		unit_pos=map_to_local(unit_pos)
+		units[units.size() -1].position = unit_pos
 		units[units.size() -1].set_color(player_manager.players[saved_unit.unit_owner_id].flag_color)
+		units[units.size() -1].check_if_unit_is_in_water()
+
+func clear_unit_info()->void:
+	if unit_info!=null and is_instance_valid(unit_info):
+		unit_info.queue_free()
+
+
+func get_neighbors(pos: Vector2):
+	var neighbors = []
+	var offsets = [
+		Vector2(1, 0), Vector2(-1, 0), 
+		Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, -1), Vector2(-1, 1)
+	]
+	
+	for offset in offsets:
+		var neighbor_pos = pos + offset
+		neighbors.append(neighbor_pos)
+		
+func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
+	if unit == null or !is_instance_valid(unit):
+		return
+	var offsets = [
+		Vector2(1, 0), Vector2(-1, 0), 
+		Vector2(0, 1), Vector2(0, -1),
+		Vector2(1, 1), Vector2(-1, 1),
+		Vector2(-1,-1), Vector2(1,-1)
+	]
+	for tileX in offsets:
+		var target_position = start_position + tileX
+		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
+		var enemy_unit = get_unit_at_position(target_position)
+		if is_cell_not_city(target_position):
+			if tile!=empty:
+				if enemy_unit != null:
+					print(enemy_unit.name)
+					if enemy_unit.unit_owner_id != selected_unit.unit_owner_id:
+						highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
+		elif city_layer.get_city_at_position(map_to_local(target_position)).city_owner.player_id!=unit.unit_owner_id:
+			highlight_layer.set_cell(target_position, 0, Vector2i(3,0), 2)
+				
+	
+func unit_attack(unit, pos):
+	if unit==null or !is_instance_valid(unit):
+		return false
+	var enemy = get_unit_at_position(pos)
+	if enemy:
+		if enemy.unit_owner_id != unit.unit_owner_id and is_target_in_range(unit,backup_pos) == true:
+			if enemy.position.x < unit.position.x:
+				unit.sprite.flip_h = true
+			else:
+				unit.sprite.flip_h = false
+			unit.sprite.play("Attack")
+			#await get_tree().create_timer(2).timeout
+			await unit.sprite.animation_finished
+			unit.sprite.play("Idle")
+			if is_instance_valid(enemy):
+				enemy.takeDamage(unit.attack)
+				enemy.is_dead()
+				return true
+	else:
+		get_tree().get_first_node_in_group("city_layer")
+		#var city_layer=get_tree().get_first_node_in_group("city_layer")
+		var city=city_layer.get_city_at_position(map_to_local(pos))
+		if city!=null and is_instance_valid(city) and city.city_owner.player_id!=unit.unit_owner_id:
+			if is_target_in_range(unit,backup_pos):
+				if city.position.x < unit.position.x:
+					unit.sprite.flip_h = true
+				else:
+					unit.sprite.flip_h = false
+				unit.sprite.play("Attack")
+				await unit.sprite.animation_finished
+				unit.sprite.play("Idle")
+				city.take_damage(unit.attack)
+				print("attack city")
+				return true
+		
+		
+func is_target_in_range(unit:BaseUnit, position_check) -> bool:
+	if unit == null:
+		return false
+	
+	var offsets = [
+		Vector2i(1, 0), Vector2i(-1, 0), 
+		Vector2i(0, 1), Vector2i(0, -1),
+		Vector2i(1, 1), Vector2i(-1, 1),
+		Vector2i(-1,-1), Vector2i(1,-1)
+	]
+	for tilex in offsets:
+		var target_position = position_check + tilex
+		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
+		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
+		var enemy_unit = get_unit_at_position(target_position)
+		if is_cell_not_city(target_position):
+			if tile!=empty:
+				if enemy_unit != null and is_instance_valid(enemy_unit):
+					print(enemy_unit.name)
+					if enemy_unit.unit_owner_id != backup_unit.unit_owner_id:
+						return true
+		elif city_layer.get_city_at_position(map_to_local(target_position)).city_owner.player_id!=unit.unit_owner_id:
+			return true
+			
+	return false
+	#var enemy_position = []
+	#var neighbors = get_neighbors(selected_unit.position)
+	
+	#for pos in neighbors:
+	#	var unit = get_unit_at_position(pos)
+	#	if unit and unit.unit_owner_id != selected_unit.unit_owner_id:
+	#		enemy_position.append(pos)
+	#		highlight_layer.set_cell(pos, 0, Vector2i(0,0), 2)
+
+#func get_unit_at(position: Vector2) -> BaseUnit:
+#	var world_position = map_to_local(position)
+#	for unit in get_children():
+#		if unit.position.distance_to(world_position)

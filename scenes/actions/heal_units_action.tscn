@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://hqv5ke04xqpk"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_8p4ty"]
+
+[node name="HealUnitsAction" type="Node"]
+script = ExtResource("1_8p4ty")
+action_name = "Heal units"
+action_description = "Order medics to slightly heal all your units."
+action_picture = "res://img/ui/heal_units.png"
+gold_cost = 10
+food_cost = 25

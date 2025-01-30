@@ -1,9 +1,59 @@
-[gd_scene load_steps=16 format=3 uid="uid://c38ew0e8cor2y"]
+[gd_scene load_steps=30 format=3 uid="uid://c38ew0e8cor2y"]
 
 [ext_resource type="Script" path="res://scripts/Units/spearman.gd" id="1_ro8s4"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_jaymq"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_q3tvv"]
 [ext_resource type="Texture2D" uid="uid://dmim8sswwunew" path="res://resources/Units/SpearMan.png" id="2_xf8o8"]
+[ext_resource type="AudioStream" uid="uid://bbsdeuywt34p" path="res://audio/units/walking.ogg" id="3_0us5w"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_1id4g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3rv5"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(0, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k5jt"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(64, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mshwd"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(128, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca4vn"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(192, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8iag"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(256, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dln0w"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(320, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbwj7"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(384, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xcjj"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(0, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcprk"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(64, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hk32"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(128, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjgrv"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(192, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gkal"]
+atlas = ExtResource("2_xf8o8")
+region = Rect2(256, 332, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c00ss"]
 atlas = ExtResource("2_xf8o8")
@@ -49,6 +99,52 @@ region = Rect2(320, 76, 64, 52)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_k3rv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k5jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mshwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca4vn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8iag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dln0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbwj7")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xcjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcprk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hk32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjgrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gkal")
+}],
+"loop": true,
+"name": &"Die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_c00ss")
 }, {
 "duration": 1.0,
@@ -90,12 +186,16 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ro8s4")
+unit_name = "Spearman"
+attack_sound = ExtResource("2_q3tvv")
+movement_sound = ExtResource("3_0us5w")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_jaymq")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_1id4g")]

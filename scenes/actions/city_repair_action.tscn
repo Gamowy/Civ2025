@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyr4q7hdnd7xf"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_v5s7c"]
+
+[node name="CityRepairAction" type="Node"]
+script = ExtResource("1_v5s7c")
+action_name = "Repair cities"
+action_description = "Order workers to slightly repair damages in all cities."
+action_picture = "res://img/ui/repair.png"
+gold_cost = 20
+wood_cost = 5
+stone_cost = 5
+steel_cost = 5
+food_cost = 5

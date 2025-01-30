@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkifdgmgejgib"]
+[gd_scene load_steps=12 format=3 uid="uid://dkifdgmgejgib"]
 
 [ext_resource type="Texture2D" uid="uid://btestmhjkcq4t" path="res://img/village.png" id="1_bewxo"]
 [ext_resource type="Script" path="res://scripts/city.gd" id="2_l6ga2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://xtw2il5ua0g5" path="res://resources/themes/panel_theme.tres" id="5_ob1uf"]
 [ext_resource type="PackedScene" uid="uid://jxk0d465c50j" path="res://scenes/city_fog_disperser.tscn" id="6_ky7ws"]
 [ext_resource type="Script" path="res://scripts/city_fog_disperser.gd" id="7_af1va"]
+[ext_resource type="PackedScene" uid="uid://brhy86etmxkaj" path="res://scenes/Units/unit_elements/unit_healthbar.tscn" id="8_o80vy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tuf3m"]
 outline_size = 6
@@ -58,6 +59,10 @@ shape = SubResource("CircleShape2D_vepcl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_fbglb")
+
+[node name="HealthBar" parent="." instance=ExtResource("8_o80vy")]
+offset_top = 10.0
+offset_bottom = 15.0
 
 [connection signal="city_entered" from="CityFogDisperser" to="." method="_on_city_fog_disperser_city_entered"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

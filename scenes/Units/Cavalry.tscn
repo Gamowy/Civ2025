@@ -1,9 +1,63 @@
-[gd_scene load_steps=20 format=3 uid="uid://0d0766v5wur3"]
+[gd_scene load_steps=35 format=3 uid="uid://0d0766v5wur3"]
 
 [ext_resource type="Script" path="res://scripts/Units/cavalry.gd" id="1_l7x35"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_i7nb3"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_tqqsq"]
 [ext_resource type="Texture2D" uid="uid://mn08j0ewemm8" path="res://resources/Units/Cavalry.png" id="2_v0s0g"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_i774j"]
+[ext_resource type="AudioStream" uid="uid://bjp8idnq61t7c" path="res://audio/units/horse_gallop.ogg" id="3_o8uvj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e53fc"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl5lu"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5xkt"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o37j0"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xf0b"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfydp"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl2ka"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whkyc"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(0, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lpaf"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(64, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr7rp"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfd6i"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cdkk"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvv0r"]
+atlas = ExtResource("2_v0s0g")
+region = Rect2(320, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blpyy"]
 atlas = ExtResource("2_v0s0g")
@@ -65,6 +119,55 @@ region = Rect2(320, 64, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_e53fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl5lu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5xkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o37j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xf0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfydp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl2ka")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whkyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lpaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr7rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfd6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cdkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvv0r")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_blpyy")
 }, {
 "duration": 1.0,
@@ -118,12 +221,16 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_l7x35")
+unit_name = "Cavalry"
+attack_sound = ExtResource("2_tqqsq")
+movement_sound = ExtResource("3_o8uvj")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_i7nb3")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_i774j")]

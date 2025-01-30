@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://0q8aaat0nfdm"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_bm7ky"]
+
+[node name="SpyAction" type="Node"]
+script = ExtResource("1_bm7ky")
+action_name = "Spy on enemies"
+action_description = "Send spies on your enemies, revealing their cities location. "
+action_picture = "res://img/ui/spy.png"
+gold_cost = 100
+wood_cost = 10
+stone_cost = 10
+steel_cost = 10
+food_cost = 10

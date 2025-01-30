@@ -62,7 +62,8 @@ func first_upgrade_upgrade() -> void:
 	city.city_level+=1
 	city.set_city_radius(city.city_radius+2)
 	city.building_limit+=2
-	city.city_health+=20
+	city.max_city_health+=20
+	city.city_health=city.max_city_health
 	city.fog_disperser.set_radius(city.city_radius)
 	upgrade_cost(10,2,2,2,2)
 	city.texture = town_texture
@@ -89,7 +90,8 @@ func second_upgrade_upgrade() -> void:
 	city.city_level+=1
 	city.set_city_radius(city.city_radius+3)
 	city.building_limit+=3
-	city.city_health+=30
+	city.max_city_health+=30
+	city.city_health=city.max_city_health
 	city.fog_disperser.set_radius(city.city_radius)
 	upgrade_cost(20,4,4,4,4)
 	city.texture = city_texture

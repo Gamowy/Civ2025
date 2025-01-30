@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://jbtltnr7ag8c"]
+[gd_scene load_steps=24 format=3 uid="uid://jbtltnr7ag8c"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_5huqx"]
 [ext_resource type="PackedScene" uid="uid://yu80cctsxho6" path="res://scenes/camera.tscn" id="2_eceig"]
@@ -14,7 +14,6 @@
 [ext_resource type="TileSet" uid="uid://dlrsww81p5lub" path="res://resources/tilesets/fog_fantasy.tres" id="8_twwi0"]
 [ext_resource type="Script" path="res://scripts/ui_elements/switch_turn_transition.gd" id="8_yokiu"]
 [ext_resource type="Script" path="res://scripts/fog_thick_layer.gd" id="9_dmyyu"]
-[ext_resource type="PackedScene" uid="uid://k5nmxecg0wen" path="res://scenes/fog_disperserDEMO.tscn" id="10_hm7w7"]
 [ext_resource type="PackedScene" uid="uid://bph0olvwfmg4n" path="res://scenes/ui/user_interface.tscn" id="11_d6vjx"]
 [ext_resource type="Script" path="res://scripts/city_layer.gd" id="12_nt62r"]
 [ext_resource type="Script" path="res://scripts/players_manager.gd" id="15_u1y2v"]
@@ -94,6 +93,7 @@ tile_offset_axis = 1
 tile_size = Vector2i(32, 28)
 
 [node name="Main" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_5huqx")
 
 [node name="PlayersManager" type="Node" parent="." groups=["players"]]
@@ -124,7 +124,6 @@ script = ExtResource("3_l7sjw")
 
 [node name="UserInterface" parent="UILayer" instance=ExtResource("11_d6vjx")]
 process_mode = 3
-visible = false
 mouse_filter = 1
 
 [node name="SettingsMenu" parent="UILayer" instance=ExtResource("4_i4hap")]
@@ -170,7 +169,7 @@ tile_set = ExtResource("5_nwo4s")
 script = ExtResource("6_scdat")
 resource_seed = 0
 
-[node name="CityLayer" type="TileMapLayer" parent="Map"]
+[node name="CityLayer" type="TileMapLayer" parent="Map" groups=["city_layer"]]
 z_index = 2
 tile_set = ExtResource("7_y6bwc")
 script = ExtResource("12_nt62r")
@@ -192,18 +191,25 @@ metadata/_edit_lock_ = true
 modulate = Color(1, 1, 1, 0.392157)
 tile_set = ExtResource("3_ns1bu")
 
-[node name="FogDisperserDemo" parent="." instance=ExtResource("10_hm7w7")]
-
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 volume_db = -15.0
 
+[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_unit_info"]
+[connection signal="turn_ended" from="." to="Map/UnitLayer" method="clear_highlight"]
+[connection signal="current_player_energy_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_energy_changed"]
 [connection signal="current_player_resource_changed" from="PlayersManager" to="." method="_on_players_manager_current_player_resource_changed"]
 [connection signal="build_city" from="UILayer" to="." method="_on_ui_layer_build_city"]
 [connection signal="end_player_turn" from="UILayer" to="." method="_on_ui_layer_end_player_turn"]
 [connection signal="exit_to_menu" from="UILayer" to="." method="_on_ui_layer_exit_to_menu"]
+[connection signal="feed_units" from="UILayer" to="." method="_on_ui_layer_feed_units"]
+[connection signal="heal_units" from="UILayer" to="." method="_on_ui_layer_heal_units"]
 [connection signal="load_game" from="UILayer" to="." method="_on_ui_layer_load_game"]
+[connection signal="repair_cities" from="UILayer" to="." method="_on_ui_layer_repair_cities"]
 [connection signal="save_game" from="UILayer" to="." method="_on_ui_layer_save_game"]
+[connection signal="spy_on_enemies" from="UILayer" to="." method="_on_ui_layer_spy_on_enemies"]
+[connection signal="trade_gold" from="UILayer" to="." method="_on_ui_layer_trade_gold"]
+[connection signal="units_training" from="UILayer" to="." method="_on_ui_layer_units_training"]
 [connection signal="end_turn" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_end_turn"]
 [connection signal="open_actions_menu" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_actions_menu"]
 [connection signal="open_settings" from="UILayer/UserInterface" to="UILayer" method="_on_user_interface_open_settings"]
@@ -216,3 +222,5 @@ volume_db = -15.0
 [connection signal="action_bought" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_action_bought"]
 [connection signal="exit_actions_menu" from="UILayer/ActionsMenu" to="UILayer" method="_on_actions_menu_exit_actions_menu"]
 [connection signal="animation_finished" from="UILayer/Transition" to="UILayer/Transition" method="_on_animation_finished"]
+[connection signal="city_destroyed" from="Map/CityLayer" to="." method="check_win_condition"]
+[connection signal="unit_selected" from="Map/UnitLayer" to="UILayer" method="display_unit_info"]

@@ -10,6 +10,9 @@
 extends Sprite2D
 class_name City
 
+## Emitted when the [City] is destroyed :(
+signal destroyed(city:City)
+
 @onready var name_label:Label=$Label
 @onready var fog_disperser:CityFogDisperser=$CityFogDisperser
 @onready var fog_disperser_point_light = $CityFogDisperser/PointLight2D
@@ -17,6 +20,7 @@ class_name City
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
 @onready var flag:Sprite2D=$CityFlag
+@onready var health_bar:HealthBar =$HealthBar
 var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
@@ -25,7 +29,21 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 ## Radius of the city's visibility and resource harvesting regions
 @export var city_radius:int=5
 ## The city's HP
-@export var city_health:int=100
+@export var city_health:int=100:
+	set(value):
+		city_health=value
+		if health_bar!=null:
+			health_bar.update_health_bar(city_health)
+	get:
+		return city_health
+## Maximum city HP
+@export var max_city_health:int=100:
+	set(value):
+		max_city_health=value
+		if health_bar!=null:
+			health_bar.max_value=max_city_health
+	get:
+		return max_city_health
 ## Maximum number of buildings that can be built in this city
 @export var building_limit:int=5
 ## How many units of gold the city produces per turn
@@ -63,6 +81,18 @@ func _ready() -> void:
 	fog_disperser.set_fog_disperser_enabled(true)
 	fog_disperser_point_light.visible = true
 	resource_scan_area.force_update_transform()
+	
+	health_bar.max_value=max_city_health
+	health_bar.value = city_health
+
+func take_damage(dmg_points:int)->void:
+	city_health-=dmg_points
+	if city_health<=0:
+		var current_player: Player = get_tree().get_first_node_in_group("players").current_player
+		current_player.gold += 20
+		UISoundPlayer.play_sound(load("res://audio/destroy_building.ogg"))
+		destroyed.emit(self)
+		queue_free()
 
 #collect resources produced by the city
 #and give them to the city owner

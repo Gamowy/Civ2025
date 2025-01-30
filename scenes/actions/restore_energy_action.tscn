@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b67nfdcueu1nm"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_g405c"]
+
+[node name="RefillEnergyAction" type="Node"]
+script = ExtResource("1_g405c")
+action_name = "Feed units"
+action_description = "Restore available energy during this turn by making units well fed. "
+action_picture = "res://img/ui/feed.png"
+food_cost = 15

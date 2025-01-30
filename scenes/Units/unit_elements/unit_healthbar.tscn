@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://brhy86etmxkaj"]
+
+[ext_resource type="Script" path="res://scripts/Units/unit_healthbar.gd" id="1_c0pmb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_efg26"]
+light_mode = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwfop"]
+bg_color = Color(0, 0, 0, 0.470588)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcqvf"]
+bg_color = Color(4.33177e-06, 0.724375, 0.234129, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="UnitHealthbar" type="ProgressBar"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_efg26")
+custom_minimum_size = Vector2(20, 5)
+offset_left = -10.0
+offset_right = 10.0
+offset_bottom = 5.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hwfop")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bcqvf")
+value = 50.0
+show_percentage = false
+script = ExtResource("1_c0pmb")

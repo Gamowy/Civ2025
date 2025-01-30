@@ -5,6 +5,7 @@ extends BaseUnit
 func _ready():
 	unit_name = "Archer"
 	health = 70
+	max_health=health
 	@warning_ignore("integer_division")
 	attack = 18 * (health/70)
 	defense = 3
@@ -14,6 +15,6 @@ func _ready():
 	cost_food = 2
 	sprite = $AnimatedSprite2D
 	description = "He shoots arrows with the strength of a thousand suns. Ocasionally, when out of ammo, he throws a bow."
-	#super._ready()
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
+	super._ready()

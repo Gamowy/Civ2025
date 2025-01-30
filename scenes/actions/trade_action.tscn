@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlqg6iwpfxmtb"]
+
+[ext_resource type="Script" path="res://scripts/actions/actions_base_class.gd" id="1_vi1t1"]
+
+[node name="CityRepairAction" type="Node"]
+script = ExtResource("1_vi1t1")
+action_name = "Trade gold"
+action_description = "Too much gold? Trade it with merchants in exchange for other resources."
+action_picture = "res://img/trade.png"
+gold_cost = 20

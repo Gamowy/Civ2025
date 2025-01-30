@@ -1,6 +1,9 @@
 extends Node2D
 class_name Main
 
+##Emitted when the turn ends
+signal turn_ended
+
 var save_path = FilePaths.save_path
 # Everything below needs to be saved in save_game() func
 # ---------------------------------------------------------------------
@@ -139,10 +142,9 @@ func setup_current_player() -> void:
 	user_interface.update_resources("stone", str(player.stone))
 	user_interface.update_resources("steel", str(player.steel))
 	user_interface.update_resources("food", str(player.food))
-	# TEST
-	var fog_disperser_label = $FogDisperserDemo/Label
-	fog_disperser_label.text = player.player_name
-	fog_disperser_label.modulate = player.flag_color
+	if !isLoading:
+		players_manager.restore_player_energy(player)
+	user_interface.update_energy(player.energy, player.max_energy)
 
 # All properties within class annotated with @export or @export_storage will be saved for restoring
 # Use @export_storage if you want to save property without displaying it in editor
@@ -214,10 +216,13 @@ func load_game():
 		file.close()
 		setup_current_player()
 		camera.set_camera_boundary(Vector2(map_layer.width,map_layer.height))
+		isLoading = false
 	else:
+		isLoading = false
 		printerr("Save file not found!")
 	
 func switch_turns() -> void:
+	turn_ended.emit()
 	transition.fade_to_black()
 	await transition.transition_finished
 	players_manager.save_current_player_fog(fog_thick_layer.get_uncovered_cells())
@@ -252,7 +257,19 @@ func exit_to_menu() -> void:
 	get_tree().change_scene_to_file(LOADING_SCREEN);
 	get_tree().root.remove_child(self)
 	self.queue_free()
-	
+
+## Checks if somebody won the game, should be connected to "city_destroyed" signal from city_layer
+func check_win_condition()->void:
+	if len(city_layer.cities)>0:
+		var potential_winner=city_layer.cities[0].city_owner
+		for city in city_layer.cities:
+			if city.city_owner!=potential_winner:
+				return
+		get_tree().paused=true
+		var game_over_screen:GameOverScreen=GameOverScreen.get_game_over_screen(potential_winner)
+		game_over_screen.menu_button_pressed.connect(exit_to_menu)
+		ui_layer.add_child(game_over_screen)
+
 # UI Layer signal handlers
 func _on_ui_layer_end_player_turn() -> void:
 	switch_turns()
@@ -264,8 +281,8 @@ func _on_ui_layer_save_game() -> void:
 func _on_ui_layer_load_game() -> void:
 	transition.fade_to_black()
 	await transition.transition_finished
+	isLoading = true
 	load_game()
-	setup_current_player()
 	transition.fade_to_normal()
 	await transition.transition_finished
 
@@ -274,10 +291,47 @@ func _on_ui_layer_build_city() -> void:
 	user_interface.show_action_info("Double tap on empty tile to build new city")
 	map.process_mode = Node.PROCESS_MODE_DISABLED
 	adding_city = true
+	
+func _on_ui_layer_repair_cities() -> void:
+	var current_player: Player = players_manager.current_player
+	for city in city_layer.cities:
+		if city.city_owner == current_player:
+			city.city_health += 10
+	
+func _on_ui_layer_heal_units() -> void:
+	var current_player_id = players_manager.current_player_id
+	for unit in unit_layer.units:
+		if unit.unit_owner_id == current_player_id:
+			unit.health += 10
+			
+func _on_ui_layer_feed_units() -> void:
+	players_manager.restore_player_energy(players_manager.current_player)
 
+func _on_ui_layer_units_training() -> void:
+	players_manager.increase_player_max_energy(players_manager.current_player)
+
+func _on_ui_layer_trade_gold() -> void:
+	var current_player : Player = players_manager.current_player
+	current_player.gold -= 20
+	current_player.wood += 5
+	current_player.steel += 5
+	current_player.stone += 5
+	current_player.food += 5
+
+func _on_ui_layer_spy_on_enemies() -> void:
+	var current_fog = fog_thick_layer.get_uncovered_cells()
+	var coords = city_layer.get_coords_around_cities()
+	for coord in coords:
+		if not current_fog.has(coord):
+			current_fog.append(coord)
+	fog_thick_layer.restore_uncovered_cells(current_fog)
+		
 # PlayerManager signal handlers
 func _on_players_manager_current_player_resource_changed(resource: String, value: int) -> void:
 	user_interface.update_resources(resource, str(value))
+
+func _on_players_manager_current_player_energy_changed(energy: int, max_energy: int) -> void:
+	user_interface.update_energy(energy, max_energy)
 
 func _on_ui_layer_exit_to_menu() -> void:
 	exit_to_menu()

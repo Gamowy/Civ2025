@@ -5,6 +5,7 @@ extends BaseUnit
 func _ready():
 	unit_name = "Halberdman"
 	health = 130
+	max_health=health
 	@warning_ignore("integer_division")
 	attack = 14 * (health/130)
 	defense = 9
@@ -16,3 +17,4 @@ func _ready():
 	description = "Couldn't decide if wanted an axe or a spear, instead opted for both."
 	if has_node("UnitFogDisperser"):
 		$UnitFogDisperser.refresh_radius_from_owner()
+	super._ready()

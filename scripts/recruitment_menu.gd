@@ -10,6 +10,7 @@ extends Control
 @onready var unit_manager = $UnitManager
 @onready var unitlayer: UnitLayer = get_node("/root/Main/Map/UnitLayer")
 
+var can_recruit:bool=true
 
 #determines current building mode
 var _recruit_mode:String="Recruit":
@@ -30,6 +31,9 @@ var selected_unit:BaseUnit
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if unitlayer.get_unit_at_position(unitlayer.pos_clicked + Vector2i(1,-1))!=null:
+		recruit_button.disabled=true
+		can_recruit=false
 	unit_manager.city=city
 	recruit_button.disabled=true
 	get_tree().paused=true
@@ -38,6 +42,7 @@ func _ready() -> void:
 		
 		recruit_item_list.add_child(unit)
 		recruit_item_list.add_item(unit.unit_name)
+		unit.health_bar.visible=false
 		print(unit.unit_name)
 #	_update_owned_buildings()
 	
@@ -64,7 +69,7 @@ func _on_building_list_item_selected(index: int) -> void:
 #	owned_item_list.deselect_all()
 	selected_unit=unit_manager.units[index]
 	recruit_button.disabled=true
-	if unit_manager.can_player_recruit_unit(selected_unit):
+	if unit_manager.can_player_recruit_unit(selected_unit) and can_recruit:
 		recruit_button.disabled=false
 	_recruit_mode="Recruit"
 	_display_unit_info(selected_unit)

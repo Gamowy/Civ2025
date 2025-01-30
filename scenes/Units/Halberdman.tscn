@@ -1,9 +1,55 @@
-[gd_scene load_steps=16 format=3 uid="uid://idjj7t65s3nv"]
+[gd_scene load_steps=29 format=3 uid="uid://idjj7t65s3nv"]
 
 [ext_resource type="Script" path="res://scripts/Units/halberdman.gd" id="1_fvn48"]
+[ext_resource type="AudioStream" uid="uid://42bo4s3ypl1r" path="res://audio/units/sword.ogg" id="2_43f4r"]
 [ext_resource type="Texture2D" uid="uid://djwltmnnaxdjq" path="res://resources/Units/HalberdMan.png" id="2_h1o32"]
 [ext_resource type="Material" uid="uid://bqholacd3h85e" path="res://resources/shaders/colorize_units.tres" id="2_vr6dp"]
 [ext_resource type="PackedScene" uid="uid://cj3ialc2oqj7r" path="res://scenes/Units/unit_fog_disperser.tscn" id="3_agbtu"]
+[ext_resource type="AudioStream" uid="uid://bbsdeuywt34p" path="res://audio/units/walking.ogg" id="3_jh324"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpuow"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(0, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eawwa"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(64, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csg88"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(128, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqkr7"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(192, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvlsy"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(256, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4016"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(320, 204, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10q02"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(0, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5v1p"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(64, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j344d"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(128, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57ads"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(192, 332, 64, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkonf"]
+atlas = ExtResource("2_h1o32")
+region = Rect2(256, 332, 64, 52)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijqil"]
 atlas = ExtResource("2_h1o32")
@@ -49,6 +95,49 @@ region = Rect2(320, 76, 64, 52)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_cpuow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eawwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csg88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqkr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvlsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4016")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10q02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5v1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j344d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57ads")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkonf")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ijqil")
 }, {
 "duration": 1.0,
@@ -90,12 +179,16 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_fvn48")
+unit_name = "Halberdman"
+attack_sound = ExtResource("2_43f4r")
+movement_sound = ExtResource("3_jh324")
+attack_sound_frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_vr6dp")
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_m07on")
-animation = &"Walk"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="UnitFogDisperser" parent="." instance=ExtResource("3_agbtu")]

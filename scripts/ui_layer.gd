@@ -8,7 +8,15 @@ signal save_game
 signal load_game
 signal end_player_turn
 signal exit_to_menu
+
+# Actions menu signals
 signal build_city
+signal repair_cities
+signal heal_units
+signal feed_units
+signal units_training
+signal trade_gold
+signal spy_on_enemies
 
 func _ready() -> void:
 	user_interface.visible = true
@@ -74,5 +82,20 @@ func _on_actions_menu_action_bought(action_name: String) -> void:
 	match(action_name):
 		"Build city":
 			build_city.emit()
+		"Repair cities":
+			repair_cities.emit()
+		"Heal units":
+			heal_units.emit()
+		"Spy on enemies":
+			spy_on_enemies.emit()
+		"Feed units":
+			feed_units.emit()
+		"Unit training":
+			units_training.emit()
+		"Trade gold":
+			trade_gold.emit()
 		_:
 			printerr("No action found")
+
+func display_unit_info(unit_info:UnitInfo):
+	add_child(unit_info)

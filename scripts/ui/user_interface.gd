@@ -12,6 +12,7 @@ extends Control
 @onready var stone = $TopRightCorner/Resources/Stone/StoneCount
 @onready var steel = $TopRightCorner/Resources/Steel/SteelCount
 @onready var food = $TopRightCorner/Resources/Food/FoodCount
+@onready var energy = $EnergyLabel
 
 @onready var turn_label = $CenterBottom/TurnLabel
 @onready var action_info_label = $ActionInfo/ActionLabel
@@ -41,6 +42,9 @@ func update_resources(element: String, value: String) -> void:
 			steel.text = value
 		"food":
 			food.text = value
+
+func update_energy(value1: int, value2: int) -> void:
+	energy.text = str("Energy: ", value1, "/", value2)
 
 func update_turn_label(string: String, color: Color):
 	turn_label.text = str("   ", string, " turn   ")

@@ -5,10 +5,13 @@ class_name GameOverScreen
 ## To display game over screen you can use:
 ## ui_layer.add_child(GameOverScreen.get_game_over_screen(<winner>))
 
+## Emitted when menu button is pressed
+signal menu_button_pressed()
+
 @onready var label:RichTextLabel=$Center/CenterContainer/PanelContainer/VBoxContainer/RichTextLabel
 var winner:Player
 
-static func get_game_over_screen(winning_player:Player):
+static func get_game_over_screen(winning_player:Player)->GameOverScreen:
 	var game_over_screen:GameOverScreen=load("res://scenes/ui/game_over_screen.tscn").instantiate()
 	game_over_screen.winner=winning_player
 	return game_over_screen
@@ -22,17 +25,6 @@ func _ready() -> void:
 		label.text=info_string
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_play_button_pressed() -> void:
-	get_tree().paused=false
-	get_tree().change_scene_to_file("res://scenes/ui/loading_screen.tscn")
-
-
 func _on_menu_button_pressed() -> void:
-	#get_tree().paused=false
-	##clicking this button should change the scene to main menu
-	pass # Replace with function body.
+	get_tree().paused=false
+	menu_button_pressed.emit()

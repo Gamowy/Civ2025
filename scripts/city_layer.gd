@@ -2,6 +2,9 @@ extends TileMapLayer
 class_name CityLayer
 const city_scene = preload("res://scenes/city.tscn")
 
+## Emitted when a city is destroyed
+signal city_destroyed()
+
 var cities: Array[City] = []
 
 func _ready() -> void:
@@ -26,6 +29,11 @@ func add_city(coords: Vector2i, city_owner: Player, city_name = "") -> void:
 	new_city.set_city_owner(city_owner)
 	new_city.city_coords = coords
 	new_city.position = map_to_local(coords)
+	new_city.destroyed.connect(_on_city_destroyed)
+
+func _on_city_destroyed(city:City):
+	await city.tree_exited
+	city_destroyed.emit()
 
 ## Creates the first city for given player
 func create_initial_city(map_layer:MapLayer, resource_layer:ResourceLayer, city_owner:Player,max_attempts:int=100):
@@ -41,6 +49,15 @@ func create_initial_city(map_layer:MapLayer, resource_layer:ResourceLayer, city_
 				return
 	if attempt>0:
 		create_initial_city(map_layer,resource_layer,city_owner,attempt-1)
+
+## Returns city at given position, returns null if no city was found
+func get_city_at_position(pos:Vector2)->City:
+	var map_pos=local_to_map(pos)
+	for city in cities:
+		if city!=null and is_instance_valid(city):
+			if local_to_map(city.position)==map_pos:
+				return city
+	return null
 
 ## Returns an array of coordinates close to existing cities
 func get_coords_around_cities() -> Array[Vector2i]:
@@ -81,6 +98,7 @@ func reload_city(saved_city: City) -> void:
 	add_city(saved_city.city_coords, saved_city_owner, saved_city.city_name)
 	cities[cities.size()-1].set_city_radius(saved_city.city_radius)
 	cities[cities.size()-1].city_health = saved_city.city_health
+	cities[cities.size()-1].max_city_health = saved_city.max_city_health
 	cities[cities.size()-1].building_limit = saved_city.building_limit
 	cities[cities.size()-1].buildings = saved_city.buildings
 	cities[cities.size()-1].city_level = saved_city.city_level
