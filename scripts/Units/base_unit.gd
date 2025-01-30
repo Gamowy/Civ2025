@@ -22,10 +22,6 @@ class_name BaseUnit
 ## The unit's fog disperser
 @onready var fog_dispenser_scene:UnitFogDisperser = $UnitFogDisperser
 
-## Movement sound player
-@onready var moving_sound_player: AudioStreamPlayer = $MovementSFXPlayer
-
-
 #Unit movement
 func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 	var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_hex))
@@ -47,11 +43,9 @@ func move_to(target_hex: Vector2, unit_layer: TileMapLayer) -> bool:
 			sprite.flip_h = false
 		
 		sprite.play("Walk")
-		moving_sound_player.play()
 		tween.tween_property(self,"position",unit_layer.map_to_local(target_hex), move_time)
 		tween.finished.connect(func():
 			sprite.play("Idle")
-			moving_sound_player.stop()
 			)
 		return true
 	return false
