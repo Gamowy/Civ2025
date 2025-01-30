@@ -339,7 +339,7 @@ func clear_unit_info()->void:
 		unit_info.queue_free()
 
 
-func get_neighbors(position: Vector2):
+func get_neighbors(pos: Vector2):
 	var neighbors = []
 	var offsets = [
 		Vector2(1, 0), Vector2(-1, 0), 
@@ -348,7 +348,7 @@ func get_neighbors(position: Vector2):
 	]
 	
 	for offset in offsets:
-		var neighbor_pos = position + offset
+		var neighbor_pos = pos + offset
 		neighbors.append(neighbor_pos)
 		
 func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
@@ -364,7 +364,6 @@ func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
 		var target_position = start_position + tileX
 		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
-		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var enemy_unit = get_unit_at_position(target_position)
 		if is_cell_not_city(target_position):
 			if tile!=empty:
@@ -379,13 +378,6 @@ func highlight_enemy_targets(unit: BaseUnit, start_position: Vector2):
 func unit_attack(unit, pos):
 	if unit==null or !is_instance_valid(unit):
 		return
-	var is_unit_there = false
-	var offsets = [
-		Vector2(1, 0), Vector2(-1, 0), 
-		Vector2(0, 1), Vector2(0, -1),
-		Vector2(1, 1), Vector2(-1, 1),
-		Vector2(-1,-1), Vector2(1,-1)
-	]
 	var enemy = get_unit_at_position(pos)
 	if enemy:
 		if enemy.unit_owner_id != unit.unit_owner_id and is_target_in_range(unit,backup_pos) == true:
@@ -431,7 +423,6 @@ func is_target_in_range(unit:BaseUnit, position_check) -> bool:
 		var target_position = position_check + tilex
 		var tile = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var empty = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(Vector2(-4,-4)))
-		var tmp = map_layer.terrain_dict.find_key(map_layer.get_cell_atlas_coords(target_position))
 		var enemy_unit = get_unit_at_position(target_position)
 		if is_cell_not_city(target_position):
 			if tile!=empty:

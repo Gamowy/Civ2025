@@ -60,7 +60,7 @@ shape = SubResource("CircleShape2D_vepcl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TouchArea"]
 shape = SubResource("CircleShape2D_fbglb")
 
-[node name="UnitHealthbar" parent="." instance=ExtResource("8_o80vy")]
+[node name="HealthBar" parent="." instance=ExtResource("8_o80vy")]
 offset_top = 10.0
 offset_bottom = 15.0
 

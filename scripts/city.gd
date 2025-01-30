@@ -20,7 +20,7 @@ signal destroyed(city:City)
 @onready var resource_scan_area_shape:CircleShape2D=$Area2D/CollisionShape2D.shape
 @onready var city_menu: CanvasLayer = $City_Menu
 @onready var flag:Sprite2D=$CityFlag
-@onready var health_bar:HealthBar=$UnitHealthbar
+@onready var health_bar:HealthBar =$HealthBar
 var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrze", "Mikołów", "Chorzów", "Ruda Śląska", "Sosnowiec", "Orzesze"]
 
 @export_category("City")
@@ -33,7 +33,7 @@ var default_city_names = ["Gliwice", "Katowice", "Tychy", "Częstochowa", "Zabrz
 	set(value):
 		city_health=value
 		if health_bar!=null:
-			health_bar.value=city_health
+			health_bar.update_health_bar(city_health)
 	get:
 		return city_health
 ## Maximum city HP
