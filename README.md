@@ -1,5 +1,5 @@
 # Civ2025
-Mobile strategy game for android. Build wiht Godot 4.3
+Mobile strategy game for android. Build with Godot 4.3
 
 ![Game logo](https://github.com/Gamowy/Civ2025/blob/main/img/logo/logo.png)
 
