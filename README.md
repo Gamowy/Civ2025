@@ -4,6 +4,7 @@ Mobile strategy game for android. Build with Godot 4.3
 ![Game logo](https://github.com/Gamowy/Civ2025/blob/main/img/logo/logo.png)
 
 ## Features
+Some of the game features:
 - Play with up to 4 players
 - Randomly generated map (3 map sizes available)
 - Fog of war and turn system
