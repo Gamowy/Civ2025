@@ -1,5 +1,5 @@
 # Civ2025
-Mobile strategy game for android. Build with Godot 4.3
+Mobile strategy game for android. Made using Godot 4.3
 
 ![Game logo](https://github.com/Gamowy/Civ2025/blob/main/img/logo/logo.png)
 
@@ -13,9 +13,9 @@ Some of the game features:
 - Explore map and fight other players by recruiting units
 
 ## Installation
-To play this game you can download the latest release and install apk on your android device. Alternatively you clone this repository and open the project in Godot engine.
+To play this game you can download the latest release and install apk on your android device. Alternatively you clone this repository and open the project in godot engine.
 
-# Assets
+## Assets
 Assets used in this project with their authors can be found here: [Assets](https://github.com/Gamowy/Civ2025/blob/main/ASSETS.md)
 
 ## Screenshots
