@@ -13,7 +13,7 @@ Some of the game features:
 - Explore map and fight other players by recruiting units
 
 ## Installation
-To play this game you can download the latest release and install apk on your android device. Alternatively you clone this repository and open this project in Godot engine.
+To play this game you can download the latest release and install apk on your android device. Alternatively you clone this repository and open the project in Godot engine.
 
 # Assets
 Assets used in this project with their authors can be found here: [Assets](https://github.com/Gamowy/Civ2025/blob/main/ASSETS.md)
