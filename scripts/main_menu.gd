@@ -29,7 +29,7 @@ class_name MainMenu
 @onready var start: SoundButton = $PlayersSetup/Buttons/Start
 @onready var music_player = $MusicPlayer
 
-var main_menu_music = preload("res://audio/main_menu/Main_Menu.mp3")
+var main_menu_music = preload("res://audio/main_menu/3. Frostfire.ogg")
 
 var MAIN = load("res://scenes/main.tscn")
 var save_path = FilePaths.save_path
@@ -40,6 +40,8 @@ var load_scene = "res://scenes/ui/loading_screen.tscn"
 var player_names = []
 var colors = []
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ResourceLoader.load_threaded_request(load_scene)
@@ -49,6 +51,7 @@ func _ready() -> void:
 	music_player.set("spatial", false)
 	music_player.stream = main_menu_music
 	music_player.play()
+
 
 func _on_new_game_pressed() -> void:
 	v_box_container.visible = false
