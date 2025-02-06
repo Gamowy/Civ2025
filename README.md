@@ -5,7 +5,7 @@ Mobile strategy game for android. Build wiht Godot 4.3
 
 ## Features
 - Play with up to 4 players
-- Randomly generated map with (3 map sizes available)
+- Randomly generated map (3 map sizes available)
 - Fog of war and turn system
 - Resource gathering system
 - Build cities and expand them with upgrades or new buildings
